@@ -55,88 +55,18 @@ navigation: about
 
     <article class="promo">
 
-      <aside class="newsletter">
+      <%= partial 'newsletter_promo' %>
 
-        <h2>Join the Newsletter</h2>
-
-        <p>Stay up to date and find out when new guides and lessons are posted by signing up for the newsletter, delivered to your inbox with absolutely no spam, ever.</p>
-
-        <form method="post" action=".">
-
-          <ul>
-            <li class="input">
-              <input type="email" placeholder="Email Address" required="required">
-            </li>
-            <li class="button">
-              <button>Join</button>
-            </li>
-          </ul>
-
-        </form>
-
-      </aside>
-
-      <aside class="product">
-
-        <a href="book">
-          <span class="image"><img src="http://placehold.it/140x200"></span>
-        </a>
-
-        <h2>Buy the Book</h2>
-
-        <p>Stay up to date and find out when new guides and lessons are posted by signing up.</p>
-
-        <a href="book" class="button">Buy the Book</a>
-
-      </aside>
-
-    </article>
+      <%= partial 'book_promo' %>
 
   </section>
 
   <section class="guides guides-grey">
 
     <!-- BEGIN guide -->
-    <article class="odd">
-
-      <section>
-
-        <aside class="text">
-
-          <h2><a href="guide">Writing an API in Rails</a><span class="new">New</span></h2>
-
-          <p>Fusce a metus eu diam varius congue nec nec sapien. Vestibulum orci tortor, sollicdin ac euismod non, placerat ac augue Pellen habitant. Fusce a metus eu diam. Fusce a metus eu diam varius congue nec.</p>
-
-        </aside>
-
-        <aside class="icon">
-
-          <span class="image"><img src="img/guide-api.png"></span>
-
-        </aside>
-
-      </section>
-
-      <h4>Recent Articles</h4>
-
-      <ul class="list">
-        <li>
-          <a href="post">
-            <span class="image"><img src="http://placehold.it/100x50" width="100" height="50"></span>
-            <h3>Underrated HTTP Codes</h3>
-            <span class="date">4th Jan 2014</span>
-          </a>
-        </li>
-        <li>
-          <a href="post">
-            <span class="image"><img src="http://placehold.it/100x50" width="100" height="50"></span>
-            <h3>Underrated HTTP Codes</h3>
-            <span class="date">4th Jan 2014</span>
-          </a>
-        </li>
-      </ul>
-
-    </article>
+    <% categories.each_with_index do | category, i | %>
+    <%= partial 'guide_section', :locals => { :category => category, :i => i } %>
+    <% end %>
     <!-- END guide -->
 
   </section>

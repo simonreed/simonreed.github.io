@@ -9,7 +9,7 @@
 
     <article>
 
-      <h3><a href="guide"><%= current_category.title %></a></h3>
+      <h3><a href="/<%= current_category.id %>"><%= current_category.title %></a></h3>
 
       <h1><%= current_page.data.title %></h1>
 
@@ -29,43 +29,9 @@
 
     <article class="promo">
 
-      <aside class="newsletter">
+      <%= partial 'newsletter_promo' %>
 
-        <h2>Join the Newsletter</h2>
-
-        <p>Stay up to date and find out when new guides and lessons are posted by signing up for the newsletter, delivered to your inbox with absolutely no spam, ever.</p>
-
-        <form method="post" action="https://tinyletter.com/simonreed">
-
-          <ul>
-            <li class="input">
-              <input type="email" placeholder="Email Address" name="email" required="required">
-              <input type="hidden" value="1" name="embed"/>
-            </li>
-            <li class="button">
-              <button>Join</button>
-            </li>
-          </ul>
-
-        </form>
-
-      </aside>
-
-      <aside class="product">
-
-        <a href="book">
-          <span class="image"><img src="http://placehold.it/140x200"></span>
-        </a>
-
-        <h2>Buy the Book</h2>
-
-        <p>Stay up to date and find out when new guides and lessons are posted by signing up.</p>
-
-        <a href="book" class="button">Buy the Book</a>
-
-      </aside>
-
-    </article>
+      <%= partial 'book_promo' %>
 
     <article class="comments">
 

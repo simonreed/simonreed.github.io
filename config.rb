@@ -31,6 +31,8 @@ end
 
 activate :directory_indexes
 
+page "/404.html", :directory_index => false
+
 page "/feed.xml", layout: false
 
 ###
@@ -81,7 +83,7 @@ page "/feed.xml", layout: false
 # end
 
 data.categories.each do |category|
-  proxy "/guides/#{category.first}", "guide.html", :locals => { :id => category.first }, :ignore => true
+  proxy "/#{category.first}.html", "guide.html", :locals => { :id => category.first }, :ignore => true
 end
 
 helpers do
