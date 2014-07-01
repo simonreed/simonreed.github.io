@@ -1,0 +1,36 @@
+    <article class="<%= i.odd? ? 'odd' : 'even' %>">
+
+      <section>
+
+        <aside class="text">
+
+          <h2><a href="/guides/<%= category.id %>"><%= category.title %></a><span class="new">New</span></h2>
+
+          <p><%= category.description %></p>
+
+        </aside>
+
+        <aside class="icon">
+
+          <span class="image"><img src="<%= category.icon %>" width="300" height="300"></span>
+
+        </aside>
+
+      </section>
+
+      <h4>Recent Articles</h4>
+
+      <ul class="list">
+      <% category_articles(category.id).each do |article| %>
+        <li>
+          <a href="<%= article.url %>">
+            <span class="image"><img src="http://placehold.it/100x50" width="100" height="50"></span>
+            <h3><%= article.title %></h3>
+            <% date = Date.parse( article.date.to_s ) %>
+            <span class="date"><%= date.strftime("#{date.day.ordinalize} %b %Y") %></span>
+          </a>
+        </li>
+      <% end %>
+      </ul>
+
+    </article>

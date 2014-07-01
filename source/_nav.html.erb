@@ -1,0 +1,37 @@
+    <nav>
+
+      <ul id="nav">
+        <li class="<%= "active" if nav_active('home') %>">
+          <a href="/">Home</a>
+        </li>
+        <li class="<%= "active" if nav_active('about') %>">
+          <a href="/about">About</a>
+        </li>
+        <li class="<%= "active" if nav_active('guides') %>">
+          <a href="/guides">Guides<i class="icon-down-open"></i></a>
+          <ul>
+            <% categories.each do | category | %>
+            <li>
+              <a href="/guides/<%= category.id %>"><%= category.title %></a>
+            </li>
+            <% end %>
+          </ul>
+        </li>
+        <li class="<%= "active" if nav_active('products') %>">
+          <a href="/products">Products</a>
+        </li>
+        <li class="<%= "active" if nav_active('contact') %>">
+          <a href="/contact">Contact</a>
+        </li>
+        <li class="page">
+          <a href="#top"><img src="img/nav.png"></a>
+        </li>
+      </ul>
+
+      <a href="#nav" class="nav"><img src="img/nav.png"></a>
+
+      <span>
+        <a href="/"><span>Simon Reed</span></a>
+      </span>
+
+    </nav>

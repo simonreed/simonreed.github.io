@@ -1,0 +1,38 @@
+.gist .gist-file {
+  border: 2px solid #303233!important;
+  border-radius: 0!important;
+}
+
+.gist .gist-file .gist-data {
+  background: #fff!important;
+  border: none!important;
+}
+
+.gist .gist-file .gist-meta {
+  background: #f8fafa!important;
+}
+
+.gist .gist-file .gist-data .line-numbers {
+  border: none!important;
+  font-family: 'Source Code Pro', Courier, monospace!important;
+  font-size: 14px!important;
+  line-height: 24px!important;
+  padding: 0!important;
+  background: #303233!important;
+  color: #fff!important;
+}
+
+.gist .gist-file .gist-data .line-numbers .line-number {
+  padding: 0 20px!important;
+  text-align: center;
+}
+
+.gist .gist-file .gist-data .line-pre {
+  font-family: 'Source Code Pro', Courier, monospace!important;
+  font-size: 14px!important;
+  line-height: 24px!important;
+}
+
+div.gist div.gist-file div.gist-data div.file-data table.lines tbody tr td.line-data {
+  padding: 10px 20px!important;
+}

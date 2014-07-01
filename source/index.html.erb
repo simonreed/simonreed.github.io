@@ -1,0 +1,27 @@
+---
+layout: layout_home
+title: wtf
+navigation: home
+---
+
+  <section class="cta">
+
+    <article>
+
+      <a href="contact" class="button button-big">I'm available<span class="desktop"> for work</span></a>
+
+      <span class="image"><img src="img/simon.png" width="400" height="600"></span>
+
+    </article>
+
+  </section>
+
+  <section class="guides">
+
+    <% categories.each_with_index do | category, i | %>
+    <%= partial 'guide_section', :locals => { :category => category, :i => i } %>
+    <% end %>
+
+    </article>
+
+  </section>

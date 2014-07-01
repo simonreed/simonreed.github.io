@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]><html lang="en" class="no-js ie ie8"><![endif]-->
+<!--[if IE 9 ]><html lang="en" class="no-js ie ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js" ><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+  <title>Simon Reed</title>
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/icons.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/gist.css">
+
+  <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,300italic,400italic,700italic|Source+Code+Pro:600|Damion' rel='stylesheet' type='text/css'>
+
+  <link rel="icon"
+      type="image/png"
+      href="/img/favicon.png">
+
+  <script src="js/html5shiv.js"></script>
+
+</head>
+<body>
+
+  <header>
+
+    <%= partial 'nav' %>
+
+    <article>
+
+      <h1>Do you want your API to be an expense or an investment?</h1>
+
+      <p>I'm Simon Reed, a Freelance Ruby consultant who makes great web applications that make my clients more money and their businesses run more efficiently.</p>
+      <ul>
+        <li>Experienced</li>
+        <li>Accountable</li>
+        <li>Dedicated, no flakes guaranteed!</li>
+      </ul>
+
+    </article>
+
+  </header>
+
+  <%= yield %>
+
+  <section class="newsletter">
+
+    <article>
+
+      <aside class="text">
+
+        <h2>Join the Newsletter</h2>
+
+        <p>Stay up to date and find out when new guides and lessons are posted by signing up for the newsletter, delivered to your inbox with absolutely no spam, ever.</p>
+
+      </aside>
+
+      <form method="post" action=".">
+
+        <ul>
+          <li class="input">
+            <input type="email" placeholder="Email Address" required="required">
+          </li>
+          <li class="button">
+            <button>Join<span class="desktop"> the Newsletter</span></button>
+          </li>
+        </ul>
+
+      </form>
+
+      <aside class="icon">
+
+        <span class="image"><img src="img/newsletter.png" width="300" height="300"></span>
+
+      </aside>
+
+    </article>
+
+  </section>
+
+  <%= partial 'footer' %>
+
+  <script src="js/placeholders.min.js"></script> <!-- Must be at bottom -->
+
+</body>
+</html>

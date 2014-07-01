@@ -1,0 +1,8 @@
+rails-api:
+  title: Writing an API in Rails
+  icon: /img/guide-api.png
+  description: A guide to show you the practical steps in creating an API using Rails.
+http:
+  title: Understanding HTTP
+  icon: /img/guide-http.png
+  description:  Understand the underlying technology behind your HTTP API.
