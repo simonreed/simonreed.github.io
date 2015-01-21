@@ -582,6 +582,10 @@ body > section.post > article.promo aside.newsletter form ul li button {
   font-size: 12px;
 }
 
+body > section.post > article.promo aside {
+  height: 280px;
+}
+
 body > section.post > article.promo aside.product {
   background: #f8fafa;
 }
