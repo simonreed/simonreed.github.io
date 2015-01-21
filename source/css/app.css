@@ -212,7 +212,12 @@ body > header > article {
 
 body > header > article h1 {
   color: #fff;
-  width: 60%;
+  text-align:  center;
+  /*width: 60%;*/
+}
+
+body > header > article p {
+  color: #fff;
 }
 
 body > header > article ul {
@@ -512,7 +517,7 @@ body > section.post > article.content span.image {
   margin: 0 80px 80px 80px;
 }
 
-body > section.post > article.content span.image-round img {
+span.image-round img {
   border-radius: 100%;
 }
 
@@ -640,7 +645,7 @@ body > section.posts > section article > span h3 a {
 body > section.posts > section article > span p {
   color: #5f6365;
   font-size: 16px;
-  line-height: 26px;  
+  line-height: 26px;
 }
 
 body > section.posts > section article > span a.button {
@@ -841,7 +846,7 @@ body > header > nav > a {
     height: 46px;
     vertical-align: middle;
   }
-  
+
   body > section.newsletter > article form li.input input,
   body > section.newsletter > article form li.input button {
     height: 64px;
@@ -860,7 +865,7 @@ body > header > nav > a {
   body > section.post > article.promo aside.product a.button {
     position: static;
   }
-  
+
   body > section.post > article.promo aside.newsletter form ul li input {
     padding-top: 14px;
     padding-bottom: 13px;
@@ -870,11 +875,11 @@ body > header > nav > a {
   body > section.post > article.promo aside.newsletter form ul li button {
     display: block;
   }
-  
+
   body > section.posts > section article > span {
     padding-bottom: 35px;
   }
-  
+
   body > section.posts > section article > span a.button {
     position: static;
     margin-top: 20px;
@@ -889,7 +894,7 @@ body > header > nav > a {
     vertical-align: middle;
     margin: 0 0 0 5px;
   }
-  
+
   body > header > nav ul li ul {
     display: none;
     position: absolute;
@@ -902,7 +907,7 @@ body > header > nav > a {
     width: 240px;
     border: 2px solid #4588cb;
   }
-  
+
   body > header > nav ul li ul:after {
   	bottom: 100%;
   	left: 50%;
@@ -917,18 +922,18 @@ body > header > nav > a {
   	border-width: 4px;
   	margin-left: -4px;
   }
-  
+
   body > header > nav ul li:hover ul {
     display: block;
   }
-  
+
   body > header > nav ul li ul li {
     display: block;
     margin: 0;
     padding: 0;
     text-align: center;
   }
-  
+
   body > header > nav ul li.active ul li a,
   body > header > nav ul li ul li a {
     display: block;
@@ -937,19 +942,19 @@ body > header > nav > a {
     padding: 20px;
     border-top: 2px solid #f8fafa;
   }
-  
+
   body > header > nav ul li ul li:first-child a {
     border: none;
   }
-  
+
   body > header > nav > ul li.page {
     display: none;
   }
-  
+
 }
 
 @media screen and (max-width: 900px) {
-  
+
   p.note {
     font-size: 14px;
     line-height: 24px;
@@ -968,7 +973,7 @@ body > header > nav > a {
     font-weight: 700;
     padding: 15px 30px;
   }
-  
+
   body > header > nav,
   body > header > article,
   body > section > article,
@@ -977,7 +982,7 @@ body > header > nav > a {
   body > section.posts > section.row {
     width: 100%;
   }
-  
+
   body > header > nav,
   body > header > article,
   body > section.cta > article,
@@ -990,47 +995,47 @@ body > header > nav > a {
   body > footer ul {
     padding: 30px;
   }
-  
+
   body > header > article {
     padding-top: 0;
   }
-  
+
   .desktop {
     display: none;
   }
-  
+
   body {
     font-size: 16px;
     line-height: 26px;
   }
-  
+
   h1 {
     font-size: 24px;
     line-height: 34px;
     letter-spacing: 0;
   }
-  
+
   h2 {
     font-size: 16px;
     line-height: 26px;
     font-weight: 400;
     letter-spacing: 0;
   }
-  
+
   h3 {
     letter-spacing: 0;
   }
-  
+
   body > header > nav {
     padding: 0;
     position: relative;
     border-bottom: 1px solid rgba(0,0,0,.1)
   }
-  
+
   body > header > nav > ul {
     display: none;
   }
-  
+
   body > header > nav > ul:target {
     display: block;
     float: none;
@@ -1039,43 +1044,43 @@ body > header > nav > a {
     padding: 0;
     margin: 0;
   }
-  
+
   body > header > nav > ul:target li {
     display: block;
     margin: 0;
   }
-  
+
   body > header > nav > ul:target li a {
     display: block;
     padding: 30px;
     text-align: center;
   }
-  
+
   body > header > nav > ul:target li:nth-of-type(1) a {
     background: rgba(0,0,0,.12);
   }
-  
+
   body > header > nav > ul:target li:nth-of-type(2) a {
     background: rgba(0,0,0,.14);
   }
-  
+
   body > header > nav > ul:target li:nth-of-type(3) a {
     background: rgba(0,0,0,.16);
   }
-  
+
   body > header > nav > ul:target li:nth-of-type(4) a {
     background: rgba(0,0,0,.18);
   }
-  
+
   body > header > nav > ul:target li:nth-of-type(5) a {
     background: rgba(0,0,0,.20);
   }
-  
+
   body > header > nav > ul:target li.page {
     display: block;
     position: static;
   }
-  
+
   body > header > nav > ul:target li.page a,
   body > header > nav > a.nav {
     display: block;
@@ -1086,124 +1091,124 @@ body > header > nav > a {
     height: 20px;
     padding: 0;
   }
-  
+
   body > header > nav > ul:target li.page a img,
   body > header > nav > a.nav img {
     display: block;
     width: 100%;
     height: 100%;
   }
-  
+
   body > header > nav > ul:target li.page a {
     z-index: 2;
   }
-  
+
   body > header > nav span {
     padding: 10px 15px;
   }
-  
+
   body > header > nav span a {
     font-size: 26px;
     line-height: 26px;
   }
-  
+
   body > header > nav span a span {
     display: none;
   }
-  
+
   body > header > nav span a:after {
     content: "SR";
   }
-  
+
   body > header > article h1 {
     width: 100%;
   }
-  
+
   body > header > article ul li:before {
     display: none;
   }
-  
+
   body > header > nav a i {
     display: none;
   }
-  
+
   body > header > nav ul li ul {
     display: none;
   }
-  
+
   body > section.title {
     width: 100%;
     min-height: 150px;
     margin: 30px 0;
   }
-  
+
   body > section.title article {
     padding: 30px;
   }
-  
+
   body > section.title article h1 {
     margin: 0;
   }
-  
+
   body > section.title article img {
     width: 150px;
     height: 150px;
     margin: -75px 0 0 -75px;
   }
-  
+
   body > section.cta > article a {
     display: block;
     text-align: center;
   }
-  
+
   body > section.cta > article img {
     display: none;
   }
-  
+
   body > section.guides > article section aside.icon {
     display: none;
   }
-  
+
   body > section.guides > article ul.list li {
     background: none;
     border: none;
     padding: 0;
   }
-  
+
   body > section.guides > article ul.list li a {
     display: block;
   }
-  
+
   body > section.guides > article ul.list li a span {
     display: none;
   }
-  
+
   body > section.guides > article ul.list li a h3 {
     padding: 0;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     display: block;
-  }  
-  
+  }
+
   body > section.products > article section aside.icon {
     display: none;
   }
-  
+
   body > section.products > article ul.list li {
     background: none;
     border: none;
     padding: 0;
   }
-  
+
   body > section.products > article ul.list li a {
     display: block;
   }
-  
+
   body > section.products > article ul.list li a span {
     display: none;
   }
-  
+
   body > section.products > article ul.list li a h3 {
     padding: 0;
     white-space: nowrap;
@@ -1215,35 +1220,35 @@ body > header > nav > a {
   body > section.index {
     padding: 0 30px 30px 30px;
   }
-  
+
   body > section.index article aside {
     width: 100%;
     display: block;
     padding: 0;
   }
-  
+
   body > section.index article aside:first-child {
     padding: 0;
   }
-  
+
   body > section.index article aside ol li {
     letter-spacing: 0;
   }
-  
+
   body > section.index article aside ol li:before {
     display: table;
     margin: 4px 0 0 0;
   }
-  
+
   body > section.posts {
     padding: 30px 0;
   }
-  
+
   body > section.posts > section.row {
     display: block;
     border-spacing: 0;
   }
-  
+
   body > section.posts > section article {
     display: block;
     width: 100%;
@@ -1255,39 +1260,39 @@ body > header > nav > a {
     display: block;
     padding: 30px 30px 0 30px;
   }
-  
+
   body > section.posts > section article > span {
     padding: 30px;
   }
-  
+
   body > section.posts > section article > span a.button {
     position: static;
   }
-  
+
   body > section.posts h2 {
     margin: 0;
     padding: 0 30px;
     text-align: left;
   }
-  
+
   body > section.post {
     padding: 0;
   }
-  
+
   body > section.post > article.intro {
     padding: 30px 0;
     margin-bottom: 30px;
   }
-  
+
   body > section.post > article.intro aside {
     display: block;
     width: 100%;
   }
-  
+
   body > section.post > article.intro aside span {
     margin: 1em 0;
   }
-  
+
   body > section.post > article.content h2,
   body > section.post > article.content h3,
   body > section.post > article.content h4,
@@ -1297,52 +1302,52 @@ body > header > nav > a {
   body > section.post > article.content blockquote cite {
     margin: 30px;
   }
-  
+
   body > section.post > article.content ul {
     margin-left: 10px;
   }
-  
+
   body > section.post > article.content blockquote p {
     padding: 40px;
   }
-  
+
   body > section.post > article.content span.image {
     width: 100px;
     margin: 0 30px 30px 30px;
   }
-  
+
   body > section.post > article.content span.image img {
     width: 100%;
     height: auto;
   }
-  
+
   body > section.post > article.content div.gist {
     margin: 0 30px;
   }
-  
+
   body > section.post > article.content form ul li {
     margin: 30px;
   }
-  
+
   body > section.post > article.content form ul li label {
     padding: 0 0 10px 0;
   }
-  
+
   body > section.post > article.content form ul li input,
   body > section.post > article.content form ul li button {
     padding: 11px 20px;
     font-size: 12px;
   }
-  
+
   body > section.post > article.content > aside.packages > div {
     padding: 30px;
   }
-  
+
   body > section.post > article.content > aside.packages > div > aside {
     display: block;
     width: 100%;
   }
-  
+
   body > section.post > article.content > aside.packages > div > aside > span.number {
     display: inline-block;
     position: static;
@@ -1354,7 +1359,7 @@ body > header > nav > a {
     font-size: 16px;
     line-height: 40px;
   }
-  
+
   body > section.post > article.content > aside.packages > div > aside > h3 {
     display: inline-block;
     margin: 0 0 0 10px;
@@ -1362,57 +1367,57 @@ body > header > nav > a {
     line-height: 26px;
     font-weight: 400;
   }
-  
+
   body > section.post > article.content > aside.packages > div > aside > span.image {
     display: none;
   }
-  
+
   body > section.post > article.promo {
     margin: 0;
   }
-  
+
   body > section.post > article.promo aside {
     display: block;
     width: 100%;
     padding: 30px;
     border-width: 0 0 2px 0;
   }
-  
+
   body > section.post > article.promo aside.newsletter {
     border-width: 2px 0 2px 0;
   }
-  
+
   body > section.post > article.promo aside.newsletter form,
   body > section.post > article.promo aside.product a.button {
     position: static;
     margin: 30px 0 0 0;
   }
-  
+
   body > section.post > article.promo aside.product img {
     width: 70px;
   }
-  
+
   body > section.post > article.promo aside.product a.button {
     text-align: center;
     display: block;
   }
-  
+
   body > section.post > article.comments {
     display: none;
   }
-  
+
   body > section.newsletter > article form {
     margin: 30px 0 0 0;
   }
-  
+
   body > section.newsletter > article form li input,
   body > section.newsletter > article form li button {
     padding: 11px 20px;
     font-size: 12px;
   }
-  
+
   body > section.newsletter > article aside.icon {
     display: none;
-  }  
+  }
 
 }

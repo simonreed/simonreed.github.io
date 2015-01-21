@@ -1,8 +1,30 @@
-rails-api:
-  title: Writing an API in Rails
-  icon: /img/guide-api.png
-  description: A guide to show you the practical steps in creating an API using Rails.
+# rails-api:
+#   title: Writing an API in Rails
+#   icon: /img/guide-api.png
+#   header_img: /img/sky_background.jpg
+#   brief: A guide to show you the practical steps in creating an API using Rails.
+#   description:  |
+#     Fusce a metus eu diam varius congue nec nec sapien. Vestibulum orci tortor, sollicdin ac euismod non, placerat ac augue Pellen habitant. Fusce a metus eu diam. Fusce a metus eu diam varius congue nec nec sapien. Vestibulum orci tortor, sollicdin ac euismod non, placerat ac augue Pellen habitant.
+
+#     Pellen habitant. Fusce a metus eu diam. Fusce a metus eu diam varius congue nec nec sapien. Vestibulum orci tortor, sollicdin ac euismod non, placerat ac augue.
+#   top_posts:
+#    - 'rails-api/example-article'
 http:
   title: Understanding HTTP
   icon: /img/guide-http.png
-  description:  Understand the underlying technology behind your HTTP API.
+  brief:  Understand the underlying technology behind your HTTP API.
+  description:  |
+    HyperText Transfer Protocol (HTTP)  sits at the very core of how the internet works today and is the foundations of your API.
+
+    In this guide we'll learn how HTTP works and how best we can work with it.
+  top_posts:
+   - 'http/urls-and-uris'
+   - 'http/schemes'
+   - 'http/methods'
+   - 'http/http-messages'
+   - 'http/headers'
+   - 'http/status-codes'
+   - 'http/mime-types'
+   - 'http/caching'
+   - 'http/authentication'
+   - 'http/underrated-status-codes'

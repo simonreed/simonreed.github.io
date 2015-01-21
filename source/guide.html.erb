@@ -7,7 +7,7 @@ navigation: guides
 
 <section class="hero">
 
-    <span class="image"><img src="http://placehold.it/1280x215" width="100%" height="auto"></span>
+    <span class="image"><img src="<%= category.header_img %>" width="100%" height="auto"></span>
 
   </section>
 
@@ -31,45 +31,18 @@ navigation: guides
 
       <aside>
 
-        <p>Fusce a metus eu diam varius congue nec nec sapien. Vestibulum orci tortor, sollicdin ac euismod non, placerat ac augue Pellen habitant. Fusce a metus eu diam. Fusce a metus eu diam varius congue nec nec sapien. Vestibulum orci tortor, sollicdin ac euismod non, placerat ac augue Pellen habitant.</p>
-
-        <p>Pellen habitant. Fusce a metus eu diam. Fusce a metus eu diam varius congue nec nec sapien. Vestibulum orci tortor, sollicdin ac euismod non, placerat ac augue.</p>
+        <%= parse_markdown(category.description) %>
 
       </aside>
 
       <aside>
 
         <ol>
+          <% category_top_articles(category).each do | article | %>
           <li>
-            <div><a href="post">Getting to Know HTTP</a></div></div>
+            <div><a href="<%= article.url %>"><%= article.title %></a></div></div>
           </li>
-          <li>
-            <div><a href="post">Underrated HTTP codes</a></div>
-          </li>
-          <li>
-            <div><a href="post">Getting to Know HTTP New</a></div>
-          </li>
-          <li>
-            <div><a href="post">Opening the HTTP Model</a></div>
-          </li>
-          <li>
-            <div><a href="post">Structuring HTTP requests</a></div>
-          </li>
-          <li>
-            <div><a href="post">Building Your First HTTP response</a></div>
-          </li>
-          <li>
-            <div><a href="post">Getting to Know HTTP</a></div>
-          </li>
-          <li>
-            <div><a href="post">Getting to Know HTTP New</a></div>
-          </li>
-          <li>
-            <div><a href="post">Opening the HTTP Model</a><span class="new">New</span></div>
-          </li>
-          <li>
-            <div><a href="post">Structuring HTTP requests</a><span class="new">New</span></div>
-          </li>
+          <% end %>
         </ol>
 
       </aside>
@@ -82,37 +55,38 @@ navigation: guides
 
     <h2>All Articles in <%= category.title %></h2>
 
-    <section class="row">
+      <% category_articles(category.id).in_groups_of(2,false) do | articles | %>
+      <section class="row">
+        <% articles.each do | article | %>
+        <article>
 
-      <% category_articles(category.id).each do |article| %>
+<!--           <a href="<%= article.url %>">
+            <span class="image"><img src="http://placehold.it/430x215" width="430" height="215"></span>
+          </a> -->
 
-      <article>
+          <span>
 
-        <a href="<%= article.url %>">
-          <span class="image"><img src="http://placehold.it/430x215" width="430" height="215"></span>
-        </a>
+            <h3><a href="<%= article.url %>"><%= article.title %></a></h3>
 
-        <span>
+            <span class="date"><%= formatted_date(article.date) %></span>
 
-          <h3><a href="<%= article.url %>"><%= article.title %></a></h3>
+            <p><%= article.summary %></p>
 
-          <span class="date"><%= formatted_date(article.date) %></span>
+            <a href="<%= article.url %>" class="button">Read Article</a>
 
-          <p><%= article.summary %></p>
+          </span>
 
-          <a href="<%= article.url %>" class="button">Read Article</a>
-
-        </span>
-
-      </article>
+        </article>
+        <% end %>
+      </section>
       <% end %>
-
-    </section>
 
   </section>
 
+  <% if other_category(id) %>
   <section class="guides guides-grey">
 
     <%= partial 'guide_section', :locals => { :category => other_category(id), :i => 0 } %>
 
   </section>
+  <% end %>

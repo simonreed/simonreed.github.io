@@ -1,3 +1,6 @@
+require 'active_support/core_ext'
+require 'kramdown'
+
 ###
 # Blog settings
 ###
@@ -95,7 +98,13 @@ helpers do
 
   def category_articles(category)
     blog.articles.select do |article|
-       article.data.category == category
+       (article.data.published.nil? || article.data.published != false)  && article.data.category == category
+    end
+  end
+
+  def category_top_articles(category)
+    category_articles(category.id).select do |article|
+      category.top_posts.include?( article.slug )
     end
   end
 
@@ -116,12 +125,17 @@ helpers do
   def other_category(id)
     other_keys = data.categories.keys.reject{|k| k == id}
     other_id = other_keys.sample
+    return unless data.categories[other_id]
     OpenStruct.new(data.categories[other_id].merge(:id => other_id))
   end
 
   def formatted_date(date)
       date_obj = Date.parse( date.to_s )
       date_obj.strftime("#{date.day.ordinalize} %b %Y")
+  end
+
+  def parse_markdown(text)
+    Kramdown::Document.new(text).to_html
   end
 end
 

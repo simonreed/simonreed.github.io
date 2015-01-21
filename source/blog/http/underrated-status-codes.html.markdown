@@ -2,6 +2,9 @@
 title: Tell it like it is, underrated HTTP status codes.
 date: 2014-06-25 13:04 UTC
 category: http
+header_img: http://placehold.it/1280x215
+large_img: http://placehold.it/430x215
+thumb_img: http://placehold.it/100x50
 tags:
 ---
 

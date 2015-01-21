@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'active_support/multibyte'
 
 def remote_name
   ENV.fetch("REMOTE_NAME", "origin")
@@ -51,5 +52,32 @@ task :publish => [:not_dirty, :sync, :build] do
       sh "git commit -m \"#{message}\""
     end
     sh "git push #{remote_name} master"
+  end
+end
+
+task :post, [:category, :title] do | t, args |
+  category = args[:category]
+  title = args[:title]
+
+  slug = ActiveSupport::Multibyte.proxy_class.new(title.to_s).normalize(:kc).
+      gsub(/[\W]/, ' ').
+      strip.
+      gsub(/\s+/, '-').
+      gsub(/-\z/, '').
+      downcase.
+      to_s
+
+  require 'erb'
+  require 'ostruct'
+  namespace = OpenStruct.new(title: title, category: category)
+  template_path = File.expand_path("../template_post.erb", __FILE__)
+  post_path = File.expand_path("../source/blog/#{category}/#{slug}.markdown", __FILE__)
+  if File.exists?(post_path)
+    puts "Sorry! #{post_path} already exists"
+  else
+    rendered_content = ERB.new(File.new(template_path).read).result(namespace.instance_eval { binding })
+    File.open(post_path, 'w') { |file| file.write(rendered_content) }
+    puts "#{post_path} created"
+    `open -a "iA Writer" #{post_path}`
   end
 end

@@ -1,9 +1,9 @@
 <% wrap_layout :layout do %>
-<section class="hero">
+<!-- <section class="hero">
 
-    <span class="image"><img src="/img/sky_background.jpg" width="100%" height="auto"></span>
+    <span class="image"><img src="<%= current_page.data.header_img || current_category.header_img %>" width="100%" height="auto"></span>
 
-  </section>
+  </section> -->
 
   <section class="title">
 
@@ -31,7 +31,7 @@
 
       <%= partial 'newsletter_promo' %>
 
-      <%= partial 'book_promo' %>
+      <%= partial 'product_promo' %>
 
     <article class="comments">
 
