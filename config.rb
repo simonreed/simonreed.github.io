@@ -90,6 +90,11 @@ data.categories.each do |category|
 end
 
 helpers do
+
+  def feature?(feature)
+    data.features.fetch(feature,false)
+  end
+
   def nav_active(page)
     if current_page.data.navigation == page
       "active"

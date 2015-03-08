@@ -55,12 +55,13 @@ navigation: about
 
     <article class="promo">
 
-      <%= partial 'newsletter_promo' %>
+      <%= partial 'newsletter_promo' if feature?('newsletter') %>
 
-      <%= partial 'product_promo' %>
+      <%= partial 'product_promo' if feature?('products') %>
 
   </section>
 
+<% if feature?('guides') %>
   <section class="guides guides-grey">
 
     <!-- BEGIN guide -->
@@ -70,3 +71,4 @@ navigation: about
     <!-- END guide -->
 
   </section>
+  <% end %>

@@ -17,6 +17,7 @@ navigation: home
 
   </section>
 
+  <% if feature?('guides') %>
   <section class="guides">
 
     <% categories.each_with_index do | category, i | %>
@@ -26,3 +27,4 @@ navigation: home
     </article>
 
   </section>
+  <% end %>

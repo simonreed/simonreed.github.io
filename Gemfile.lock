@@ -96,6 +96,8 @@ GEM
       ffi (>= 0.5.0)
     rb-kqueue (0.2.3)
       ffi (>= 0.5.0)
+    rocktumbler (0.1.0)
+      bundler (~> 1.8)
     sass (3.2.19)
     sprockets (2.12.1)
       hike (~> 1.2)
@@ -127,3 +129,4 @@ DEPENDENCIES
   middleman-deploy
   nokogiri
   rake
+  rocktumbler
