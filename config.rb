@@ -86,9 +86,9 @@ page "/feed.xml", layout: false
 #   end
 # end
 
-data.categories.each do |category|
-  proxy "/#{category.first}.html", "guide.html", :locals => { :id => category.first }, :ignore => true
-end
+# data.categories.each do |category|
+#   proxy "/#{category.first}.html", :locals => { :id => category.first }, :ignore => true
+# end
 
 helpers do
 
@@ -122,10 +122,6 @@ helpers do
     @categories ||= data.categories.map do |k,v|
       OpenStruct.new(v.merge(:id => k))
     end
-  end
-
-  def find_category(id)
-    OpenStruct.new(data.categories[id].merge(:id => id))
   end
 
   def other_category(id)
@@ -171,7 +167,7 @@ end
 
 # github deploy
 activate :deploy do |deploy|
-  deploy.method = :git
+  deploy.deploy_method = :git
   deploy.build_before = true
   deploy.branch   = "master"
   deploy.remote   = "git@github.com:simonreed/simonreed.github.io.git"

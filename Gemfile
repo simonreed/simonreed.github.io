@@ -14,7 +14,7 @@ gem 'middleman-blog'
 
 # Deploy a middleman built site over rsync, ftp, sftp, or git (e.g. gh-pages on gi
 # https://github.com/karlfreeman/middleman-deploy
-gem 'middleman-deploy'
+gem 'middleman-deploy',       '~> 2.0.0.pre.alpha'
 
 # Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser
 # http://nokogiri.org

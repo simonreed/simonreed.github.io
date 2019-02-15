@@ -68,15 +68,3 @@ navigation: home
     </article>
 
   </section>
-
-  <% if feature?('guides') %>
-  <section class="guides">
-
-    <% categories.each_with_index do | category, i | %>
-    <%= partial 'guide_section', :locals => { :category => category, :i => i } %>
-    <% end %>
-
-    </article>
-
-  </section>
-  <% end %>
