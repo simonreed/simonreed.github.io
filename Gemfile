@@ -12,9 +12,7 @@ gem 'middleman'
 # https://github.com/middleman/middleman-blog
 gem 'middleman-blog'
 
-# Deploy a middleman built site over rsync, ftp, sftp, or git (e.g. gh-pages on gi
-# https://github.com/karlfreeman/middleman-deploy
-gem 'middleman-deploy',       '~> 2.0.0.pre.alpha'
+gem 'middleman-gh-pages'
 
 # Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser
 # http://nokogiri.org
@@ -26,5 +24,5 @@ gem 'rake'
 
 # Polish your Gemfile to make sure it remains consistent.
 # https://github.com/simonreed/rocktumbler
-gem 'rocktumbler'
+# gem 'rocktumbler'
 
