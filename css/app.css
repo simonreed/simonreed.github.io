@@ -1,0 +1,1427 @@
+::selection{ background: rgba(70,137,204,.1); color: #5f6365; }
+::-moz-selection{ background: rgba(70,137,204,.1); color: #5f6365; }
+* { box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing:border-box; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  font-size: 24px;
+  line-height: 34px;
+  font-weight: 300;
+  color: #5f6365;
+}
+
+input {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+input,
+button {
+  width: 100%;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  text-transform: uppercase;
+  font-weight: 400;
+  border: 2px solid #fff;
+  padding: 20px 30px;
+  outline: none;
+  letter-spacing: 1.5px;
+}
+
+button {
+  background: #249b9b;
+  color: #fff;
+}
+
+b, strong {
+  font-weight: 400;
+  color: #303233;
+}
+
+a,
+a.button,
+span.button {
+  text-decoration: none;
+  color: #249b9b;
+}
+
+a.button,
+span.button {
+  display: inline-block;
+  border: 2px solid #249b9b;
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 15px 30px;
+  letter-spacing: 1.5px;
+}
+
+a.button-big,
+span.button-big {
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 400;
+  padding: 20px 30px;
+}
+
+a:hover,
+a.button:hover,
+span.button:hover {
+  opacity: .75;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: #24609B;
+  letter-spacing: 1.5px;
+}
+
+h1 {
+  font-size: 54px;
+  line-height: 54px;
+  font-weight: 300;
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 34px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+h4 {
+  color: #c0c8cc;
+  font-size: 12px;
+  line-height: 22px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+p.note {
+  font-size: 16px;
+  line-height: 26px;
+}
+
+span.new {
+  font-size: 12px;
+  line-height: 12px;
+  background: #24609B;
+  color: #fff;
+  padding: 4px 8px;
+  margin: 0 0 0 10px;
+  vertical-align: middle;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+span.date {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #24609B;
+}
+
+span.image img {
+  display: block;
+}
+
+.center {
+  text-align: center;
+}
+
+body > header > nav,
+body > header > article,
+body > section > article,
+body > section > section,
+body > footer > ul {
+  width: 900px;
+  margin: auto;
+}
+
+body > header {
+  background: #249b9b;
+}
+
+body > header > nav {
+  display: table;
+  padding: 40px 0;
+}
+
+body > header > nav a {
+  color: #30CDCD;
+}
+
+body > header > nav span,
+body > header > nav ul {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+body > header > nav span {
+  float: left;
+}
+
+body > header > nav span a {
+  font-family: 'Damion';
+  font-size: 36px;
+  line-height: 36px;
+}
+
+body > header > nav ul {
+  float: right;
+  text-align: right;
+  width: 75%;
+  font-size: 16px;
+  line-height: 16px;
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  list-style: none;
+  margin: 10px 0;
+}
+
+body > header > nav ul li {
+  position: relative;
+  display: inline-block;
+  margin: 0 0 0 30px;
+}
+
+body > header > nav ul li a {
+  padding: 20px 0;
+}
+
+body > header > nav ul li.active a {
+  color: #fff;
+}
+
+body > header > article {
+  padding: 0 0 80px 0;
+}
+
+body > header > article h1 {
+  color: #fff;
+  text-align:  center;
+  /*width: 60%;*/
+}
+
+body > header > article p {
+  color: #fff;
+}
+
+body > header > article ul {
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body > header > article ul li:before {
+  font-family: "icons" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "b";
+  margin: 0 10px 0 0;
+  vertical-align: middle;
+}
+
+body > section.cta {
+  background: #f8fafa;
+}
+
+body > section.cta > article {
+  position: relative;
+  padding: 40px 0;
+}
+
+body > section.cta > article img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+body > section.title {
+  position: relative;
+  min-height: 200px;
+  display: table;
+  margin: 80px auto 0 auto;
+}
+
+body > section.title article {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+body > section.title article h1 {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0 80px;
+}
+
+body > section.title article h3 {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-top: 0;
+}
+
+body > section.title article img {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  margin: -150px 0 0 -150px;
+  opacity: .1;
+}
+
+body > section.index {
+  padding: 80px 0;
+  border-bottom: 2px solid #f2f5f5;
+}
+
+body > section.index article {
+  display: table;
+}
+
+body > section.index article aside {
+  display: table-cell;
+  vertical-align: top;
+  width: 50%;
+  padding: 0 0 0 20px;
+}
+
+body > section.index article aside:first-child {
+  padding: 0 20px 0 0;
+}
+
+body > section.index article aside ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+body > section.index article aside ol li {
+  counter-increment: index;
+  position: relative;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 20px 0 0 0;
+  display: table;
+  width: 100%;
+}
+
+body > section.index article aside ol li:before {
+  content: counter(index);
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 16px;
+  color: #24609B;
+  border: 2px solid #24609B;
+  border-radius: 100px;
+  font-weight: 700;
+  line-height: 40px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+}
+
+body > section.index article aside ol li div {
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 20px
+}
+
+body > section.post {
+  padding: 80px 0;
+}
+
+body > section.post > article.intro {
+  display: table;
+  border-spacing: 40px 0;
+  padding: 40px;
+  margin-bottom: 80px;
+  background: #f8fafa;
+}
+
+body > section.post > article.intro aside {
+  display: table-cell;
+  width: 50%;
+  vertical-align: middle;
+}
+
+body > section.post > article.intro aside span {
+  display: block;
+  text-align: center;
+}
+
+body > section.post > article.intro aside span img {
+  height: auto;
+  width: 100%;
+}
+
+body > section.post > article.content h2,
+body > section.post > article.content h3,
+body > section.post > article.content p,
+body > section.post > article.content ol,
+body > section.post > article.content ul {
+  margin: 40px 80px;
+}
+
+body > section.post > article.content > :first-child {
+  margin-top: 0;
+}
+
+body > section.post > article.content > aside.packages > div {
+  display: table;
+  width: 100%;
+  position: relative;
+  background: #f8fafa;
+  padding: 40px 80px;
+  margin: 2px 0;
+}
+
+body > section.post > article.content > aside.packages > div > aside {
+  display: table-cell;
+  width: 50%;
+  vertical-align: middle;
+}
+
+body > section.post > article.content > aside.packages > div > aside > span.number {
+  position: absolute;
+  background: #24609B;
+  color: #fff;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  border-radius: 100px;
+  top: 65px;
+  left: -30px;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+body > section.post > article.content > aside.packages > div > aside > h3,
+body > section.post > article.content > aside.packages > div > aside > ul,
+body > section.post > article.content > aside.packages > div > aside > p {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+body > section.post > article.content > aside.packages > div > aside > h3 {
+  font-size: 24px;
+  line-height: 34px;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+body > section.post > article.content > aside.packages > div > aside > span.image {
+  margin: 0;
+}
+
+body > section.post > article.content blockquote {
+  margin: 40px 0;
+}
+
+body > section.post > article.content blockquote cite {
+  display: block;
+  color: #c0c8cc;
+  font-size: 12px;
+  line-height: 22px;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+body > section.post > article.content blockquote p {
+  overflow: hidden;
+  position: relative;
+  margin: 20px 0;
+  padding: 40px 80px;
+  background: #24609B;
+  font-style: italic;
+  color: #fff;
+}
+
+body > section.post > article.content blockquote p:before {
+  content: "\“";
+  font-family: Georgia, serif;
+  position: absolute;
+  font-size: 400px;
+  top: 50%;
+  left: 0;
+  opacity: .1;
+  font-style: italic;
+  letter-spacing: -60px;
+  width: 100%;
+  line-height: 400px;
+  margin-top: -94px;
+}
+
+body > section.post > article.content form ul {
+  width: 100%;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+}
+
+body > section.post > article.content form ul li {
+  margin: 40px 80px;
+}
+
+body > section.post > article.content form ul li label {
+  color: #24609B;
+  letter-spacing: 1.5px;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+  text-transform: uppercase;
+  display: block;
+  padding: 0 0 20px 0;
+}
+
+body > section.post > article.content form ul li input,
+body > section.post > article.content form ul li button {
+  border-color: #249b9b;
+}
+
+body > section.post > article.content h2 {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+body > section.post > article.content span.image {
+  float: right;
+  margin: 0 80px 80px 80px;
+}
+
+span.image-round img {
+  border-radius: 100%;
+}
+
+body > section.post > article.promo {
+  display: table;
+  border-collapse: collapse;
+  margin: 80px auto;
+}
+
+body > section.post > article.promo aside {
+  display: table-cell;
+  vertical-align: top;
+  width: 50%;
+  padding: 40px;
+  border: 2px solid #f2f5f5;
+  position: relative;
+}
+
+body > section.post > article.promo aside h2 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+}
+
+body > section.post > article.promo aside p {
+  font-size: 16px;
+  line-height: 26px;
+}
+
+body > section.post > article.promo aside.newsletter form {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  right: 40px;
+}
+
+body > section.post > article.promo aside.newsletter form ul {
+  display: table;
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+body > section.post > article.promo aside.newsletter form ul li {
+  display: table-cell;
+}
+
+body > section.post > article.promo aside.newsletter form ul li.input {
+  width: 70%;
+}
+
+body > section.post > article.promo aside.newsletter form ul li.button {
+  width: 30%;
+}
+
+body > section.post > article.promo aside.newsletter form ul li input,
+body > section.post > article.promo aside.newsletter form ul li button {
+  border-color: #249b9b;
+  padding: 11px 20px;
+  font-size: 12px;
+}
+
+body > section.post > article.promo aside {
+  height: 280px;
+}
+
+body > section.post > article.promo aside.product {
+  background: #f8fafa;
+}
+
+body > section.post > article.promo aside.product a.button {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+}
+
+body > section.post > article.promo aside.product img {
+  float: right;
+  margin: 0 0 0 20px;
+}
+
+body > section.posts {
+  display: table;
+  padding: 80px 0;
+  margin: 0 auto;
+}
+
+body > section.posts h2 {
+  text-align: center;
+  margin: 0 0 60px 0;
+}
+
+body > section.posts > section.row {
+  display: table;
+  width: 980px;
+  border-spacing: 40px 20px;
+}
+
+body > section.posts > section article {
+  position: relative;
+  display: table-cell;
+  width: 50%;
+  padding: 4px;
+  border: 2px solid #f2f5f5;
+}
+
+body > section.posts > section article img {
+  width: 100%;
+  height: auto;
+}
+
+body > section.posts > section article > span {
+  display: block;
+  padding: 35px 35px 115px 35px;
+}
+
+body > section.posts > section article > span h3 {
+  color: #249b9b;
+  margin: 0;
+  padding: 0;
+}
+
+body > section.posts > section article > span h3 a {
+  display: block;
+}
+
+body > section.posts > section article > span p {
+  color: #5f6365;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+body > section.posts > section article > span a.button {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+}
+
+body > section.guides-grey {
+  background: #f8fafa;
+}
+
+body > section.guides > article {
+  padding: 0 0 80px 0;
+}
+
+body > section.guides > article:first-child {
+  padding-top: 80px;
+}
+
+body > section.guides > article section {
+  display: table;
+}
+
+body > section.guides > article section aside.text,
+body > section.guides > article section aside.icon {
+  display: table-cell;
+  width: 50%;
+  vertical-align: middle;
+}
+
+body > section.guides > article section aside.icon {
+  text-align: center;
+}
+
+body > section.guides > article section aside.icon span img {
+  margin: auto;
+}
+
+body > section.guides > article section aside.text h2 a {
+  color: #24609B;
+  vertical-align: middle;
+}
+
+body > section.guides > article ul.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body > section.guides > article ul.list li {
+  background: #fff;
+  border: 2px solid #f8fafa;
+  border-top-width: 0;
+  padding: 4px;
+}
+
+body > section.guides > article ul.list li:first-child {
+  border-top-width: 2px;
+}
+
+body > section.guides > article ul.list li a {
+  display: table;
+  width: 100%;
+}
+
+body > section.guides > article ul.list li a span,
+body > section.guides > article ul.list li a h3 {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+body > section.guides > article ul.list li a span.image {
+  width: 100px;
+}
+
+body > section.guides > article ul.list li a h3 {
+  padding: 0 20px;
+  color: #249b9b;
+}
+
+body > section.guides > article ul.list li a span.date {
+  text-align: right;
+  padding: 0 20px;
+}
+
+body > section.products > article {
+  padding: 0 0 80px 0;
+}
+
+body > section.products > article:first-child {
+  padding-top: 80px;
+}
+
+body > section.products > article section {
+  display: table;
+}
+
+body > section.products > article section aside.text,
+body > section.products > article section aside.icon {
+  display: table-cell;
+  width: 50%;
+  vertical-align: middle;
+}
+
+body > section.products > article section aside.icon {
+  text-align: center;
+}
+
+body > section.products > article section aside.icon span img {
+  margin: auto;
+}
+
+body > section.products > article section aside.text h2 a {
+  color: #24609B;
+  vertical-align: middle;
+}
+
+body > section.newsletter {
+  background: #303233;
+}
+
+body > section.newsletter > article {
+  position: relative;
+  padding: 70px 0 80px 0;
+}
+
+body > section.newsletter > article aside.text,
+body > section.newsletter > article form {
+  position: relative;
+  z-index: 2;
+}
+
+body > section.newsletter > article aside.text p {
+  color: #fff;
+}
+
+body > section.newsletter > article form ul {
+  display: table;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body > section.newsletter > article form li {
+  display: table-cell;
+}
+
+body > section.newsletter > article form li.input {
+  width: 70%;
+}
+
+body > section.newsletter > article form li.button {
+  width: 30%;
+}
+
+body > section.newsletter > article aside.icon {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: 100px;
+  margin: -150px 0 0 0;
+}
+
+body > footer {
+  background: #f8fafa;
+}
+
+body > footer ul {
+  display: table;
+  padding: 40px 0;
+}
+
+body > footer ul li {
+  display: table-cell;
+  text-align: right;
+  vertical-align: middle;
+}
+
+body > footer ul li.copyright {
+  width: 90%;
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+}
+
+body > header > nav > a {
+  display: none;
+}
+
+@media screen and (min-width:0\0) {
+
+  body > section.post > article.promo aside.newsletter form ul li input,
+  body > section.post > article.promo aside.newsletter form ul li button {
+    height: 46px;
+    vertical-align: middle;
+  }
+
+  body > section.newsletter > article form li.input input,
+  body > section.newsletter > article form li.input button {
+    height: 64px;
+    vertical-align: middle;
+  }
+
+}
+
+@-moz-document url-prefix() {
+
+  body > section.title {
+    height: 150px;
+  }
+
+  body > section.post > article.promo aside.newsletter form,
+  body > section.post > article.promo aside.product a.button {
+    position: static;
+  }
+
+  body > section.post > article.promo aside.newsletter form ul li input {
+    padding-top: 14px;
+    padding-bottom: 13px;
+    display: block;
+  }
+
+  body > section.post > article.promo aside.newsletter form ul li button {
+    display: block;
+  }
+
+  body > section.posts > section article > span {
+    padding-bottom: 35px;
+  }
+
+  body > section.posts > section article > span a.button {
+    position: static;
+    margin-top: 20px;
+  }
+
+}
+
+@media screen and (min-width: 900px) {
+
+  body > header > nav a i {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 0 5px;
+  }
+
+  body > header > nav ul li ul {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    background: #fff;
+    width: auto;
+    margin: 10px 0 0 -120px;
+    padding: 0;
+    left: 50%;
+    width: 240px;
+    border: 2px solid #249b9b;
+  }
+
+  body > header > nav ul li ul:after {
+  	bottom: 100%;
+  	left: 50%;
+  	border: solid transparent;
+  	content: " ";
+  	height: 0;
+  	width: 0;
+  	position: absolute;
+  	pointer-events: none;
+  	border-color: rgba(255, 255, 255, 0);
+  	border-bottom-color: #fff;
+  	border-width: 4px;
+  	margin-left: -4px;
+  }
+
+  body > header > nav ul li:hover ul {
+    display: block;
+  }
+
+  body > header > nav ul li ul li {
+    display: block;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  body > header > nav ul li.active ul li a,
+  body > header > nav ul li ul li a {
+    display: block;
+    color: #249b9b;
+    font-size: 12px;
+    padding: 20px;
+    border-top: 2px solid #f8fafa;
+  }
+
+  body > header > nav ul li ul li:first-child a {
+    border: none;
+  }
+
+  body > header > nav > ul li.page {
+    display: none;
+  }
+
+}
+
+@media screen and (max-width: 900px) {
+
+  p.note {
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  a.button,
+  span.button {
+    display: block;
+    text-align: center;
+  }
+
+  a.button-big,
+  span.button-big {
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 700;
+    padding: 15px 30px;
+  }
+
+  body > header > nav,
+  body > header > article,
+  body > section > article,
+  body > section > section,
+  body > footer > ul,
+  body > section.posts > section.row {
+    width: 100%;
+  }
+
+  body > header > nav,
+  body > header > article,
+  body > section.cta > article,
+  body > section.newsletter > article,
+  body > section.guides > article,
+  body > section.guides > article:first-child,
+  body > section.products > article,
+  body > section.products > article:first-child,
+  body > section.index,
+  body > footer ul {
+    padding: 30px;
+  }
+
+  body > header > article {
+    padding-top: 0;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  body {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  h1 {
+    font-size: 24px;
+    line-height: 34px;
+    letter-spacing: 0;
+  }
+
+  h2 {
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  h3 {
+    letter-spacing: 0;
+  }
+
+  body > header > nav {
+    padding: 0;
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,.1)
+  }
+
+  body > header > nav > ul {
+    display: none;
+  }
+
+  body > header > nav > ul:target {
+    display: block;
+    float: none;
+    width: 100%;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+  }
+
+  body > header > nav > ul:target li {
+    display: block;
+    margin: 0;
+  }
+
+  body > header > nav > ul:target li a {
+    display: block;
+    padding: 30px;
+    text-align: center;
+  }
+
+  body > header > nav > ul:target li:nth-of-type(1) a {
+    background: rgba(0,0,0,.12);
+  }
+
+  body > header > nav > ul:target li:nth-of-type(2) a {
+    background: rgba(0,0,0,.14);
+  }
+
+  body > header > nav > ul:target li:nth-of-type(3) a {
+    background: rgba(0,0,0,.16);
+  }
+
+  body > header > nav > ul:target li:nth-of-type(4) a {
+    background: rgba(0,0,0,.18);
+  }
+
+  body > header > nav > ul:target li:nth-of-type(5) a {
+    background: rgba(0,0,0,.20);
+  }
+
+  body > header > nav > ul:target li.page {
+    display: block;
+    position: static;
+  }
+
+  body > header > nav > ul:target li.page a,
+  body > header > nav > a.nav {
+    display: block;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+  }
+
+  body > header > nav > ul:target li.page a img,
+  body > header > nav > a.nav img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  body > header > nav > ul:target li.page a {
+    z-index: 2;
+  }
+
+  body > header > nav span {
+    padding: 10px 15px;
+  }
+
+  body > header > nav span a {
+    font-size: 26px;
+    line-height: 26px;
+  }
+
+  body > header > nav span a span {
+    display: none;
+  }
+
+  body > header > nav span a:after {
+    content: "SR";
+  }
+
+  body > header > article h1 {
+    width: 100%;
+  }
+
+  body > header > article ul li:before {
+    display: none;
+  }
+
+  body > header > nav a i {
+    display: none;
+  }
+
+  body > header > nav ul li ul {
+    display: none;
+  }
+
+  body > section.title {
+    width: 100%;
+    min-height: 150px;
+    margin: 30px 0;
+  }
+
+  body > section.title article {
+    padding: 30px;
+  }
+
+  body > section.title article h1 {
+    margin: 0;
+  }
+
+  body > section.title article img {
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+  }
+
+  body > section.cta > article a {
+    display: block;
+    text-align: center;
+  }
+
+  body > section.cta > article img {
+    display: none;
+  }
+
+  body > section.guides > article section aside.icon {
+    display: none;
+  }
+
+  body > section.guides > article ul.list li {
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  body > section.guides > article ul.list li a {
+    display: block;
+  }
+
+  body > section.guides > article ul.list li a span {
+    display: none;
+  }
+
+  body > section.guides > article ul.list li a h3 {
+    padding: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+  }
+
+  body > section.products > article section aside.icon {
+    display: none;
+  }
+
+  body > section.products > article ul.list li {
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  body > section.products > article ul.list li a {
+    display: block;
+  }
+
+  body > section.products > article ul.list li a span {
+    display: none;
+  }
+
+  body > section.products > article ul.list li a h3 {
+    padding: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: block;
+  }
+
+  body > section.index {
+    padding: 0 30px 30px 30px;
+  }
+
+  body > section.index article aside {
+    width: 100%;
+    display: block;
+    padding: 0;
+  }
+
+  body > section.index article aside:first-child {
+    padding: 0;
+  }
+
+  body > section.index article aside ol li {
+    letter-spacing: 0;
+  }
+
+  body > section.index article aside ol li:before {
+    display: table;
+    margin: 4px 0 0 0;
+  }
+
+  body > section.posts {
+    padding: 30px 0;
+  }
+
+  body > section.posts > section.row {
+    display: block;
+    border-spacing: 0;
+  }
+
+  body > section.posts > section article {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+  }
+
+  body > section.posts > section article > a {
+    display: block;
+    padding: 30px 30px 0 30px;
+  }
+
+  body > section.posts > section article > span {
+    padding: 30px;
+  }
+
+  body > section.posts > section article > span a.button {
+    position: static;
+  }
+
+  body > section.posts h2 {
+    margin: 0;
+    padding: 0 30px;
+    text-align: left;
+  }
+
+  body > section.post {
+    padding: 0;
+  }
+
+  body > section.post > article.intro {
+    padding: 30px 0;
+    margin-bottom: 30px;
+  }
+
+  body > section.post > article.intro aside {
+    display: block;
+    width: 100%;
+  }
+
+  body > section.post > article.intro aside span {
+    margin: 1em 0;
+  }
+
+  body > section.post > article.content h2,
+  body > section.post > article.content h3,
+  body > section.post > article.content h4,
+  body > section.post > article.content p,
+  body > section.post > article.content ol,
+  body > section.post > article.content ul,
+  body > section.post > article.content blockquote cite {
+    margin: 30px;
+  }
+
+  body > section.post > article.content ul {
+    margin-left: 10px;
+  }
+
+  body > section.post > article.content blockquote p {
+    padding: 40px;
+  }
+
+  body > section.post > article.content span.image {
+    width: 100px;
+    margin: 0 30px 30px 30px;
+  }
+
+  body > section.post > article.content span.image img {
+    width: 100%;
+    height: auto;
+  }
+
+  body > section.post > article.content div.gist {
+    margin: 0 30px;
+  }
+
+  body > section.post > article.content form ul li {
+    margin: 30px;
+  }
+
+  body > section.post > article.content form ul li label {
+    padding: 0 0 10px 0;
+  }
+
+  body > section.post > article.content form ul li input,
+  body > section.post > article.content form ul li button {
+    padding: 11px 20px;
+    font-size: 12px;
+  }
+
+  body > section.post > article.content > aside.packages > div {
+    padding: 30px;
+  }
+
+  body > section.post > article.content > aside.packages > div > aside {
+    display: block;
+    width: 100%;
+  }
+
+  body > section.post > article.content > aside.packages > div > aside > span.number {
+    display: inline-block;
+    position: static;
+    top: 25px;
+    right: 30px;
+    left: auto;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    line-height: 40px;
+  }
+
+  body > section.post > article.content > aside.packages > div > aside > h3 {
+    display: inline-block;
+    margin: 0 0 0 10px;
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 400;
+  }
+
+  body > section.post > article.content > aside.packages > div > aside > span.image {
+    display: none;
+  }
+
+  body > section.post > article.promo {
+    margin: 0;
+  }
+
+  body > section.post > article.promo aside {
+    display: block;
+    width: 100%;
+    padding: 30px;
+    border-width: 0 0 2px 0;
+  }
+
+  body > section.post > article.promo aside.newsletter {
+    border-width: 2px 0 2px 0;
+  }
+
+  body > section.post > article.promo aside.newsletter form,
+  body > section.post > article.promo aside.product a.button {
+    position: static;
+    margin: 30px 0 0 0;
+  }
+
+  body > section.post > article.promo aside.product img {
+    width: 70px;
+  }
+
+  body > section.post > article.promo aside.product a.button {
+    text-align: center;
+    display: block;
+  }
+
+  body > section.post > article.comments {
+    display: none;
+  }
+
+  body > section.newsletter > article form {
+    margin: 30px 0 0 0;
+  }
+
+  body > section.newsletter > article form li input,
+  body > section.newsletter > article form li button {
+    padding: 11px 20px;
+    font-size: 12px;
+  }
+
+  body > section.newsletter > article aside.icon {
+    display: none;
+  }
+
+}
