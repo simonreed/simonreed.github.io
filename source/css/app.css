@@ -30,7 +30,7 @@ button {
 }
 
 button {
-  background: #4588cb;
+  background: #249b9b;
   color: #fff;
 }
 
@@ -43,13 +43,13 @@ a,
 a.button,
 span.button {
   text-decoration: none;
-  color: #4588cb;
+  color: #249b9b;
 }
 
 a.button,
 span.button {
   display: inline-block;
-  border: 2px solid #4588cb;
+  border: 2px solid #249b9b;
   font-size: 12px;
   line-height: 12px;
   font-weight: 700;
@@ -76,7 +76,7 @@ h1,
 h2,
 h3,
 h4 {
-  color: #d48a6d;
+  color: #24609B;
   letter-spacing: 1.5px;
 }
 
@@ -116,7 +116,7 @@ p.note {
 span.new {
   font-size: 12px;
   line-height: 12px;
-  background: #d48a6d;
+  background: #24609B;
   color: #fff;
   padding: 4px 8px;
   margin: 0 0 0 10px;
@@ -130,7 +130,7 @@ span.date {
   font-weight: 400;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #d48a6d;
+  color: #24609B;
 }
 
 span.image img {
@@ -151,7 +151,7 @@ body > footer > ul {
 }
 
 body > header {
-  background: #4588cb;
+  background: #249b9b;
 }
 
 body > header > nav {
@@ -160,7 +160,7 @@ body > header > nav {
 }
 
 body > header > nav a {
-  color: #a6caef;
+  color: #30CDCD;
 }
 
 body > header > nav span,
@@ -336,8 +336,8 @@ body > section.index article aside ol li:before {
   display: table-cell;
   vertical-align: middle;
   font-size: 16px;
-  color: #d48a6d;
-  border: 2px solid #d48a6d;
+  color: #24609B;
+  border: 2px solid #24609B;
   border-radius: 100px;
   font-weight: 700;
   line-height: 40px;
@@ -409,7 +409,7 @@ body > section.post > article.content > aside.packages > div > aside {
 
 body > section.post > article.content > aside.packages > div > aside > span.number {
   position: absolute;
-  background: #d48a6d;
+  background: #24609B;
   color: #fff;
   width: 60px;
   height: 60px;
@@ -460,7 +460,7 @@ body > section.post > article.content blockquote p {
   position: relative;
   margin: 20px 0;
   padding: 40px 80px;
-  background: #d48a6d;
+  background: #24609B;
   font-style: italic;
   color: #fff;
 }
@@ -492,7 +492,7 @@ body > section.post > article.content form ul li {
 }
 
 body > section.post > article.content form ul li label {
-  color: #d48a6d;
+  color: #24609B;
   letter-spacing: 1.5px;
   font-size: 16px;
   line-height: 26px;
@@ -504,7 +504,7 @@ body > section.post > article.content form ul li label {
 
 body > section.post > article.content form ul li input,
 body > section.post > article.content form ul li button {
-  border-color: #4588cb;
+  border-color: #249b9b;
 }
 
 body > section.post > article.content h2 {
@@ -577,7 +577,7 @@ body > section.post > article.promo aside.newsletter form ul li.button {
 
 body > section.post > article.promo aside.newsletter form ul li input,
 body > section.post > article.promo aside.newsletter form ul li button {
-  border-color: #4588cb;
+  border-color: #249b9b;
   padding: 11px 20px;
   font-size: 12px;
 }
@@ -637,7 +637,7 @@ body > section.posts > section article > span {
 }
 
 body > section.posts > section article > span h3 {
-  color: #4588cb;
+  color: #249b9b;
   margin: 0;
   padding: 0;
 }
@@ -690,7 +690,7 @@ body > section.guides > article section aside.icon span img {
 }
 
 body > section.guides > article section aside.text h2 a {
-  color: #d48a6d;
+  color: #24609B;
   vertical-align: middle;
 }
 
@@ -728,7 +728,7 @@ body > section.guides > article ul.list li a span.image {
 
 body > section.guides > article ul.list li a h3 {
   padding: 0 20px;
-  color: #4588cb;
+  color: #249b9b;
 }
 
 body > section.guides > article ul.list li a span.date {
@@ -764,7 +764,7 @@ body > section.products > article section aside.icon span img {
 }
 
 body > section.products > article section aside.text h2 a {
-  color: #d48a6d;
+  color: #24609B;
   vertical-align: middle;
 }
 
@@ -909,7 +909,7 @@ body > header > nav > a {
     padding: 0;
     left: 50%;
     width: 240px;
-    border: 2px solid #4588cb;
+    border: 2px solid #249b9b;
   }
 
   body > header > nav ul li ul:after {
@@ -941,7 +941,7 @@ body > header > nav > a {
   body > header > nav ul li.active ul li a,
   body > header > nav ul li ul li a {
     display: block;
-    color: #4588cb;
+    color: #249b9b;
     font-size: 12px;
     padding: 20px;
     border-top: 2px solid #f8fafa;

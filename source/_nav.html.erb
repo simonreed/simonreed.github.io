@@ -7,6 +7,17 @@
         <li class="<%= "active" if nav_active('about') %>">
           <a href="/about">About</a>
         </li>
+        <li class="<%= "active" if nav_active('services') %>">
+          <a href="/">What I do<i class="icon-down-open"></i></a>
+          <ul>
+            <li>
+              <a href="/scale-up">Add a senior developer to your team quickly</a>
+            </li>
+            <li>
+              <a href="/inherited">Inherited a Rails project?</a>
+            </li>
+          </ul>
+        </li>
         <% if feature?('guides') %>
         <li class="<%= "active" if nav_active('guides') %>">
           <a href="/guides">Guides<i class="icon-down-open"></i></a>
