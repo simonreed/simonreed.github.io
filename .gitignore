@@ -1,0 +1,4 @@
+spec/node_modules
+spec/.next
+spec/out
+_site
