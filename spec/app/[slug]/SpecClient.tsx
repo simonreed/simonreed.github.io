@@ -138,37 +138,40 @@ export default function SpecClient({ spec }: { spec: Spec }) {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      {/* Section progress dots */}
-      <div className="fixed top-0 left-0 right-0 z-20 flex items-center justify-center gap-2 py-3 bg-white/90 backdrop-blur border-b border-zinc-100">
-        {steps.map((step, i) => (
-          <button
-            key={step}
-            onClick={() => { setDirection(i > stepIndex ? 1 : -1); setStepIndex(i) }}
-            className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-xs transition-all ${
-              i === stepIndex
-                ? 'text-zinc-900 font-medium'
-                : i < stepIndex
-                ? 'text-zinc-400 hover:text-zinc-600'
-                : 'text-zinc-200 cursor-default pointer-events-none'
-            }`}
-          >
-            <span className={`w-1.5 h-1.5 rounded-full shrink-0 transition-all ${
-              i === stepIndex ? 'bg-zinc-900' : i < stepIndex ? 'bg-zinc-300' : 'bg-zinc-100'
-            }`} />
-            {stepLabels[step]}
-          </button>
-        ))}
+      {/* Header bar — back | section nav | spacer */}
+      <div className="fixed top-0 left-0 right-0 z-20 grid grid-cols-[80px_1fr_80px] items-center px-4 py-3 bg-white/90 backdrop-blur border-b border-zinc-100">
+        <div>
+          {stepIndex > 0 && (
+            <button
+              onClick={back}
+              className="text-zinc-400 hover:text-zinc-700 transition-colors text-sm flex items-center gap-1"
+            >
+              ← Back
+            </button>
+          )}
+        </div>
+        <div className="flex items-center justify-center gap-1">
+          {steps.map((step, i) => (
+            <button
+              key={step}
+              onClick={() => { if (i < stepIndex) { setDirection(-1); setStepIndex(i) } }}
+              className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-xs transition-all ${
+                i === stepIndex
+                  ? 'text-zinc-900 font-medium cursor-default'
+                  : i < stepIndex
+                  ? 'text-zinc-400 hover:text-zinc-600'
+                  : 'text-zinc-200 cursor-default pointer-events-none'
+              }`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full shrink-0 transition-all ${
+                i === stepIndex ? 'bg-zinc-900' : i < stepIndex ? 'bg-zinc-300' : 'bg-zinc-100'
+              }`} />
+              {stepLabels[step]}
+            </button>
+          ))}
+        </div>
+        <div />
       </div>
-
-      {/* Back button */}
-      {stepIndex > 0 && (
-        <button
-          onClick={back}
-          className="fixed top-12 left-4 z-20 text-zinc-400 hover:text-zinc-700 transition-colors text-sm flex items-center gap-1"
-        >
-          ← Back
-        </button>
-      )}
 
       {/* Content */}
       <div className="flex-1 flex items-start justify-center px-6 pt-20 pb-16 min-h-screen overflow-y-auto">
