@@ -1,0 +1,314 @@
+slug: phase-1
+title: "Phase 1 — User Roles & Permissions"
+version: "1.0"
+date: "2026-03-05"
+client: "Liz Cale"
+status: awaiting-sign-off
+
+summary: |
+  Phase 1 adds two new user types — staff (ADAPT consultants) and providers (office
+  providers) — to the platform. It sets up login routing so each type lands in the
+  right area after login, and prevents users from accessing areas they shouldn't.
+  This phase produces no visible product features for end users or providers yet —
+  it is the foundation everything else in v2 is built on.
+
+assumptions:
+  - id: A1
+    text: "Staff accounts are created by ADAPT admin only. Staff cannot self-register."
+
+  - id: A2
+    text: "Provider accounts are created by ADAPT admin only. Providers cannot self-register. A provider account must be linked to an existing provider company already in the system."
+
+  - id: A3
+    text: "There is no limit on the number of staff or provider accounts. Multiple people at the same provider company can each have their own login and all see the same data."
+
+  - id: A4
+    text: "Login for staff and providers uses the same magic link method as the existing platform — they enter their email, receive a login link, click it, and are taken to their area. No passwords."
+
+  - id: A5
+    text: "A person can only have one role. Someone cannot be both a staff member and a provider user at the same time."
+
+  - id: A6
+    text: "All users at the same provider company have identical access — they can all see and manage all of that company's buildings and data. There is no restriction limiting individual users to specific buildings."
+
+  - id: A7
+    text: "When a user is deactivated, they cannot log in. Their data is preserved — deactivation is not deletion. Admin can reactivate at any time. Deactivating one user at a provider company does not affect others."
+
+  - id: A8
+    text: "Admin cannot deactivate their own account. This prevents accidental lockout."
+
+  - id: A9
+    text: "When admin creates a new staff or provider account, a login link is sent to the new user's email immediately."
+
+  - id: A10
+    text: "Staff and providers use the same login page as existing users. The system routes each person to the correct area automatically based on their account type. No separate login URLs needed."
+
+  - id: A11
+    text: "Existing search users are completely unaffected by these changes. Their login and experience does not change."
+
+  - id: A12
+    text: "If a staff or provider user visits the main ADAPT search area (/), they are redirected to their own area rather than seeing the consumer search flow."
+
+  - id: A13
+    text: "Admin can edit an existing account — updating name or email address. Changing a user's type entirely (e.g. staff to provider) is not supported via edit — the account would need to be deactivated and a new one created."
+
+questions:
+  - id: Q1
+    text: "When admin creates a new account, should the login link go out immediately, or should admin be able to set up accounts in advance and send links manually when ready?"
+    type: choice
+    options:
+      - "Send immediately (our recommendation)"
+      - "Admin sends manually when ready"
+      - "Either — admin should be able to choose per account"
+
+  - id: Q2
+    text: "Login links currently expire after 20 minutes. For a welcome email to a new provider who might not check email immediately, we suggest 24 hours. Does that work?"
+    type: choice
+    options:
+      - "24 hours (recommended)"
+      - "48 hours"
+      - "Keep 20 minutes"
+      - "Something else — I'll add a note in the assumptions"
+
+  - id: Q3
+    text: "When admin deactivates a user who is currently logged in, their session ends at their next page load (seconds to minutes). Is this acceptable, or do you need deactivation to take effect instantly?"
+    type: choice
+    options:
+      - "Next page load is fine"
+      - "Must be instant"
+
+  - id: Q4
+    text: "Should the admin user lists show when each user last logged in? We have this data — is it useful to surface on the list view?"
+    type: choice
+    options:
+      - "Yes, show last login"
+      - "No, not needed"
+
+  - id: Q5
+    text: "Should admin users be able to access the staff area or provider portal — for example to test or support providers? Or should admin always stay in the admin area only?"
+    type: choice
+    options:
+      - "Admin stays in admin area only"
+      - "Admin should be able to access staff and provider areas too"
+
+flows:
+  - id: flow-1
+    title: "Admin creates a staff account"
+    steps:
+      - "Admin goes to Users → Staff in the admin area"
+      - "Clicks \"New Staff Account\""
+      - "Fills in: first name, last name, email address"
+      - "Submits"
+      - "Account is created, login link sent to the new staff member's email"
+      - "Admin sees: \"Account created. A login link has been sent to [email].\""
+    errors:
+      - "Email already in use — form shows error, account not created: \"An account with this email address already exists.\""
+      - "Required field missing — inline error on the empty field, not submitted"
+      - "Welcome email fails to send — account still created, admin sees warning with Resend button"
+    sequence: |
+      sequenceDiagram
+        Admin->>AdminUI: Fills in name + email, submits
+        AdminUI->>System: POST /admin/staff
+        System->>Database: Create staff user record
+        System->>EmailService: Send magic link to new user
+        EmailService-->>NewStaff: Welcome email with login link
+        System-->>AdminUI: 201 Created
+        AdminUI-->>Admin: "Account created. Login link sent to [email]."
+
+  - id: flow-2
+    title: "Staff member logs in"
+    steps:
+      - "Staff member receives the login link email"
+      - "Clicks the link"
+      - "Authenticated and redirected to the staff area"
+    errors:
+      - "Link expired — staff member sees: \"This link has expired. Please request a new one.\""
+      - "Link already used — same expired message. Login links are single-use."
+      - "Account deactivated — link does not work: \"This account has been deactivated. Please contact ADAPT.\""
+      - "Unknown email entered — same response as valid email: \"We've sent you a link.\" We do not confirm or deny whether an account exists."
+    sequence: |
+      sequenceDiagram
+        Staff->>LoginPage: Enters email address
+        LoginPage->>System: POST /auth/magic-link
+        System->>EmailService: Send magic link
+        EmailService-->>Staff: Login link email
+        Staff->>System: Clicks link (GET /auth/confirm?token=xxx)
+        System->>System: Validates token (not expired, not used, account active)
+        System->>System: Creates session, marks token used
+        System-->>Staff: Redirect to /staff
+
+  - id: flow-3
+    title: "Admin creates a provider account"
+    steps:
+      - "Admin goes to Users → Providers"
+      - "Clicks \"New Provider Account\""
+      - "Fills in: first name, last name, email address"
+      - "Selects the provider company from a searchable dropdown"
+      - "Submits"
+      - "Account created, login link sent"
+      - "Admin sees: \"Account created. A login link has been sent to [email].\""
+    errors:
+      - "Email already in use — same as Flow 1"
+      - "No provider companies exist — form shows warning, cannot be submitted: \"No provider companies are set up yet. Please add a provider company first.\""
+      - "Required field missing — inline error, not submitted"
+      - "Welcome email fails — same as Flow 1: account created, warning shown, resend available"
+    sequence: |
+      sequenceDiagram
+        Admin->>AdminUI: Fills in name, email, selects provider company
+        AdminUI->>System: POST /admin/providers/users
+        System->>Database: Validates provider company exists
+        System->>Database: Create provider user linked to company
+        System->>EmailService: Send magic link to new user
+        EmailService-->>NewProvider: Welcome email with login link
+        System-->>AdminUI: 201 Created
+        AdminUI-->>Admin: "Account created. Login link sent to [email]."
+
+  - id: flow-4
+    title: "Multiple users at the same provider company"
+    steps:
+      - "Admin creates User A for Provider Company X"
+      - "Admin creates User B for Provider Company X (same company selected)"
+      - "User A logs in — sees Provider Company X's data"
+      - "User B logs in — sees the same Provider Company X data"
+      - "Changes made by User A are visible to User B and vice versa"
+      - "Deactivating User A does not affect User B — they are independent accounts"
+    sequence: |
+      sequenceDiagram
+        Admin->>System: Create User A for Company X
+        Admin->>System: Create User B for Company X
+        UserA->>System: Login via magic link
+        System-->>UserA: Session scoped to Company X
+        UserB->>System: Login via magic link
+        System-->>UserB: Session scoped to Company X
+        UserA->>System: Updates Company X data
+        UserB->>System: Reads Company X data
+        System-->>UserB: Sees User A's changes
+
+  - id: flow-5
+    title: "Provider user logs in"
+    steps:
+      - "Provider user goes to the login page"
+      - "Enters their email"
+      - "Receives a login link"
+      - "Clicks the link"
+      - "Lands on the provider portal"
+      - "A provider user can only ever see their own company's data — attempts to access another company's data return a not-found response"
+    errors:
+      - "Link expired, already used, account deactivated, unknown email — same handling as Flow 2"
+    sequence: |
+      sequenceDiagram
+        Provider->>LoginPage: Enters email
+        LoginPage->>System: POST /auth/magic-link
+        System->>EmailService: Send magic link
+        EmailService-->>Provider: Login link email
+        Provider->>System: Clicks link
+        System->>System: Validates token, gets provider user record
+        System->>System: Creates session scoped to provider company
+        System-->>Provider: Redirect to /provider
+        Provider->>System: Attempts GET /provider/other-company-id
+        System-->>Provider: 404 Not Found
+
+  - id: flow-6
+    title: "Admin resends a login link"
+    steps:
+      - "Admin goes to Users → Staff or Users → Providers"
+      - "Finds the user in the list"
+      - "Clicks \"Resend login link\" on the user's account page"
+      - "A new link is sent immediately"
+      - "Admin sees: \"Login link sent to [email].\""
+      - "The previous link (if unused) is invalidated when a new one is sent"
+    sequence: |
+      sequenceDiagram
+        Admin->>AdminUI: Clicks "Resend login link" for user
+        AdminUI->>System: POST /admin/users/:id/resend-link
+        System->>Database: Invalidate any existing unused tokens for user
+        System->>Database: Generate new token
+        System->>EmailService: Send new magic link
+        EmailService-->>User: New login link email
+        System-->>AdminUI: 200 OK
+        AdminUI-->>Admin: "Login link sent to [email]."
+
+  - id: flow-7
+    title: "Admin edits an account"
+    steps:
+      - "Admin finds the user in the list"
+      - "Clicks \"Edit\""
+      - "Can update: first name, last name, email address"
+      - "For provider accounts: can also change which provider company they belong to"
+      - "Saves — changes take effect immediately"
+      - "Changing a user's type (e.g. staff to provider) is not supported via edit"
+    sequence: |
+      sequenceDiagram
+        Admin->>AdminUI: Clicks Edit on user record
+        AdminUI-->>Admin: Pre-filled edit form
+        Admin->>AdminUI: Updates name and/or email
+        AdminUI->>System: PATCH /admin/users/:id
+        System->>Database: Update user record
+        System-->>AdminUI: 200 OK
+        AdminUI-->>Admin: "Changes saved."
+
+  - id: flow-8
+    title: "Admin deactivates and reactivates an account"
+    steps:
+      - "Admin finds the user in the list"
+      - "Clicks \"Deactivate\""
+      - "Confirmation prompt shown: \"Are you sure you want to deactivate [name]? They will no longer be able to log in.\""
+      - "Admin confirms"
+      - "Account deactivated immediately"
+      - "If the user is currently logged in, their session ends at their next action"
+      - "To reactivate: admin finds the deactivated user (marked inactive in the list), clicks \"Reactivate\", account is active again immediately"
+    errors:
+      - "Admin cannot deactivate their own account — blocked with a clear message"
+    sequence: |
+      sequenceDiagram
+        Admin->>AdminUI: Clicks Deactivate on user
+        AdminUI-->>Admin: Confirmation dialog
+        Admin->>AdminUI: Confirms
+        AdminUI->>System: PATCH /admin/users/:id/deactivate
+        System->>Database: Set user.active = false
+        System-->>AdminUI: 200 OK
+        AdminUI-->>Admin: User shown as inactive in list
+        Note over System: On next request by deactivated user:
+        System->>System: Session check finds user inactive
+        System-->>DeactivatedUser: Redirect to login with deactivation message
+
+  - id: flow-9
+    title: "Unauthorised access attempts"
+    steps:
+      - "Staff visiting /admin → redirected to /staff with: \"You don't have access to that area.\""
+      - "Staff visiting /provider → redirected to /staff with: \"You don't have access to that area.\""
+      - "Staff visiting / (search) → redirected to /staff"
+      - "Provider visiting /admin → redirected to /provider with: \"You don't have access to that area.\""
+      - "Provider visiting /staff → redirected to /provider with: \"You don't have access to that area.\""
+      - "Search user visiting /staff or /provider → redirected to login page"
+      - "Not logged in visiting /staff or /provider → redirected to login page"
+    sequence: |
+      sequenceDiagram
+        Staff->>System: GET /admin
+        System->>System: Check role: staff ≠ admin
+        System-->>Staff: 302 Redirect to /staff
+        Staff->>StaffArea: Loads with flash: "You don't have access to that area."
+        Provider->>System: GET /staff
+        System->>System: Check role: provider ≠ staff
+        System-->>Provider: 302 Redirect to /provider
+        SearchUser->>System: GET /staff
+        System->>System: Check role: user ≠ staff
+        System-->>SearchUser: 302 Redirect to /login
+
+not_in_scope:
+  - "The staff dashboard and any staff features (Phase 3)"
+  - "The provider portal and any provider features (Phases 2–3)"
+  - "Per-building access controls within a provider company"
+  - "Providers inviting or managing their own team members"
+  - "Filtering or searching the staff/provider user lists in admin"
+  - "Any changes to the existing consumer search flow or HubSpot sync"
+
+sign_off_criteria:
+  - "Create a staff account in admin → receive email → log in → land on staff placeholder"
+  - "Create a provider account in admin → receive email → log in → land on provider placeholder"
+  - "Create a second user for the same provider company → both can log in and see the same area"
+  - "Deactivate a staff account → confirm they cannot log in"
+  - "Reactivate the account → confirm they can log in again"
+  - "Confirm an existing search user's login and experience is unchanged"
+  - "Confirm admin login and experience is unchanged"
+  - "Attempt to access a restricted area with the wrong account type → confirm redirect"

@@ -1,12 +1,12 @@
-export default function Home() {
+export default function IndexPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50">
-      <main className="text-center">
-        <h1 className="text-4xl font-semibold tracking-tight text-zinc-900">
-          Spec Tool
-        </h1>
-        <p className="mt-4 text-zinc-500">Hello World — PoC deployment working.</p>
-      </main>
+    <div className="min-h-screen bg-zinc-50 flex items-center justify-center px-4">
+      <div className="text-center max-w-sm">
+        <h1 className="text-xl font-semibold text-zinc-900 mb-2">Spec Sign-Off</h1>
+        <p className="text-sm text-zinc-500">
+          You need a direct link to a spec to continue. If you were sent one, please check your email.
+        </p>
+      </div>
     </div>
-  );
+  )
 }
