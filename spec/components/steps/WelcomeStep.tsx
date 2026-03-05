@@ -36,7 +36,7 @@ export default function WelcomeStep({ spec, onBegin }: Props) {
       </p>
 
       <p
-        className="text-xl text-zinc-600 leading-relaxed mb-12 whitespace-pre-line"
+        className="text-xl text-zinc-600 leading-relaxed mb-12"
         style={{ fontFamily: 'var(--font-serif)' }}
       >
         {spec.summary}
