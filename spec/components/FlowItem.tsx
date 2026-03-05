@@ -1,19 +1,12 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import dynamic from 'next/dynamic'
 import type { Flow } from '@/lib/types'
-
-const MermaidDiagram = dynamic(() => import('./MermaidDiagram'), { ssr: false })
 
 interface Props {
   flow: Flow
 }
 
 export default function FlowItem({ flow }: Props) {
-  const [showDiagram, setShowDiagram] = useState(false)
-
   return (
     <div className="rounded-xl border border-zinc-200 bg-white overflow-hidden">
       <div className="px-5 py-4">
@@ -42,30 +35,7 @@ export default function FlowItem({ flow }: Props) {
             </ul>
           </div>
         )}
-        {flow.sequence && (
-          <button
-            onClick={() => setShowDiagram((v) => !v)}
-            className="mt-3 text-xs text-zinc-400 hover:text-zinc-600 transition-colors flex items-center gap-1"
-          >
-            {showDiagram ? '▲ Hide' : '▼ Show'} sequence diagram
-          </button>
-        )}
       </div>
-      <AnimatePresence>
-        {showDiagram && flow.sequence && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden border-t border-zinc-100"
-          >
-            <div className="px-5 py-4 bg-zinc-50">
-              <MermaidDiagram chart={flow.sequence} />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   )
 }
