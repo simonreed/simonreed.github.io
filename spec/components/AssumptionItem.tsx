@@ -13,6 +13,7 @@ interface Props {
 
 export default function AssumptionItem({ assumption, response, highlight, onChange }: Props) {
   const [localComment, setLocalComment] = useState(response.comment)
+  const [expanded, setExpanded] = useState(false)
   const commentRef = useRef<HTMLTextAreaElement>(null)
   const isConfirmed = response.status === 'confirmed'
   const isFlagged = response.status === 'flagged'
@@ -26,30 +27,48 @@ export default function AssumptionItem({ assumption, response, highlight, onChan
     onChange(assumption.id, { status: 'flagged', comment: val })
   }
 
-  // Confirmed — collapsed single row
+  // Confirmed — collapsed single row, expandable on click
   if (isConfirmed) {
     return (
-      <motion.div
-        layout
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="flex items-center gap-3 py-2.5 px-1 border-b border-zinc-100 group"
-      >
-        <span className="text-xs font-mono text-zinc-300 w-7 shrink-0">{assumption.id}</span>
-        <p className="flex-1 text-sm text-zinc-400 truncate leading-relaxed" style={{ fontFamily: 'var(--font-serif)' }}>
-          {assumption.text}
-        </p>
+      <motion.div layout initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <button
-          onClick={() => onChange(assumption.id, { status: 'unreviewed', comment: '' })}
-          className="shrink-0 flex items-center gap-1 text-green-600 opacity-60 hover:opacity-100 transition-opacity text-xs"
-          title="Undo"
+          onClick={() => setExpanded((v) => !v)}
+          className="w-full flex items-center gap-3 py-2.5 px-1 border-b border-zinc-100 group text-left"
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <circle cx="7" cy="7" r="6.5" stroke="currentColor" strokeWidth="1"/>
-            <path d="M4.5 7l2 2 3-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          <span className="opacity-0 group-hover:opacity-100 transition-opacity">Undo</span>
+          <span className="text-xs font-mono text-zinc-300 w-7 shrink-0">{assumption.id}</span>
+          <p className={`flex-1 text-sm text-zinc-400 leading-relaxed ${expanded ? '' : 'truncate'}`} style={{ fontFamily: 'var(--font-serif)' }}>
+            {assumption.text}
+          </p>
+          <div className="shrink-0 flex items-center gap-1 text-green-600 opacity-60 group-hover:opacity-100 transition-opacity text-xs">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <circle cx="7" cy="7" r="6.5" stroke="currentColor" strokeWidth="1"/>
+              <path d="M4.5 7l2 2 3-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
         </button>
+        <AnimatePresence>
+          {expanded && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden"
+            >
+              <div className="px-1 py-3 flex items-center justify-between gap-4">
+                <p className="text-base text-zinc-500 leading-relaxed" style={{ fontFamily: 'var(--font-serif)' }}>
+                  {assumption.text}
+                </p>
+                <button
+                  onClick={() => onChange(assumption.id, { status: 'unreviewed', comment: '' })}
+                  className="shrink-0 text-xs text-zinc-400 hover:text-zinc-600 transition-colors underline underline-offset-2"
+                >
+                  Undo
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     )
   }
