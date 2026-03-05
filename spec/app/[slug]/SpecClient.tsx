@@ -8,22 +8,28 @@ import { generateMarkdown, generateFilename } from '@/lib/generateMarkdown'
 
 import StepLayout from '@/components/steps/StepLayout'
 import WelcomeStep from '@/components/steps/WelcomeStep'
-import AssumptionStep from '@/components/steps/AssumptionStep'
-import QuestionStep from '@/components/steps/QuestionStep'
+import AssumptionsStep from '@/components/steps/AssumptionsStep'
+import QuestionsStep from '@/components/steps/QuestionsStep'
 import FlowsStep from '@/components/steps/FlowsStep'
 import SignOffStep from '@/components/steps/SignOffStep'
 import ConfirmationScreen from '@/components/ConfirmationScreen'
 
-type StepId = 'welcome' | `assumption-${string}` | `question-${string}` | 'flows' | 'signoff'
+type StepId = 'welcome' | 'assumptions' | 'questions' | 'flows' | 'signoff'
 
 function buildSteps(spec: Spec): StepId[] {
-  return [
-    'welcome',
-    ...spec.assumptions.map((a) => `assumption-${a.id}` as StepId),
-    ...spec.questions.map((q) => `question-${q.id}` as StepId),
-    'flows',
-    'signoff',
-  ]
+  const steps: StepId[] = ['welcome', 'assumptions']
+  if (spec.questions.length > 0) steps.push('questions')
+  if (spec.flows.length > 0) steps.push('flows')
+  steps.push('signoff')
+  return steps
+}
+
+const stepLabels: Record<StepId, string> = {
+  welcome: 'Intro',
+  assumptions: 'Assumptions',
+  questions: 'Questions',
+  flows: 'Flows',
+  signoff: 'Sign off',
 }
 
 export default function SpecClient({ spec }: { spec: Spec }) {
@@ -36,9 +42,6 @@ export default function SpecClient({ spec }: { spec: Spec }) {
   useEffect(() => {
     const saved = loadProgress(spec)
     setProgress(saved)
-    if (saved.submitted) {
-      // Jump to confirmation — handled below
-    }
     setLoaded(true)
   }, [spec])
 
@@ -108,23 +111,13 @@ export default function SpecClient({ spec }: { spec: Spec }) {
     setDirection(1)
   }, [spec])
 
-  // Keyboard: Backspace to go back (unless in an input)
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Backspace' && document.activeElement?.tagName === 'BODY') {
-        back()
-      }
+      if (e.key === 'Backspace' && document.activeElement?.tagName === 'BODY') back()
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
   }, [back])
-
-  const totalInteractive = spec.assumptions.length + spec.questions.length
-  const reviewedCount =
-    spec.assumptions.filter((a) => progress.assumptions[a.id]?.status !== 'unreviewed').length +
-    spec.questions.filter((q) => (progress.questions[q.id]?.value ?? '').trim() !== '').length
-
-  const pct = totalInteractive === 0 ? 100 : Math.round((reviewedCount / totalInteractive) * 100)
 
   if (!loaded) return null
 
@@ -143,106 +136,83 @@ export default function SpecClient({ spec }: { spec: Spec }) {
 
   const currentStep = steps[stepIndex]
 
-  const renderStep = () => {
-    if (currentStep === 'welcome') {
-      return (
-        <StepLayout key="welcome" stepKey="welcome" direction={direction}>
-          <WelcomeStep spec={spec} onBegin={advance} />
-        </StepLayout>
-      )
-    }
-
-    if (currentStep.startsWith('assumption-')) {
-      const id = currentStep.replace('assumption-', '')
-      const assumption = spec.assumptions.find((a) => a.id === id)!
-      const aIndex = spec.assumptions.findIndex((a) => a.id === id)
-      return (
-        <StepLayout key={currentStep} stepKey={currentStep} direction={direction}>
-          <AssumptionStep
-            assumption={assumption}
-            totalAssumptions={spec.assumptions.length}
-            index={aIndex}
-            response={progress.assumptions[id] ?? { status: 'unreviewed', comment: '' }}
-            onChange={handleAssumptionChange}
-            onAdvance={advance}
-          />
-        </StepLayout>
-      )
-    }
-
-    if (currentStep.startsWith('question-')) {
-      const id = currentStep.replace('question-', '')
-      const question = spec.questions.find((q) => q.id === id)!
-      const qIndex = spec.questions.findIndex((q) => q.id === id)
-      return (
-        <StepLayout key={currentStep} stepKey={currentStep} direction={direction}>
-          <QuestionStep
-            question={question}
-            totalQuestions={spec.questions.length}
-            index={qIndex}
-            response={progress.questions[id] ?? { value: '' }}
-            onChange={handleQuestionChange}
-            onAdvance={advance}
-          />
-        </StepLayout>
-      )
-    }
-
-    if (currentStep === 'flows') {
-      return (
-        <StepLayout key="flows" stepKey="flows" direction={direction}>
-          <FlowsStep
-            flows={spec.flows}
-            notInScope={spec.not_in_scope ?? []}
-            onAdvance={advance}
-          />
-        </StepLayout>
-      )
-    }
-
-    if (currentStep === 'signoff') {
-      return (
-        <StepLayout key="signoff" stepKey="signoff" direction={direction}>
-          <SignOffStep spec={spec} progress={progress} onSignOff={handleSignOff} />
-        </StepLayout>
-      )
-    }
-
-    return null
-  }
-
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      {/* Top progress bar */}
-      <div className="fixed top-0 left-0 right-0 z-20">
-        <div className="h-0.5 bg-zinc-100">
-          <div
-            className="h-full bg-zinc-900 transition-all duration-700 ease-out"
-            style={{ width: `${pct}%` }}
-          />
-        </div>
+      {/* Section progress dots */}
+      <div className="fixed top-0 left-0 right-0 z-20 flex items-center justify-center gap-2 py-3 bg-white/90 backdrop-blur border-b border-zinc-100">
+        {steps.map((step, i) => (
+          <button
+            key={step}
+            onClick={() => { setDirection(i > stepIndex ? 1 : -1); setStepIndex(i) }}
+            className={`flex items-center gap-1.5 px-2 py-1 rounded-md text-xs transition-all ${
+              i === stepIndex
+                ? 'text-zinc-900 font-medium'
+                : i < stepIndex
+                ? 'text-zinc-400 hover:text-zinc-600'
+                : 'text-zinc-200 cursor-default pointer-events-none'
+            }`}
+          >
+            <span className={`w-1.5 h-1.5 rounded-full shrink-0 transition-all ${
+              i === stepIndex ? 'bg-zinc-900' : i < stepIndex ? 'bg-zinc-300' : 'bg-zinc-100'
+            }`} />
+            {stepLabels[step]}
+          </button>
+        ))}
       </div>
 
       {/* Back button */}
       {stepIndex > 0 && (
         <button
           onClick={back}
-          className="fixed top-4 left-4 z-20 text-zinc-400 hover:text-zinc-700 transition-colors text-sm flex items-center gap-1"
+          className="fixed top-12 left-4 z-20 text-zinc-400 hover:text-zinc-700 transition-colors text-sm flex items-center gap-1"
         >
           ← Back
         </button>
       )}
 
-      {/* Step counter */}
-      <div className="fixed top-3 right-4 z-20 text-xs text-zinc-300 font-mono">
-        {stepIndex + 1} / {steps.length}
-      </div>
-
       {/* Content */}
-      <div className="flex-1 flex items-center justify-center px-6 py-16 min-h-screen">
+      <div className="flex-1 flex items-start justify-center px-6 pt-20 pb-16 min-h-screen overflow-y-auto">
         <div className="w-full max-w-xl">
           <AnimatePresence mode="wait" custom={direction}>
-            {renderStep()}
+            {currentStep === 'welcome' && (
+              <StepLayout key="welcome" stepKey="welcome" direction={direction}>
+                <WelcomeStep spec={spec} onBegin={advance} />
+              </StepLayout>
+            )}
+            {currentStep === 'assumptions' && (
+              <StepLayout key="assumptions" stepKey="assumptions" direction={direction}>
+                <AssumptionsStep
+                  assumptions={spec.assumptions}
+                  responses={progress.assumptions}
+                  onChange={handleAssumptionChange}
+                  onAdvance={advance}
+                />
+              </StepLayout>
+            )}
+            {currentStep === 'questions' && (
+              <StepLayout key="questions" stepKey="questions" direction={direction}>
+                <QuestionsStep
+                  questions={spec.questions}
+                  responses={progress.questions}
+                  onChange={handleQuestionChange}
+                  onAdvance={advance}
+                />
+              </StepLayout>
+            )}
+            {currentStep === 'flows' && (
+              <StepLayout key="flows" stepKey="flows" direction={direction}>
+                <FlowsStep
+                  flows={spec.flows}
+                  notInScope={spec.not_in_scope ?? []}
+                  onAdvance={advance}
+                />
+              </StepLayout>
+            )}
+            {currentStep === 'signoff' && (
+              <StepLayout key="signoff" stepKey="signoff" direction={direction}>
+                <SignOffStep spec={spec} progress={progress} onSignOff={handleSignOff} />
+              </StepLayout>
+            )}
           </AnimatePresence>
         </div>
       </div>
