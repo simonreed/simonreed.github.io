@@ -1,4 +1,4 @@
-import type { Spec, SpecProgress, AssumptionStatus } from './types'
+import type { Spec, SpecProgress, AssumptionStatus, FlowStatus } from './types'
 
 function key(slug: string): string {
   return `spec-progress-${slug}`
@@ -11,6 +11,9 @@ export function initProgress(spec: Spec): SpecProgress {
       spec.assumptions.map((a) => [a.id, { status: 'unreviewed' as AssumptionStatus, comment: '' }])
     ),
     questions: Object.fromEntries(spec.questions.map((q) => [q.id, { value: '' }])),
+    flows: Object.fromEntries(
+      spec.flows.map((f) => [f.id, { status: 'unreviewed' as FlowStatus, comment: '' }])
+    ),
     submitted: false,
     submittedAt: null,
     submittedBy: null,

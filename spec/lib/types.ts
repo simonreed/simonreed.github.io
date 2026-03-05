@@ -46,10 +46,18 @@ export interface QuestionResponse {
   value: string
 }
 
+export type FlowStatus = 'unreviewed' | 'confirmed' | 'noted'
+
+export interface FlowResponse {
+  status: FlowStatus
+  comment: string
+}
+
 export interface SpecProgress {
   version: string
   assumptions: Record<string, AssumptionResponse>
   questions: Record<string, QuestionResponse>
+  flows: Record<string, FlowResponse>
   submitted: boolean
   submittedAt: string | null
   submittedBy: { name: string; email: string } | null

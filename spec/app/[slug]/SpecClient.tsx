@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import type { Spec, SpecProgress, AssumptionResponse, QuestionResponse } from '@/lib/types'
+import type { Spec, SpecProgress, AssumptionResponse, QuestionResponse, FlowResponse } from '@/lib/types'
 import { loadProgress, saveProgress, clearProgress, initProgress } from '@/lib/localStorage'
 import { generateMarkdown, generateFilename } from '@/lib/generateMarkdown'
 
@@ -70,6 +70,13 @@ export default function SpecClient({ spec }: { spec: Spec }) {
     setProgress((prev) => ({
       ...prev,
       questions: { ...prev.questions, [id]: response },
+    }))
+  }, [])
+
+  const handleFlowChange = useCallback((id: string, response: FlowResponse) => {
+    setProgress((prev) => ({
+      ...prev,
+      flows: { ...prev.flows, [id]: response },
     }))
   }, [])
 
@@ -206,7 +213,9 @@ export default function SpecClient({ spec }: { spec: Spec }) {
               <StepLayout key="flows" stepKey="flows" direction={direction}>
                 <FlowsStep
                   flows={spec.flows}
+                  responses={progress.flows}
                   notInScope={spec.not_in_scope ?? []}
+                  onChange={handleFlowChange}
                   onAdvance={advance}
                 />
               </StepLayout>

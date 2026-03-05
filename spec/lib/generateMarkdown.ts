@@ -38,6 +38,16 @@ export function generateMarkdown(spec: Spec, progress: SpecProgress): string {
     lines.push(`| ${assumption.id} | ${assumption.text.replace(/\|/g, '\\|')} | ${status} | ${comment} |`)
   }
 
+  if (spec.flows.length > 0) {
+    lines.push(``, `---`, ``, `## Flows`, ``, `| ID | Flow | Response | Notes |`, `|---|---|---|---|`)
+    for (const flow of spec.flows) {
+      const r = progress.flows?.[flow.id]
+      const status = r?.status === 'confirmed' ? '✓ Confirmed' : r?.status === 'noted' ? '✎ Noted' : '— Not reviewed'
+      const comment = r?.comment ?? ''
+      lines.push(`| ${flow.id} | ${flow.title.replace(/\|/g, '\\|')} | ${status} | ${comment} |`)
+    }
+  }
+
   if (spec.questions.length > 0) {
     lines.push(``, `---`, ``, `## Open Questions`, ``, `| ID | Question | Response |`, `|---|---|---|`)
     for (const question of spec.questions) {
