@@ -1,58 +1,65 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import type { Spec, SpecProgress, AssumptionResponse, QuestionResponse } from '@/lib/types'
 import { loadProgress, saveProgress, clearProgress, initProgress } from '@/lib/localStorage'
 import { generateMarkdown, generateFilename } from '@/lib/generateMarkdown'
-import { validateResponses } from '@/lib/validateResponses'
 
-import SpecHeader from '@/components/SpecHeader'
-import ProgressBar from '@/components/ProgressBar'
-import AssumptionList from '@/components/AssumptionList'
-import QuestionList from '@/components/QuestionList'
-import FlowList from '@/components/FlowList'
-import NotInScope from '@/components/NotInScope'
-import SignOffForm from '@/components/SignOffForm'
+import StepLayout from '@/components/steps/StepLayout'
+import WelcomeStep from '@/components/steps/WelcomeStep'
+import AssumptionStep from '@/components/steps/AssumptionStep'
+import QuestionStep from '@/components/steps/QuestionStep'
+import FlowsStep from '@/components/steps/FlowsStep'
+import SignOffStep from '@/components/steps/SignOffStep'
 import ConfirmationScreen from '@/components/ConfirmationScreen'
 
-interface Props {
-  spec: Spec
+type StepId = 'welcome' | `assumption-${string}` | `question-${string}` | 'flows' | 'signoff'
+
+function buildSteps(spec: Spec): StepId[] {
+  return [
+    'welcome',
+    ...spec.assumptions.map((a) => `assumption-${a.id}` as StepId),
+    ...spec.questions.map((q) => `question-${q.id}` as StepId),
+    'flows',
+    'signoff',
+  ]
 }
 
-export default function SpecClient({ spec }: Props) {
+export default function SpecClient({ spec }: { spec: Spec }) {
+  const steps = buildSteps(spec)
+  const [stepIndex, setStepIndex] = useState(0)
+  const [direction, setDirection] = useState(1)
   const [progress, setProgress] = useState<SpecProgress>(() => initProgress(spec))
   const [loaded, setLoaded] = useState(false)
-  const [highlights, setHighlights] = useState<{ assumptions: string[]; questions: string[] }>({
-    assumptions: [],
-    questions: [],
-  })
-  const highlightRefs = useRef<Record<string, HTMLDivElement | null>>({})
 
-  // Load from localStorage after mount
   useEffect(() => {
     const saved = loadProgress(spec)
     setProgress(saved)
+    if (saved.submitted) {
+      // Jump to confirmation — handled below
+    }
     setLoaded(true)
   }, [spec])
 
-  // Persist on change
   useEffect(() => {
     if (loaded) saveProgress(spec.slug, progress)
   }, [progress, loaded, spec.slug])
 
-  const totalItems = spec.assumptions.length + spec.questions.length
-  const reviewedItems =
-    spec.assumptions.filter((a) => progress.assumptions[a.id]?.status !== 'unreviewed').length +
-    spec.questions.filter((q) => (progress.questions[q.id]?.value ?? '').trim() !== '').length
+  const advance = useCallback(() => {
+    setDirection(1)
+    setStepIndex((i) => Math.min(i + 1, steps.length - 1))
+  }, [steps.length])
+
+  const back = useCallback(() => {
+    setDirection(-1)
+    setStepIndex((i) => Math.max(i - 1, 0))
+  }, [])
 
   const handleAssumptionChange = useCallback((id: string, response: AssumptionResponse) => {
     setProgress((prev) => ({
       ...prev,
       assumptions: { ...prev.assumptions, [id]: response },
-    }))
-    setHighlights((prev) => ({
-      ...prev,
-      assumptions: prev.assumptions.filter((h) => h !== id),
     }))
   }, [])
 
@@ -61,23 +68,7 @@ export default function SpecClient({ spec }: Props) {
       ...prev,
       questions: { ...prev.questions, [id]: response },
     }))
-    setHighlights((prev) => ({
-      ...prev,
-      questions: prev.questions.filter((h) => h !== id),
-    }))
   }, [])
-
-  const handleValidationFail = useCallback(
-    (unreviewedAssumptions: string[], unansweredQuestions: string[]) => {
-      setHighlights({ assumptions: unreviewedAssumptions, questions: unansweredQuestions })
-      const firstId = unreviewedAssumptions[0] ?? unansweredQuestions[0]
-      if (firstId) {
-        const el = document.getElementById(`item-${firstId}`)
-        el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      }
-    },
-    []
-  )
 
   const downloadMarkdown = useCallback(
     (finalProgress: SpecProgress) => {
@@ -113,57 +104,147 @@ export default function SpecClient({ spec }: Props) {
   const handleStartFresh = useCallback(() => {
     clearProgress(spec.slug)
     setProgress(initProgress(spec))
-    setHighlights({ assumptions: [], questions: [] })
+    setStepIndex(0)
+    setDirection(1)
   }, [spec])
+
+  // Keyboard: Backspace to go back (unless in an input)
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Backspace' && document.activeElement?.tagName === 'BODY') {
+        back()
+      }
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [back])
+
+  const totalInteractive = spec.assumptions.length + spec.questions.length
+  const reviewedCount =
+    spec.assumptions.filter((a) => progress.assumptions[a.id]?.status !== 'unreviewed').length +
+    spec.questions.filter((q) => (progress.questions[q.id]?.value ?? '').trim() !== '').length
+
+  const pct = totalInteractive === 0 ? 100 : Math.round((reviewedCount / totalInteractive) * 100)
 
   if (!loaded) return null
 
   if (progress.submitted && progress.submittedBy) {
     return (
-      <div className="min-h-screen bg-zinc-50 px-4 py-16">
-        <div className="max-w-2xl mx-auto">
-          <ConfirmationScreen
-            name={progress.submittedBy.name}
-            specTitle={spec.title}
-            onDownloadAgain={() => downloadMarkdown(progress)}
-            onStartFresh={handleStartFresh}
-          />
-        </div>
+      <div className="min-h-screen bg-white flex items-center justify-center px-6">
+        <ConfirmationScreen
+          name={progress.submittedBy.name}
+          specTitle={spec.title}
+          onDownloadAgain={() => downloadMarkdown(progress)}
+          onStartFresh={handleStartFresh}
+        />
       </div>
     )
   }
 
-  return (
-    <div className="min-h-screen bg-zinc-50 px-4 py-12">
-      <div className="max-w-2xl mx-auto">
-        <SpecHeader spec={spec} />
-        <ProgressBar reviewed={reviewedItems} total={totalItems} />
-        <div id="item-assumptions">
-          <AssumptionList
-            assumptions={spec.assumptions}
-            responses={progress.assumptions}
-            highlights={highlights.assumptions}
+  const currentStep = steps[stepIndex]
+
+  const renderStep = () => {
+    if (currentStep === 'welcome') {
+      return (
+        <StepLayout key="welcome" stepKey="welcome" direction={direction}>
+          <WelcomeStep spec={spec} onBegin={advance} />
+        </StepLayout>
+      )
+    }
+
+    if (currentStep.startsWith('assumption-')) {
+      const id = currentStep.replace('assumption-', '')
+      const assumption = spec.assumptions.find((a) => a.id === id)!
+      const aIndex = spec.assumptions.findIndex((a) => a.id === id)
+      return (
+        <StepLayout key={currentStep} stepKey={currentStep} direction={direction}>
+          <AssumptionStep
+            assumption={assumption}
+            totalAssumptions={spec.assumptions.length}
+            index={aIndex}
+            response={progress.assumptions[id] ?? { status: 'unreviewed', comment: '' }}
             onChange={handleAssumptionChange}
+            onAdvance={advance}
+          />
+        </StepLayout>
+      )
+    }
+
+    if (currentStep.startsWith('question-')) {
+      const id = currentStep.replace('question-', '')
+      const question = spec.questions.find((q) => q.id === id)!
+      const qIndex = spec.questions.findIndex((q) => q.id === id)
+      return (
+        <StepLayout key={currentStep} stepKey={currentStep} direction={direction}>
+          <QuestionStep
+            question={question}
+            totalQuestions={spec.questions.length}
+            index={qIndex}
+            response={progress.questions[id] ?? { value: '' }}
+            onChange={handleQuestionChange}
+            onAdvance={advance}
+          />
+        </StepLayout>
+      )
+    }
+
+    if (currentStep === 'flows') {
+      return (
+        <StepLayout key="flows" stepKey="flows" direction={direction}>
+          <FlowsStep
+            flows={spec.flows}
+            notInScope={spec.not_in_scope ?? []}
+            onAdvance={advance}
+          />
+        </StepLayout>
+      )
+    }
+
+    if (currentStep === 'signoff') {
+      return (
+        <StepLayout key="signoff" stepKey="signoff" direction={direction}>
+          <SignOffStep spec={spec} progress={progress} onSignOff={handleSignOff} />
+        </StepLayout>
+      )
+    }
+
+    return null
+  }
+
+  return (
+    <div className="min-h-screen bg-white flex flex-col">
+      {/* Top progress bar */}
+      <div className="fixed top-0 left-0 right-0 z-20">
+        <div className="h-0.5 bg-zinc-100">
+          <div
+            className="h-full bg-zinc-900 transition-all duration-700 ease-out"
+            style={{ width: `${pct}%` }}
           />
         </div>
-        {spec.questions.length > 0 && (
-          <div id="item-questions">
-            <QuestionList
-              questions={spec.questions}
-              responses={progress.questions}
-              highlights={highlights.questions}
-              onChange={handleQuestionChange}
-            />
-          </div>
-        )}
-        <FlowList flows={spec.flows} />
-        <NotInScope items={spec.not_in_scope ?? []} />
-        <SignOffForm
-          spec={spec}
-          progress={progress}
-          onSignOff={handleSignOff}
-          onValidationFail={handleValidationFail}
-        />
+      </div>
+
+      {/* Back button */}
+      {stepIndex > 0 && (
+        <button
+          onClick={back}
+          className="fixed top-4 left-4 z-20 text-zinc-400 hover:text-zinc-700 transition-colors text-sm flex items-center gap-1"
+        >
+          ← Back
+        </button>
+      )}
+
+      {/* Step counter */}
+      <div className="fixed top-3 right-4 z-20 text-xs text-zinc-300 font-mono">
+        {stepIndex + 1} / {steps.length}
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 flex items-center justify-center px-6 py-16 min-h-screen">
+        <div className="w-full max-w-xl">
+          <AnimatePresence mode="wait" custom={direction}>
+            {renderStep()}
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   )
