@@ -96,7 +96,7 @@ export default function SpecClient({ spec }: { spec: Spec }) {
   )
 
   const handleSignOff = useCallback(
-    (name: string, email: string) => {
+    async (name: string, email: string) => {
       const now = new Date().toISOString()
       const finalProgress: SpecProgress = {
         ...progress,
@@ -107,8 +107,16 @@ export default function SpecClient({ spec }: { spec: Spec }) {
       setProgress(finalProgress)
       saveProgress(spec.slug, finalProgress)
       downloadMarkdown(finalProgress)
+
+      const md = generateMarkdown(spec, finalProgress)
+      const subject = `Sign-off: ${spec.title} v${spec.version} — ${name}`
+      fetch('https://spec-signoff-mailer.simonreed.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ subject, markdown: md, from_name: name, from_email: email }),
+      }).catch(() => {/* silently ignore — download is the primary delivery */})
     },
-    [progress, spec.slug, downloadMarkdown]
+    [progress, spec, downloadMarkdown]
   )
 
   const handleStartFresh = useCallback(() => {

@@ -21,10 +21,10 @@ export default function ConfirmationScreen({ name, specTitle, onDownloadAgain, o
         <div className="text-4xl mb-4">✓</div>
         <h2 className="text-xl font-semibold text-zinc-900 mb-2">Signed off</h2>
         <p className="text-sm text-zinc-500 mb-1">
-          Thank you, {name}. Your sign-off has been recorded and the document has downloaded.
+          Thank you, {name}. Your responses have been sent to Simon and the document has downloaded to your machine for your records.
         </p>
         <p className="text-sm text-zinc-400 mb-8">
-          Simon has everything he needs to proceed with {specTitle}.
+          Simon will be in touch shortly to confirm next steps on {specTitle}.
         </p>
         <div className="flex flex-col gap-2">
           <button
