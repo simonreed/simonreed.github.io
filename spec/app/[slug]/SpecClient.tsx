@@ -110,7 +110,7 @@ export default function SpecClient({ spec }: { spec: Spec }) {
 
       const md = generateMarkdown(spec, finalProgress)
       const subject = `Sign-off: ${spec.title} v${spec.version} — ${name}`
-      fetch('https://spec-signoff-mailer.simonreed.workers.dev', {
+      fetch('https://spec-signoff-mailer.simonpreed-fe9.workers.dev', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ subject, markdown: md, from_name: name, from_email: email }),
