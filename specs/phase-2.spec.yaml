@@ -1,0 +1,273 @@
+slug: phase-2
+title: "Phase 2 — Foundations"
+version: "1.0"
+date: "10 March 2026"
+client: "Liz Cale"
+status: awaiting-sign-off
+
+summary: |
+  Phase 2 runs across four parallel workstreams. Three are invisible to end users —
+  they are the infrastructure that Phases 3–5 are built on. One (2a) delivers the
+  first real screen that providers see when they log in.
+
+  2a. Provider dashboard — the first real screen providers see after logging in.
+  A summary of their buildings, spaces, and contacts, with navigation to each section.
+  The sections themselves come in Phase 3.
+
+  2b. Proposal data structure — the underlying data model for the consultant-led
+  workflow. Staff will use proposals (Phase 3d) to assemble buildings and spaces for
+  a client. The data structure has to exist before any of that can be built.
+
+  2c. Email infrastructure — a shared ADAPT-branded email layout, a communication
+  log that records every email the platform sends, and automatic retry logic for
+  failed deliveries. Every email feature in Phases 3–5 depends on this.
+
+  2d. Admin contact management — the ability for ADAPT admin to create and manage
+  provider contacts: the people at each provider company who should receive intro
+  lead emails. Phase 5 cannot send leads without this.
+
+assumptions:
+  # 2a — Provider Dashboard
+  - id: A1
+    text: "The provider dashboard is the first screen providers see after logging in. It shows a summary of their company's portfolio: total buildings, how many are published, total spaces, how many are currently available, and a count of contacts."
+
+  - id: A2
+    text: "Below the summary, the dashboard shows a list of the provider's buildings — name, address, number of spaces, and published status."
+
+  - id: A3
+    text: "Below the buildings list, the dashboard shows a summary of the provider's contacts — name, email address, and whether they are set up to receive leads."
+
+  - id: A4
+    text: "Provider navigation has four links: Dashboard, Buildings, Spaces, and Contacts. In Phase 2 only the Dashboard is live — the other three show a placeholder page (\"Coming soon\") until Phase 3 is built."
+
+  - id: A5
+    text: "If a provider has no buildings in the system yet, the dashboard shows a helpful message rather than an empty screen: \"No buildings are set up for your account yet. Contact ADAPT to get started.\" Buildings are added by ADAPT admin only — providers cannot create buildings themselves."
+
+  - id: A6
+    text: "The provider portal is completely separate from the admin interface. Provider users cannot see any admin pages, and the provider portal contains no admin navigation, search wizard links, or consumer-facing content."
+
+  - id: A7
+    text: "A provider user can only ever see data belonging to their own company. They cannot access another provider's buildings, spaces, or contacts — even if they know the URL. Any attempt to access another company's data returns a \"not found\" response."
+
+  # 2b — Proposal Data Structure
+  - id: A8
+    text: "A proposal belongs to one staff member and holds client details: name, company name, email address, phone number, a structured requirements section, and a free-text notes field. (See Q1 on the structured requirements fields.)"
+
+  - id: A9
+    text: "A proposal can have multiple buildings attached. Each building is snapshotted at the time of adding — the name, address, and description are captured as they were at that moment. If a building's details change later, the proposal keeps the original snapshot. Staff can refresh the snapshot manually if needed."
+
+  - id: A10
+    text: "Each building on a proposal can have spaces attached. Like buildings, spaces are snapshotted at the time of adding. Both spaces from the database and manually entered spaces (for availability not yet in the system) can be added. Ad-hoc spaces capture: name, space type, desk range, monthly cost, and availability status."
+
+  - id: A11
+    text: "A building can only appear once on any given proposal."
+
+  - id: A12
+    text: "A proposal has a status: draft, sent, viewed, or archived. Draft proposals can be deleted. Sent proposals cannot be deleted — they can only be archived."
+
+  # 2c — Email Infrastructure
+  - id: A13
+    text: "All emails sent from the platform — including all future emails in Phases 3–5 — use a shared ADAPT-branded layout: the ADAPT logo, consistent typography, and a footer with legal text. The existing magic link email will be updated to use this layout. No visible change to recipients — it is an internal code change."
+
+  - id: A14
+    text: "Every email the platform sends is recorded in a communication log. Each entry records: who sent it, who received it, what type of email it was, when it was sent, and whether delivery succeeded or failed."
+
+  - id: A15
+    text: "Emails are delivered in the background — sending an email does not hold up the page while it dispatches. Failed emails retry automatically — up to 5 attempts spread over 24 hours. After a final failure, the log entry is marked as failed so the team can investigate."
+
+  - id: A16
+    text: "The communication log is visible in the admin area. Staff can also see a log of emails they personally have sent — their own history only, not other staff members'. Providers cannot see it."
+
+  # 2d — Admin Contact Management
+  - id: A17
+    text: "A provider contact record holds: first name, last name, email address, mobile number (optional), phone number (optional), and job title (optional)."
+
+  - id: A18
+    text: "Any contact can be flagged as a lead recipient. Only flagged contacts receive intro lead emails when ADAPT staff sends an intro in Phase 5."
+
+  - id: A19
+    text: "A contact can be assigned to specific buildings within that provider's portfolio, or left unassigned. An unassigned contact receives leads for all of the provider's buildings. A contact assigned to specific buildings only receives leads for those buildings."
+
+  - id: A20
+    text: "A contact can be assigned to more than one building."
+
+  - id: A21
+    text: "The building edit page in admin shows a read-only summary of which contacts are set up to receive leads for that building — both building-specific contacts and unassigned (global) contacts. Editing contacts is done from the provider's page in admin, not from the building page."
+
+  - id: A22
+    text: "Deleting a contact removes them from all building assignments and they will no longer receive leads. Any emails already sent to them remain in the communication log — deleting a contact does not delete the record of past communications."
+
+  - id: A23
+    text: "Contacts at different provider companies are independent records. If the same person handles multiple providers, they have a separate contact record at each."
+
+questions:
+  - id: Q1
+    text: "For the client requirements on a proposal (A8), we have assumed both structured fields and a free-text notes field. The structured fields would capture: desk count range, budget range, preferred location(s), and target move-in date. These make proposals easier to filter and compare in Phase 3d. The free-text notes field captures anything that does not fit the structured fields. Does this work, or would you prefer free-text only?"
+    type: choice
+    options:
+      - "Structured fields + free-text notes (our recommendation)"
+      - "Free-text notes only"
+
+flows:
+  - id: flow-1
+    title: "Provider logs in and lands on the dashboard"
+    steps:
+      - "Provider receives login link and clicks it (magic link, as per Phase 1)"
+      - "Lands on the provider dashboard"
+      - "Sees their company name, portfolio summary (buildings, spaces, contacts), and a list of their buildings"
+      - "Navigation shows Dashboard, Buildings, Spaces, Contacts"
+    errors:
+      - "No buildings in the system yet — dashboard shows: \"No buildings are set up for your account yet. Contact ADAPT to get started.\""
+      - "Expired or already-used link — same handling as Phase 1 (already confirmed)"
+    sequence: |
+      sequenceDiagram
+        Provider->>LoginPage: Enters email
+        LoginPage->>System: POST /auth/magic-link
+        System->>EmailService: Send magic link
+        EmailService-->>Provider: Login link email
+        Provider->>System: Clicks link
+        System->>System: Validates token, gets provider user record
+        System->>System: Creates session scoped to provider company
+        System-->>Provider: Redirect to /provider
+        Provider->>ProviderDashboard: Loads dashboard
+        ProviderDashboard-->>Provider: Company name, portfolio summary, buildings list
+
+  - id: flow-2
+    title: "Provider navigates between sections"
+    steps:
+      - "From the dashboard, provider clicks \"Buildings\" in the nav"
+      - "Sees a placeholder page: \"Buildings — coming in the next update\""
+      - "Same for Spaces and Contacts"
+      - "Back to Dashboard always works"
+    sequence: |
+      sequenceDiagram
+        Provider->>Nav: Clicks "Buildings"
+        Nav->>System: GET /provider/buildings
+        System-->>Provider: Placeholder: "Buildings — coming in the next update"
+        Provider->>Nav: Clicks "Dashboard"
+        Nav->>System: GET /provider
+        System-->>Provider: Provider dashboard
+
+  - id: flow-3
+    title: "Admin creates a provider contact"
+    steps:
+      - "Admin goes to the provider's page in the admin area"
+      - "Clicks \"Add Contact\""
+      - "Fills in: first name, last name, email address (and optionally mobile, phone, job title)"
+      - "Optionally ticks \"Receives new leads from ADAPT\""
+      - "Optionally selects which buildings this contact handles — leaving it empty means they receive leads for all buildings"
+      - "Saves"
+      - "Contact appears in the provider's contact list"
+    errors:
+      - "Email already in use for this provider — form error: \"A contact with this email address already exists for this provider.\""
+      - "Lead recipient ticked but no email address entered — form error: \"An email address is required for contacts who receive leads.\""
+      - "Required field missing — inline error, form not submitted."
+    sequence: |
+      sequenceDiagram
+        Admin->>AdminUI: Clicks "Add Contact" on provider page
+        AdminUI-->>Admin: New contact form
+        Admin->>AdminUI: Fills in name, email, optional fields, building assignments
+        AdminUI->>System: POST /admin/provider_companies/:id/contacts
+        System->>Database: Validate uniqueness of email within provider
+        System->>Database: Create contact record
+        System->>Database: Save building assignments (if any)
+        System-->>AdminUI: 201 Created
+        AdminUI-->>Admin: Contact appears in provider's contact list
+
+  - id: flow-4
+    title: "Admin assigns a contact to specific buildings"
+    steps:
+      - "Admin edits an existing contact (or sets this during creation)"
+      - "Sees a list of the provider's buildings with checkboxes"
+      - "Ticks the buildings this contact handles"
+      - "Saves"
+      - "The building edit page for those buildings now shows this contact in their \"Lead Contacts\" panel"
+    sequence: |
+      sequenceDiagram
+        Admin->>AdminUI: Opens contact edit form
+        AdminUI-->>Admin: Form with building checkboxes
+        Admin->>AdminUI: Ticks specific buildings
+        AdminUI->>System: PATCH /admin/contacts/:id
+        System->>Database: Update building assignments
+        System-->>AdminUI: 200 OK
+        AdminUI-->>Admin: Changes saved
+        Admin->>AdminUI: Views building edit page
+        AdminUI-->>Admin: Lead Contacts panel shows this contact
+
+  - id: flow-5
+    title: "Admin edits a contact"
+    steps:
+      - "Admin finds the contact in the provider's contact list"
+      - "Clicks \"Edit\""
+      - "Updates any field: name, email, phone, job title, receives leads flag, or building assignments"
+      - "Saves — changes take effect immediately"
+    sequence: |
+      sequenceDiagram
+        Admin->>AdminUI: Clicks Edit on contact
+        AdminUI-->>Admin: Pre-filled edit form
+        Admin->>AdminUI: Updates fields
+        AdminUI->>System: PATCH /admin/contacts/:id
+        System->>Database: Update contact record
+        System-->>AdminUI: 200 OK
+        AdminUI-->>Admin: "Changes saved."
+
+  - id: flow-6
+    title: "Admin deletes a contact"
+    steps:
+      - "Admin finds the contact in the provider's contact list"
+      - "Clicks \"Delete\""
+      - "Confirmation prompt: \"Are you sure? [Name] will be removed and will no longer receive leads.\""
+      - "Admin confirms"
+      - "Contact is removed from the list and from all building assignments"
+      - "Past emails to this contact remain in the communication log"
+    sequence: |
+      sequenceDiagram
+        Admin->>AdminUI: Clicks Delete on contact
+        AdminUI-->>Admin: Confirmation prompt
+        Admin->>AdminUI: Confirms
+        AdminUI->>System: DELETE /admin/contacts/:id
+        System->>Database: Remove contact record
+        System->>Database: Remove all building assignments
+        Note over System,Database: Communication log entries are preserved
+        System-->>AdminUI: 200 OK
+        AdminUI-->>Admin: Contact removed from list
+
+  - id: flow-7
+    title: "Admin views lead contacts for a building"
+    steps:
+      - "Admin edits a building in the admin area"
+      - "A \"Lead Contacts\" panel shows: contacts specifically assigned to this building; contacts with no building assigned who receive leads for all buildings; a warning if no lead contacts are configured: \"No contacts are set up to receive leads for this building.\""
+      - "A link through to the provider's page to manage contacts"
+    sequence: |
+      sequenceDiagram
+        Admin->>AdminUI: Opens building edit page
+        AdminUI->>System: GET /admin/buildings/:id/edit
+        System->>Database: Load building-specific contacts
+        System->>Database: Load unassigned (global) contacts for this provider
+        System-->>AdminUI: Building form + Lead Contacts panel
+        AdminUI-->>Admin: Shows assigned contacts + global contacts (or warning if none)
+
+not_in_scope:
+  - "Providers managing their own contacts — admin only in Phase 2; providers can manage contacts themselves in Phase 3c"
+  - "Providers editing buildings, photos, descriptions, or floorplans — Phase 3a"
+  - "Providers managing spaces and availability — Phase 3b"
+  - "Staff creating or managing proposals via a UI — Phase 3d"
+  - "Staff selecting buildings and spaces for proposals — Phase 4"
+  - "Sending any emails to clients or providers — Phase 5"
+  - "The staff dashboard — Phase 3d"
+
+sign_off_criteria:
+  - "Provider user logs in and lands on a dashboard showing their company's portfolio summary (buildings, spaces, contacts)"
+  - "Dashboard shows data for their company only — no other provider's data is visible"
+  - "A provider with no buildings sees a helpful empty state"
+  - "Navigation links are present for Dashboard, Buildings, Spaces, and Contacts"
+  - "A proposal can be created in the system with client details attached to a staff member"
+  - "Adding a building to a proposal creates a snapshot — changing the original building afterwards does not alter the proposal"
+  - "An ad-hoc space (not from the database) can be attached to a proposal"
+  - "All outbound emails (including the existing magic link email) use the ADAPT-branded layout"
+  - "Sending an email creates an entry in the communication log showing sender, recipient, type, and delivery status"
+  - "A failed email is retried automatically; the final outcome is visible in the log"
+  - "Admin can create, edit, and delete a provider contact"
+  - "Admin can flag a contact as a lead recipient"
+  - "Admin can assign a contact to specific buildings; unassigned contacts cover all buildings"
+  - "The building edit page shows which contacts are set up to receive leads for it, including global contacts"
