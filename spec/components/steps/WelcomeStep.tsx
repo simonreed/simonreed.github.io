@@ -35,12 +35,11 @@ export default function WelcomeStep({ spec, onBegin }: Props) {
         Prepared for {spec.client}
       </p>
 
-      <p
-        className="text-xl text-zinc-600 leading-relaxed mb-12"
-        style={{ fontFamily: 'var(--font-serif)' }}
-      >
-        {spec.summary}
-      </p>
+      <div className="text-xl text-zinc-600 leading-relaxed mb-12 space-y-4" style={{ fontFamily: 'var(--font-serif)' }}>
+        {spec.summary.split('\n\n').map((para, i) => (
+          <p key={i}>{para.replace(/\n/g, ' ')}</p>
+        ))}
+      </div>
 
       <div className="flex items-center gap-6">
         <button
