@@ -56,7 +56,7 @@ export default function SignOffStep({ spec, progress, onSignOff }: Props) {
             {spec.sign_off_criteria.map((criterion, i) => (
               <li key={i} className="text-base text-zinc-700 flex gap-3" style={{ fontFamily: 'var(--font-serif)' }}>
                 <span className="text-zinc-300 shrink-0 mt-0.5">✓</span>
-                <span>{criterion}</span>
+                <span>{typeof criterion === 'string' ? criterion : criterion.text}</span>
               </li>
             ))}
           </ul>

@@ -48,7 +48,7 @@ export default function SignOffForm({ spec, progress, onSignOff, onValidationFai
             {spec.sign_off_criteria.map((criterion, i) => (
               <li key={i} className="text-sm text-zinc-700 flex gap-2">
                 <span className="text-zinc-300 shrink-0">✓</span>
-                <span>{criterion}</span>
+                <span>{typeof criterion === 'string' ? criterion : criterion.text}</span>
               </li>
             ))}
           </ul>

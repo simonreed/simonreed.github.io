@@ -60,7 +60,8 @@ export function generateMarkdown(spec: Spec, progress: SpecProgress): string {
   if (spec.sign_off_criteria && spec.sign_off_criteria.length > 0) {
     lines.push(``, `---`, ``, `## Sign-Off Checklist`, ``)
     for (const criterion of spec.sign_off_criteria) {
-      lines.push(`- [x] ${criterion}`)
+      const text = typeof criterion === 'string' ? criterion : criterion.text
+      lines.push(`- [x] ${text}`)
     }
   }
 

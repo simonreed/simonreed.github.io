@@ -1,6 +1,11 @@
 export type QuestionType = 'choice' | 'text'
-export type SpecStatus = 'draft' | 'awaiting-sign-off' | 'signed-off'
+export type SpecStatus = 'draft' | 'awaiting-sign-off' | 'signed-off' | 'delivered' | 'verified'
 export type AssumptionStatus = 'unreviewed' | 'confirmed' | 'flagged'
+
+export interface SignOffCriterion {
+  text: string
+  verified_by?: 'client' | 'simon'
+}
 
 export interface Assumption {
   id: string
@@ -34,7 +39,8 @@ export interface Spec {
   questions: Question[]
   flows: Flow[]
   not_in_scope?: string[]
-  sign_off_criteria?: string[]
+  sign_off_criteria?: (string | SignOffCriterion)[]
+  verification_round?: number
 }
 
 export interface AssumptionResponse {
@@ -58,6 +64,20 @@ export interface SpecProgress {
   assumptions: Record<string, AssumptionResponse>
   questions: Record<string, QuestionResponse>
   flows: Record<string, FlowResponse>
+  submitted: boolean
+  submittedAt: string | null
+  submittedBy: { name: string; email: string } | null
+}
+
+export interface VerificationItemResponse {
+  status: 'unchecked' | 'confirmed' | 'needs-attention'
+  comment: string
+}
+
+export interface VerificationProgress {
+  version: string
+  round: number
+  criteria: Record<number, VerificationItemResponse>
   submitted: boolean
   submittedAt: string | null
   submittedBy: { name: string; email: string } | null
