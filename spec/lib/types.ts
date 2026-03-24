@@ -5,6 +5,7 @@ export type AssumptionStatus = 'unreviewed' | 'confirmed' | 'flagged'
 export interface SignOffCriterion {
   text: string
   verified_by?: 'client' | 'simon'
+  url?: string
 }
 
 export interface Assumption {

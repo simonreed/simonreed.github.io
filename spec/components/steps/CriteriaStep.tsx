@@ -77,9 +77,22 @@ export default function CriteriaStep({ clientCriteria, simonCriteria, progress, 
                   : 'border-zinc-200 bg-white'
               }`}
             >
-              <p className="text-base text-zinc-700 mb-3" style={{ fontFamily: 'var(--font-serif)' }}>
-                {criterion.text}
-              </p>
+              <div className="flex items-start justify-between gap-3 mb-3">
+                <p className="text-base text-zinc-700" style={{ fontFamily: 'var(--font-serif)' }}>
+                  {criterion.text}
+                </p>
+                {criterion.url && (
+                  <a
+                    href={criterion.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shrink-0 text-xs text-zinc-400 hover:text-zinc-700 transition-colors whitespace-nowrap"
+                    style={{ fontFamily: 'var(--font-mono)' }}
+                  >
+                    Open in app →
+                  </a>
+                )}
+              </div>
               <div className="flex gap-2">
                 <button
                   onClick={() => handleStatus(criterion.index, 'confirmed')}
