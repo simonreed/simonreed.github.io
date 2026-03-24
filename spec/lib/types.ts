@@ -6,6 +6,7 @@ export interface SignOffCriterion {
   text: string
   verified_by?: 'client' | 'simon'
   url?: string
+  note?: string
 }
 
 export interface Assumption {

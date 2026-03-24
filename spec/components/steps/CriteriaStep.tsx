@@ -77,7 +77,7 @@ export default function CriteriaStep({ clientCriteria, simonCriteria, progress, 
                   : 'border-zinc-200 bg-white'
               }`}
             >
-              <div className="flex items-start justify-between gap-3 mb-3">
+              <div className="flex items-start justify-between gap-3 mb-1">
                 <p className="text-base text-zinc-700" style={{ fontFamily: 'var(--font-serif)' }}>
                   {criterion.text}
                 </p>
@@ -93,6 +93,12 @@ export default function CriteriaStep({ clientCriteria, simonCriteria, progress, 
                   </a>
                 )}
               </div>
+              {criterion.note && (
+                <p className="text-xs text-zinc-400 mb-3" style={{ fontFamily: 'var(--font-mono)' }}>
+                  {criterion.note}
+                </p>
+              )}
+              {!criterion.note && <div className="mb-3" />}
               <div className="flex gap-2">
                 <button
                   onClick={() => handleStatus(criterion.index, 'confirmed')}

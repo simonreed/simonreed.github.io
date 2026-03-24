@@ -5,6 +5,7 @@ export interface ParsedCriterion {
   text: string
   verifiedBy: 'client' | 'simon'
   url?: string
+  note?: string
 }
 
 export interface ParsedCriteria {
@@ -19,7 +20,7 @@ export function parseSignOffCriteria(spec: Spec): ParsedCriteria {
     if (typeof item === 'string') {
       return { index, text: item, verifiedBy: 'client' }
     }
-    return { index, text: item.text, verifiedBy: item.verified_by ?? 'client', url: item.url }
+    return { index, text: item.text, verifiedBy: item.verified_by ?? 'client', url: item.url, note: item.note }
   })
 
   return {
