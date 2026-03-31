@@ -4,7 +4,7 @@ version: "1.0"
 date: "2026-03-05"
 client: "Liz Cale"
 status: delivered
-verification_round: 1
+verification_round: 2
 
 summary: |
   Phase 1 adds two new user types — staff (ADAPT consultants) and providers (office
