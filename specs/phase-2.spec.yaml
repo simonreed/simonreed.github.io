@@ -259,68 +259,54 @@ not_in_scope:
 
 sign_off_criteria:
   - text: "Provider user logs in and lands on a dashboard showing their company's portfolio summary (buildings, spaces, contacts)"
-    verified_by: client
     url: "https://app.adaptworkspace.com/provider"
     note: "Log in as a provider user to see the dashboard"
 
   - text: "Dashboard shows data for their company only — no other provider's data is visible"
-    verified_by: client
     url: "https://app.adaptworkspace.com/provider"
     note: "Verify no other provider's data is visible on the dashboard"
 
   - text: "A provider with no buildings sees a helpful empty state"
-    verified_by: client
     url: "https://app.adaptworkspace.com/provider"
     note: "Log in as a provider user whose company has no buildings — the dashboard should show a helpful message rather than a blank screen"
 
   - text: "Navigation links are present for Dashboard, Buildings, Spaces, and Contacts"
-    verified_by: client
     url: "https://app.adaptworkspace.com/provider"
     note: "Check the navigation links on the dashboard"
 
   - text: "A proposal can be created in the system with client details attached to a staff member"
-    verified_by: client
     note: "The proposal data structure is in place — there is no UI for this yet (that comes in Phase 3d). We will demonstrate this to you during the walkthrough"
 
   - text: "Adding a building to a proposal creates a snapshot — changing the original building afterwards does not alter the proposal"
-    verified_by: client
     note: "Data model only — no UI yet. We will demonstrate the snapshot behaviour during the walkthrough"
 
   - text: "An ad-hoc space (not from the database) can be attached to a proposal"
-    verified_by: client
     note: "Data model only — no UI yet. We will demonstrate this during the walkthrough"
 
   - text: "All outbound emails (including the existing magic link email) use the ADAPT-branded layout"
-    verified_by: client
     url: "https://app.adaptworkspace.com/users/sign_in"
     note: "Request a magic link and check the email styling"
 
   - text: "Sending an email creates an entry in the communication log showing sender, recipient, type, and delivery status"
-    verified_by: client
     url: "https://app.adaptworkspace.com/admin/communication_logs"
     note: "After sending a magic link, check the log shows the entry"
 
   - text: "A failed email is retried automatically; the final outcome is visible in the log"
-    verified_by: client
     url: "https://app.adaptworkspace.com/admin/communication_logs"
     note: "We will demonstrate the retry behaviour during the walkthrough — check the communication log for the final outcome"
 
   - text: "Admin can create, edit, and delete a provider contact"
-    verified_by: client
     url: "https://app.adaptworkspace.com/admin/office_providers"
     note: "Pick a provider, add/edit/delete a contact"
 
   - text: "Admin can flag a contact as a lead recipient"
-    verified_by: client
     url: "https://app.adaptworkspace.com/admin/office_providers"
     note: "Edit a contact, tick \"Receives leads\""
 
   - text: "Admin can assign a contact to specific buildings; unassigned contacts cover all buildings"
-    verified_by: client
     url: "https://app.adaptworkspace.com/admin/office_providers"
     note: "Edit a contact, select which buildings they handle"
 
   - text: "The building edit page shows which contacts are set up to receive leads for it, including global contacts"
-    verified_by: client
     url: "https://app.adaptworkspace.com/admin/buildings"
     note: "Edit a building that has contacts configured — check the Lead Contacts panel"
