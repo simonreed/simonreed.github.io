@@ -3,7 +3,8 @@ title: "Phase 2 — Foundations"
 version: "1.0"
 date: "10 March 2026"
 client: "Liz Cale"
-status: awaiting-sign-off
+status: delivered
+verification_round: 1
 
 summary: |
   Phase 2 runs across four parallel workstreams. Three are invisible to end users —
@@ -257,17 +258,67 @@ not_in_scope:
   - "The staff dashboard — Phase 3d"
 
 sign_off_criteria:
-  - "Provider user logs in and lands on a dashboard showing their company's portfolio summary (buildings, spaces, contacts)"
-  - "Dashboard shows data for their company only — no other provider's data is visible"
-  - "A provider with no buildings sees a helpful empty state"
-  - "Navigation links are present for Dashboard, Buildings, Spaces, and Contacts"
-  - "A proposal can be created in the system with client details attached to a staff member"
-  - "Adding a building to a proposal creates a snapshot — changing the original building afterwards does not alter the proposal"
-  - "An ad-hoc space (not from the database) can be attached to a proposal"
-  - "All outbound emails (including the existing magic link email) use the ADAPT-branded layout"
-  - "Sending an email creates an entry in the communication log showing sender, recipient, type, and delivery status"
-  - "A failed email is retried automatically; the final outcome is visible in the log"
-  - "Admin can create, edit, and delete a provider contact"
-  - "Admin can flag a contact as a lead recipient"
-  - "Admin can assign a contact to specific buildings; unassigned contacts cover all buildings"
-  - "The building edit page shows which contacts are set up to receive leads for it, including global contacts"
+  - text: "Provider user logs in and lands on a dashboard showing their company's portfolio summary (buildings, spaces, contacts)"
+    verified_by: client
+    url: "https://app.adaptworkspace.com/provider"
+    note: "Log in as a provider user to see the dashboard"
+
+  - text: "Dashboard shows data for their company only — no other provider's data is visible"
+    verified_by: client
+    url: "https://app.adaptworkspace.com/provider"
+    note: "Verify no other provider's data is visible on the dashboard"
+
+  - text: "A provider with no buildings sees a helpful empty state"
+    verified_by: simon
+    note: "Requires a provider with no buildings — not easy for Liz to set up"
+
+  - text: "Navigation links are present for Dashboard, Buildings, Spaces, and Contacts"
+    verified_by: client
+    url: "https://app.adaptworkspace.com/provider"
+    note: "Check the navigation links on the dashboard"
+
+  - text: "A proposal can be created in the system with client details attached to a staff member"
+    verified_by: simon
+    note: "No UI for proposals yet (Phase 3d) — data model only"
+
+  - text: "Adding a building to a proposal creates a snapshot — changing the original building afterwards does not alter the proposal"
+    verified_by: simon
+    note: "Data model only — no UI"
+
+  - text: "An ad-hoc space (not from the database) can be attached to a proposal"
+    verified_by: simon
+    note: "Data model only — no UI"
+
+  - text: "All outbound emails (including the existing magic link email) use the ADAPT-branded layout"
+    verified_by: client
+    url: "https://app.adaptworkspace.com/users/sign_in"
+    note: "Request a magic link and check the email styling"
+
+  - text: "Sending an email creates an entry in the communication log showing sender, recipient, type, and delivery status"
+    verified_by: client
+    url: "https://app.adaptworkspace.com/admin/communication_logs"
+    note: "After sending a magic link, check the log shows the entry"
+
+  - text: "A failed email is retried automatically; the final outcome is visible in the log"
+    verified_by: simon
+    note: "Infrastructure — not client-testable"
+
+  - text: "Admin can create, edit, and delete a provider contact"
+    verified_by: client
+    url: "https://app.adaptworkspace.com/admin/office_providers"
+    note: "Pick a provider, add/edit/delete a contact"
+
+  - text: "Admin can flag a contact as a lead recipient"
+    verified_by: client
+    url: "https://app.adaptworkspace.com/admin/office_providers"
+    note: "Edit a contact, tick \"Receives leads\""
+
+  - text: "Admin can assign a contact to specific buildings; unassigned contacts cover all buildings"
+    verified_by: client
+    url: "https://app.adaptworkspace.com/admin/office_providers"
+    note: "Edit a contact, select which buildings they handle"
+
+  - text: "The building edit page shows which contacts are set up to receive leads for it, including global contacts"
+    verified_by: client
+    url: "https://app.adaptworkspace.com/admin/buildings"
+    note: "Edit a building that has contacts configured — check the Lead Contacts panel"
