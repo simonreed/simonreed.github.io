@@ -1,0 +1,377 @@
+slug: phase-3
+title: "Phase 3 — Provider Self-Service & Staff Workspace"
+version: "1.0"
+date: "13 April 2026"
+client: "Liz Cale"
+status: awaiting-signoff
+
+summary: |
+  Phase 3 turns the empty shells built in Phase 2 into the working day-to-day
+  tools that providers and staff will actually use. It runs across four parallel
+  workstreams.
+
+  3a. Provider building management — providers can browse their buildings and
+  edit marketing content: descriptions, photos, floorplans, and amenities.
+  Creating and deleting buildings stays admin-only.
+
+  3b. Provider space & availability management — full control of spaces within
+  a provider's buildings: add, edit, remove, and update availability and
+  pricing. Plus a flexible bulk import that reads each provider's own
+  spreadsheet layout — no fixed template required.
+
+  3c. Provider contact management — providers can manage their own contact
+  list without waiting for ADAPT admin. They can flag lead recipients and
+  assign contacts to specific buildings (or leave them global).
+
+  3d. Staff dashboard & proposal management — the home screen for ADAPT
+  consultants. A list of proposals with status tracking, plus create, edit,
+  archive, and duplicate. This is where consultants live day-to-day.
+
+assumptions:
+  # 3a — Provider Building Management
+  - id: A1
+    text: "Providers see a list of their own buildings — name, address, published status, and number of spaces. The list has a search box and a filter for published status. Other providers' buildings are never visible."
+
+  - id: A2
+    text: "From the list, a provider can open a building to view its full detail — spaces, amenities, photos, floorplans, and the contacts set up to receive leads for it."
+
+  - id: A3
+    text: "Providers can edit the following on a building: marketing description, amenity selections, photos (upload, remove, reorder, caption), and floorplans (upload, remove, reorder, caption). They cannot change the building's name, address, location, published status, or which provider company it belongs to — those stay admin-only."
+
+  - id: A4
+    text: "Providers cannot create or delete buildings. New buildings are set up by ADAPT admin, and if a building needs to be removed entirely the provider contacts ADAPT."
+
+  - id: A5
+    text: "Photo uploads accept PNG, JPEG, or WebP up to 10MB each. Floorplan uploads accept PNG, JPEG, WebP, or PDF up to 20MB each. Files outside these rules are rejected with a clear error message. (See Q1 on the exact limits.)"
+
+  - id: A6
+    text: "A provider attempting to open another provider's building — even by typing the URL directly — sees a \"not found\" response."
+
+  # 3b — Provider Space & Availability Management
+  - id: A7
+    text: "Within one of their buildings, a provider can add, edit, and remove spaces. Each space has: name, type (e.g. private office, hot desk), floor or placement, desk range (min and max), monthly cost, annual price, square footage, availability status, and available-from date."
+
+  - id: A8
+    text: "Availability status and pricing are the fields providers will update most often and must be editable at any time without admin approval."
+
+  - id: A9
+    text: "Providers cannot change whether a space is published on the consumer site — publishing stays admin-only. Providers cannot change the external ID either (used for imports)."
+
+  - id: A10
+    text: "Pricing cannot be negative. If a maximum desk count is set it must be at least the minimum. Leaving pricing blank is allowed — a space can be created while pricing is still being agreed."
+
+  - id: A11
+    text: "There is a cross-building availability overview showing every space across every building the provider owns. It has filters for building, availability status, and a search box."
+
+  - id: A12
+    text: "Providers can bulk-import spaces from their own spreadsheet. They upload a CSV or Excel file using whatever column layout they already keep. After upload they see a mapping screen to match their columns to our fields. The mapping is saved per provider so the next upload requires almost no effort. (See Q2 on mapping persistence scope.)"
+
+  - id: A13
+    text: "Before confirming an import, the provider sees a preview of what will be created, updated, or skipped, with any per-row errors flagged clearly. Nothing is written to the database until they confirm."
+
+  - id: A14
+    text: "Providers can download their current spaces as a spreadsheet. This gives them a starting point for their first import and a way to round-trip edits offline."
+
+  - id: A15
+    text: "The import cannot change the published flag on a space or the external_id. It also cannot create new buildings — unknown building names in the file are flagged as errors, not silently created."
+
+  # 3c — Provider Contact Management
+  - id: A16
+    text: "Providers can add, edit, and remove contacts for their own company. A contact has: first name, last name, email, mobile (optional), phone (optional), and job title (optional)."
+
+  - id: A17
+    text: "A contact can be flagged as a lead recipient. Only flagged contacts receive intro lead emails when ADAPT staff sends an intro in Phase 5. A contact flagged as a lead recipient must have an email address — the form blocks saving without one."
+
+  - id: A18
+    text: "A contact can be assigned to specific buildings within the provider's portfolio, or left unassigned. An unassigned lead-recipient contact receives leads for every building the provider owns. A contact assigned to specific buildings only receives leads for those buildings."
+
+  - id: A19
+    text: "A provider cannot see or edit another provider's contacts — URL manipulation returns \"not found\"."
+
+  - id: A20
+    text: "The existing admin contact management screens from Phase 2 continue to work unchanged. Admin can always see and edit every provider's contacts; providers can only manage their own."
+
+  # 3d — Staff Dashboard & Proposal Management
+  - id: A21
+    text: "When a staff member logs in they land on a dashboard showing all their proposals. The dashboard has quick stats at the top (draft count, sent count, viewed count), a status filter dropdown (All, Draft, Sent, Viewed, Archived), and a search box for client name or company."
+
+  - id: A22
+    text: "Each row in the proposal list shows: client name, client company, how many buildings are attached, status, last updated date, and quick actions (open, edit, archive, duplicate)."
+
+  - id: A23
+    text: "Staff can create a new proposal with client details: client name, client company, client email, client phone, requirements (desk count range, budget range, preferred locations, target move-in date), and free-text notes. These match the structured fields signed off in Phase 2."
+
+  - id: A24
+    text: "When creating a new proposal, if there is already an active (non-archived) proposal for the same client company, the form shows a non-blocking banner: \"There is already an active proposal for [Company]. Continue anyway?\" The staff member can proceed or cancel."
+
+  - id: A25
+    text: "Staff can edit the client details on an existing proposal at any time, as long as it has not been archived. Archived proposals are read-only."
+
+  - id: A26
+    text: "Staff can archive a proposal. Archiving is reversible (by un-archiving) and does not delete any data."
+
+  - id: A27
+    text: "Staff can delete a draft proposal. Proposals that have been sent to a client cannot be deleted — they can only be archived. This matches the rule signed off in Phase 2."
+
+  - id: A28
+    text: "Staff can duplicate an existing proposal. Duplicating creates a new draft with the same client details, buildings, and spaces, but a fresh status and share token. The original is unchanged."
+
+  - id: A29
+    text: "Staff only see their own proposals by default. Admins can see every staff member's proposals. There is no way for one staff member to see another staff member's proposals in Phase 3 — if that's needed later it will be added in a future phase."
+
+  - id: A30
+    text: "The proposal detail page shows: client information, the list of buildings attached (with space counts), and action buttons for Edit, Preview, Generate PDF, Send to Client, Archive, and Duplicate. Actions that depend on Phase 4 or Phase 5 (Preview, Generate PDF, Send to Client) are visible but disabled in Phase 3 with a tooltip explaining which phase enables them."
+
+  - id: A31
+    text: "If the proposal has unpublished buildings on it, the detail page shows a warning banner — so staff don't send a client a link that leads to missing data."
+
+questions:
+  - id: Q1
+    text: "We have assumed photo uploads up to 10MB each (PNG/JPEG/WebP) and floorplan uploads up to 20MB each (PNG/JPEG/WebP/PDF). These limits balance usability against storage cost. Are these the right limits, or would you prefer different ones?"
+    type: choice
+    options:
+      - "10MB photos / 20MB floorplans (our recommendation)"
+      - "Larger limits (please specify)"
+      - "Smaller limits (please specify)"
+
+  - id: Q2
+    text: "The import column mapping is saved per provider company — if two users at the same provider both upload, they share one mapping. The alternative is per-user mapping. Per-provider is simpler and matches how providers tend to work (one person responsible for availability). Do you want per-provider, or per-user?"
+    type: choice
+    options:
+      - "Per provider company (our recommendation)"
+      - "Per individual user"
+
+  - id: Q3
+    text: "On the duplicate-client warning (A24), we check for active non-archived proposals with the same client company. Should the warning scope to the same staff member only, or across all staff? Our recommendation is across all staff — it catches the case where two consultants accidentally start on the same client."
+    type: choice
+    options:
+      - "Across all staff (our recommendation)"
+      - "Same staff member only"
+
+  - id: Q4
+    text: "The proposal duplicate action (A28) copies buildings and spaces. Should it also copy the client's requirements and notes, or reset those? Our recommendation is copy everything — the staff member can clear fields they don't want."
+    type: choice
+    options:
+      - "Copy everything including requirements and notes (our recommendation)"
+      - "Copy buildings and spaces only, reset client fields"
+
+flows:
+  - id: flow-1
+    title: "Provider edits a building listing"
+    steps:
+      - "Provider lands on the dashboard"
+      - "Clicks Buildings in the nav"
+      - "Sees their buildings list"
+      - "Opens a building and clicks Edit"
+      - "Updates the marketing description, adds a photo, selects amenities"
+      - "Saves — changes are visible immediately on the building detail page"
+    errors:
+      - "File too large — upload rejected with a clear message including the limit"
+      - "Wrong file type — upload rejected with a clear message listing the allowed types"
+      - "Required field blank — inline form error, nothing saved"
+      - "Tries to open another provider's building by URL — \"not found\""
+    sequence: |
+      sequenceDiagram
+        Provider->>ProviderDashboard: Logs in
+        ProviderDashboard-->>Provider: Dashboard with nav
+        Provider->>Nav: Clicks Buildings
+        Nav->>System: GET /provider/buildings
+        System->>Database: Load buildings scoped to provider
+        System-->>Provider: Buildings list
+        Provider->>System: Opens building, clicks Edit
+        System-->>Provider: Edit form (restricted fields)
+        Provider->>System: Uploads photo, updates description, saves
+        System->>Storage: Validate content type + size
+        System->>Database: Update building record
+        System-->>Provider: Changes saved, back to detail
+
+  - id: flow-2
+    title: "Provider adds or edits a space"
+    steps:
+      - "Provider opens one of their buildings"
+      - "Clicks Add Space"
+      - "Fills in name, type, desk range, pricing, availability status"
+      - "Saves"
+      - "Space appears in the building's space list and on the cross-building overview"
+    errors:
+      - "Negative price — form error"
+      - "Maximum desks below minimum — form error"
+      - "Tries to create a space under another provider's building by URL — \"not found\""
+    sequence: |
+      sequenceDiagram
+        Provider->>System: Opens building, clicks Add Space
+        System-->>Provider: New space form
+        Provider->>System: Fills in fields, saves
+        System->>Database: Validate pricing and desk range
+        System->>Database: Create space record scoped to building
+        System-->>Provider: Space added, redirect to list
+
+  - id: flow-3
+    title: "Provider bulk-imports spaces from a spreadsheet"
+    steps:
+      - "Provider goes to the cross-building availability overview"
+      - "Clicks Import Spaces"
+      - "Uploads a CSV or Excel file in their own format"
+      - "Sees a mapping screen with their columns on the left and ADAPT fields on the right; the system suggests matches based on column names"
+      - "Adjusts the mapping if needed and continues"
+      - "Sees a preview of what will be created, updated, and skipped, with per-row errors flagged"
+      - "Clicks Confirm Import"
+      - "Spaces are created or updated in the database"
+      - "A summary screen shows how many rows succeeded and how many were skipped"
+      - "On the second import, the mapping is remembered and pre-applied"
+    errors:
+      - "File type not recognised — upload rejected before mapping"
+      - "Mapping missing a required field — cannot continue until mapped"
+      - "Row references an unknown building — row flagged as error in the preview; provider can fix the file and re-upload, or continue and skip those rows"
+      - "Row fails validation (negative price, bad desk range, etc.) — row flagged as error in the preview with the specific reason"
+    sequence: |
+      sequenceDiagram
+        Provider->>System: Uploads CSV/Excel
+        System->>Parser: Parse rows + headers
+        Parser-->>System: Raw rows
+        System->>System: Load saved mapping for provider (if any)
+        System-->>Provider: Mapping screen with suggestions
+        Provider->>System: Confirms mapping
+        System->>System: Run validation per row
+        System-->>Provider: Preview: create / update / skip / errors
+        Provider->>System: Confirms import
+        System->>Database: Create/update space records
+        System->>Database: Save mapping for next time
+        System-->>Provider: Summary screen
+
+  - id: flow-4
+    title: "Provider downloads current spaces"
+    steps:
+      - "Provider goes to the cross-building availability overview"
+      - "Clicks Export"
+      - "Receives a spreadsheet of every space in their portfolio, using ADAPT column names so it round-trips cleanly through the importer"
+    sequence: |
+      sequenceDiagram
+        Provider->>System: Clicks Export
+        System->>Database: Load all provider's spaces
+        System->>Formatter: Build CSV/Excel
+        System-->>Provider: File download
+
+  - id: flow-5
+    title: "Provider adds a contact"
+    steps:
+      - "Provider clicks Contacts in the nav"
+      - "Clicks Add Contact"
+      - "Fills in name, email, optional phone and job title"
+      - "Ticks Receives Leads"
+      - "Selects which buildings this contact handles (or leaves it empty for all buildings)"
+      - "Saves"
+      - "Contact appears in the list"
+    errors:
+      - "Receives Leads ticked but email blank — form error: \"An email address is required for contacts who receive leads.\""
+      - "Email already used for another contact in this provider — form error: \"A contact with this email already exists.\""
+    sequence: |
+      sequenceDiagram
+        Provider->>System: Clicks Add Contact
+        System-->>Provider: New contact form
+        Provider->>System: Fills in fields, ticks Receives Leads, picks buildings
+        System->>Database: Validate email presence + uniqueness
+        System->>Database: Create contact record scoped to provider
+        System->>Database: Save building assignments
+        System-->>Provider: Contact added, back to list
+
+  - id: flow-6
+    title: "Staff creates a new proposal"
+    steps:
+      - "Staff logs in and lands on the dashboard"
+      - "Clicks New Proposal"
+      - "Fills in client name, company, email, phone, requirements, notes"
+      - "Saves"
+      - "Redirected to the proposal detail page"
+      - "Proposal appears on the dashboard as Draft"
+    errors:
+      - "Client company matches an existing active proposal — non-blocking banner: \"There is already an active proposal for [Company]. Continue anyway?\" Staff can proceed or cancel."
+      - "Required field blank — inline form error, nothing saved."
+    sequence: |
+      sequenceDiagram
+        Staff->>StaffDashboard: Logs in
+        StaffDashboard-->>Staff: Dashboard with proposals
+        Staff->>System: Clicks New Proposal
+        System->>Database: Check for active proposals at same client_company
+        System-->>Staff: New proposal form (with banner if match)
+        Staff->>System: Fills in client details, saves
+        System->>Database: Create proposal scoped to staff user
+        System-->>Staff: Redirect to proposal detail (Draft)
+
+  - id: flow-7
+    title: "Staff duplicates a proposal"
+    steps:
+      - "Staff opens an existing proposal"
+      - "Clicks Duplicate"
+      - "New draft is created with the same client details, buildings, and spaces, and a fresh share token"
+      - "Staff is taken straight to the new draft for editing"
+      - "The original is unchanged"
+    sequence: |
+      sequenceDiagram
+        Staff->>System: Clicks Duplicate on proposal
+        System->>Database: Deep copy proposal + buildings + spaces
+        System->>Database: Reset status to draft, new share token
+        System-->>Staff: Redirect to new draft
+
+  - id: flow-8
+    title: "Staff archives a proposal"
+    steps:
+      - "Staff opens an existing proposal"
+      - "Clicks Archive"
+      - "Confirmation prompt: \"Archive this proposal? It will become read-only but you can un-archive later.\""
+      - "Staff confirms"
+      - "Proposal status changes to Archived; no more edits allowed; still visible on the dashboard under the Archived filter"
+    sequence: |
+      sequenceDiagram
+        Staff->>System: Clicks Archive on proposal
+        System-->>Staff: Confirmation prompt
+        Staff->>System: Confirms
+        System->>Database: Update status to archived
+        System-->>Staff: Proposal now read-only
+
+not_in_scope:
+  - "Staff selecting buildings and spaces for a proposal — Phase 4"
+  - "Generating or sending PDF reports to clients — Phase 5"
+  - "Sending intro leads to provider contacts — Phase 5"
+  - "Viewing request forms on the public proposal page — Phase 5"
+  - "Provider unsubscribe flow — Phase 5"
+  - "Providers publishing or unpublishing their own spaces"
+  - "Providers changing building name, address, location, or published status"
+  - "Live Google Sheets sync for space imports (CSV/Excel only)"
+  - "Per-user contact import mapping — mappings are saved per provider company, not per individual provider user"
+
+sign_off_criteria:
+  # 3a — Provider building management
+  - text: "Provider can browse their buildings and open one to see its detail page"
+  - text: "Provider can edit marketing description, amenities, photos, and floorplans — changes are saved and visible immediately"
+  - text: "Provider cannot edit name, address, location, or published status"
+  - text: "Provider cannot create or delete buildings"
+  - text: "File type and size limits on uploads are enforced with clear error messages"
+  - text: "Cross-provider building access returns \"not found\""
+
+  # 3b — Provider space & availability management
+  - text: "Provider can create, edit, and delete spaces within one of their buildings"
+  - text: "Provider can update availability status and pricing"
+  - text: "Provider sees a cross-building availability overview with filters"
+  - text: "Provider can upload a CSV or Excel file in their own column layout, map it to ADAPT fields, preview changes, and confirm"
+  - text: "The column mapping is remembered for the next import"
+  - text: "Provider can download their current spaces as a spreadsheet"
+  - text: "Pricing and desk range validations reject invalid values"
+
+  # 3c — Provider contact management
+  - text: "Provider can create, edit, and delete their own contacts"
+  - text: "Provider can flag a contact as a lead recipient"
+  - text: "Provider can assign a contact to specific buildings, or leave it unassigned"
+  - text: "A lead-recipient contact cannot be saved without an email address"
+  - text: "Cross-provider contact access returns \"not found\""
+
+  # 3d — Staff dashboard & proposal management
+  - text: "Staff lands on the dashboard showing their proposals with quick stats and filters"
+  - text: "Staff can create a new proposal with client details and requirements"
+  - text: "The duplicate-client warning appears when creating a proposal for a client company that already has an active proposal"
+  - text: "Staff can edit client details on an existing non-archived proposal"
+  - text: "Staff can archive a proposal — it becomes read-only"
+  - text: "Staff can duplicate a proposal — the copy is a fresh draft"
+  - text: "Staff can delete a draft proposal but not a sent one"
+  - text: "Staff only sees their own proposals; admin sees all"
+  - text: "The proposal detail page shows a warning when the proposal has any unpublished buildings attached"
