@@ -4,7 +4,7 @@ version: "1.1"
 date: "10 March 2026"
 client: "Liz Cale"
 status: delivered
-verification_round: 1
+verification_round: 2
 
 summary: |
   Phase 2 runs across four parallel workstreams. Three are invisible to end users —
