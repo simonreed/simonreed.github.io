@@ -56,11 +56,29 @@ function verifyKey(slug: string, round: number): string {
 export function initVerificationProgress(spec: Spec): VerificationProgress {
   const round = spec.verification_round ?? 1
   const { clientCriteria, simonCriteria, all } = parseSignOffCriteria(spec)
+
+  // Carry forward confirmed items from the previous round
+  let priorCriteria: Record<number, VerificationItemResponse> | null = null
+  if (round > 1) {
+    try {
+      const prevRaw = localStorage.getItem(verifyKey(spec.slug, round - 1))
+      if (prevRaw) {
+        const prev: VerificationProgress = JSON.parse(prevRaw)
+        if (prev.submitted) priorCriteria = prev.criteria
+      }
+    } catch {
+      // ignore
+    }
+  }
+
   const criteria: Record<number, VerificationItemResponse> = {}
   for (const c of all) {
-    criteria[c.index] = {
-      status: simonCriteria.some(s => s.index === c.index) ? 'confirmed' : 'unchecked',
-      comment: '',
+    if (simonCriteria.some(s => s.index === c.index)) {
+      criteria[c.index] = { status: 'confirmed', comment: '' }
+    } else if (priorCriteria?.[c.index]?.status === 'confirmed') {
+      criteria[c.index] = { status: 'confirmed', comment: priorCriteria[c.index].comment || '' }
+    } else {
+      criteria[c.index] = { status: 'unchecked', comment: '' }
     }
   }
   return {
