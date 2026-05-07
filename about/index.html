@@ -1,164 +1,128 @@
 <!DOCTYPE html>
-<!--[if IE 8 ]><html lang="en" class="no-js ie ie8"><![endif]-->
-<!--[if IE 9 ]><html lang="en" class="no-js ie ie9"><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js" ><!--<![endif]-->
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <title>Simon Reed - Freelance Ruby Developer</title>
-  <meta name="description" content="Simon Reed, Freelance Ruby developer. I'm an independent Ruby (on Rails) developer based just outside London, UK with 10 years commerical experience." />
+  <title>About — Simon Reed</title>
+  <meta name="description" content="Simon Reed, freelance Rails &amp; React developer based outside London. Independent consultant with 15 years of experience." />
 
-  <link rel="stylesheet" href="/css/normalize.css">
-  <link rel="stylesheet" href="/css/icons.css">
-  <link rel="stylesheet" href="/css/app.css">
-  <link rel="stylesheet" href="/css/gist.css">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
 
-  <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,300italic,400italic,700italic|Source+Code+Pro:600|Damion' rel='stylesheet' type='text/css'>
-
-  <!-- Twitter -->
   <meta name="twitter:card" value="summary_large_image">
   <meta name="twitter:site" value="@simonreed">
-  <meta name="twitter:title" value="Ramp up your Ruby/Rails project.">
-  <meta name="twitter:description" value="Get a freelance senior Rails developer as and when you need it. Scale up your development like you do with your Heroku project.">
+  <meta name="twitter:title" value="About — Simon Reed">
+  <meta name="twitter:description" value="Independent Rails &amp; React engineer. 15 years of experience helping startups, scale-ups, and agencies ship reliable software.">
   <meta name="twitter:image" value="http://simonreed.co/img/twitter_card.jpg">
 
-  <link rel="icon"
-      type="image/png"
-      href="/img/favicon.png">
-
-  <script src="js/html5shiv.js"></script>
-
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        fontFamily: {
+          sans: ['Inter','ui-sans-serif','system-ui','-apple-system','Segoe UI','Roboto','sans-serif'],
+          serif: ['"Source Serif 4"','"Source Serif Pro"','Georgia','Cambria','serif'],
+          mono: ['"JetBrains Mono"','ui-monospace','SFMono-Regular','Menlo','monospace'],
+        },
+        colors: {
+          ink: { 900:'#0b1220',800:'#111827',700:'#1f2937',500:'#4b5563',400:'#6b7280',300:'#9ca3af',200:'#e5e7eb',100:'#f3f4f6' },
+          accent: { 500:'#0d8a8a',600:'#0a6f6f',50:'#e6f5f5' }
+        }
+      }}
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css">
 </head>
-<body>
+<body class="bg-white text-ink-800 antialiased">
 
-  <header>
-
-        <nav>
-
-      <ul id="nav">
-        <li class="">
-          <a href="/">Home</a>
-        </li>
-        <li class="active">
-          <a href="/about">About</a>
-        </li>
-        <li class="">
-          <a href="/">What I do<i class="icon-down-open"></i></a>
-          <ul>
-            <li>
-              <a href="/scale-up">Add a senior developer to your team quickly</a>
-            </li>
-            <li>
-              <a href="/inherited">Inherited a Rails project?</a>
-            </li>
-          </ul>
-        </li>
-        <li class="">
-          <a href="/contact">Contact</a>
-        </li>
-        <li class="page">
-          <a href="#top"><img src="/img/nav.png"></a>
-        </li>
+  <header class="border-b border-ink-200/70 bg-white/70 backdrop-blur sticky top-0 z-30">
+    <nav class="max-w-5xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="/" class="font-semibold tracking-tight text-ink-900 text-lg">Simon Reed</a>
+      <ul class="hidden md:flex items-center gap-7">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/about" class="nav-link active">About</a></li>
+        <li><a href="/scale-up" class="nav-link">Scale up</a></li>
+        <li><a href="/inherited" class="nav-link">Inherited</a></li>
+        <li><a href="/contact" class="nav-link">Contact</a></li>
       </ul>
-
-      <a href="#nav" class="nav"><img src="/img/nav.png"></a>
-
-      <span>
-        <a href="/"><span>Simon Reed</span></a>
-      </span>
-
+      <a href="/contact" class="md:hidden text-sm font-medium text-accent-600">Contact</a>
     </nav>
-
-
   </header>
 
-    <section class="title">
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-accent-50/60 via-white to-white pointer-events-none"></div>
+    <div class="absolute -top-32 -right-24 w-[36rem] h-[36rem] bg-accent-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-    <article>
-
-      <h1>Do you want a developer to be an expense or an investment?</h1>
-
-      <span class="image"><img src="/img/about.png" width="300" height="300"></span>
-
-    </article>
-
+    <div class="relative max-w-3xl mx-auto px-6 lg:px-8 pt-20 pb-12 lg:pt-28 lg:pb-16">
+      <span class="pill">About</span>
+      <h1 class="font-sans font-extrabold tracking-tight text-ink-900 text-4xl sm:text-5xl lg:text-6xl leading-[1.05] mt-6">
+        Do you want a developer to be an expense, or an investment?
+      </h1>
+      <p class="mt-7 text-xl text-ink-500 leading-snug font-serif italic max-w-2xl">
+        I'm an independent Rails &amp; React consultant based just outside London — with over 15 years of experience helping clients turn code into business outcomes.
+      </p>
+    </div>
   </section>
 
-  <section class="post">
-
-    <article class="content">
-
-      <p>I'm an independent Rails and React consultant based just outside London, UK with over 15  years experience.</p>
-
-      <p>I help people make great product that make my clients more money and their businesses run more efficiently.</p>
-
-      <p>I've worked on a wide range of projects, small and large. My clients include bootstrap startups, VC backed startups through to creative agencies.</p>
+  <article class="max-w-3xl mx-auto px-6 lg:px-8 pb-20">
+    <div class="prose-article">
+      <p>I help people make great products that earn my clients more money and run their businesses more efficiently.</p>
+      <p>I've worked on a wide range of projects — small and large. My clients include bootstrap startups, VC-backed startups, and creative agencies.</p>
 
       <h2>Experience when you need it</h2>
+      <p>While I have a wealth of experience developing complex systems in Ruby, you don't need to be tied down to a lengthy and costly contract or permanent employment. My clients enjoy a level of flexibility that means I can scale my involvement up and down to suit their needs. Have a sudden deadline? Let me know — and once your workload is back to normal, I'll go back into hiatus, ready for you when you need me next.</p>
 
-      <p>While I have a wealth of experience developing complex systems in Ruby, you don't need to be tied down to a lengthy and costly contract or permanent employment. My clients enjoy a level of flexibility which means I can scale up and down my involvement to suit their needs. Have a sudden deadline then let me know and once your workload goes back to normal I'll go back into hiatus ready for you when you need me next.</p>
+      <h2>An investment, not an expense</h2>
+      <p>Most developers have it the wrong way round — they focus on writing code, not on building your business.</p>
+      <p>Code and features are great, but if that code doesn't directly translate into growing your business, it doesn't matter. My primary focus is on improving your balance sheet.</p>
+      <p>When you hire me, you're not just hiring another set of hands — you're hiring someone to guide you throughout your project from inception to completion. I can help you break your idea down into functional requirements, prioritise them, and get from idea to working prototype as quickly as possible within your budget.</p>
 
-      <h2>You don't want another developer expense you need an investment.</h2>
-
-      <p>Most developers have it wrong! They FOCUS ON JUST WRITING CODE, NOT ON BUILDING YOUR BUSINESS.</p>
-
-      <p>Code and features are great, but if that code doesn’t directly translate into growing your business, it doesn’t matter. My primary focus is how we can improve your balance sheet.</p>
-
-      <p>When you hire me to work on your project, you're not just hiring another code monkey - you're hiring somebody to guide you throughout your project from inception to completion.</p>
-
-      <p>I can help your break down your idea into functional requirements and help you prioritise those requirements in order to get from idea to a working prototype as quickly as possible within your budget.</p>
-
-      <h2>Do you have an existing project that needs help meeting it's business objectives?</h2>
-
-      <p>I often have clients approach me needing help on an existing project that isn't going to plan. Whether it's a startup founder who is having trouble with their codebase as their team grows or a business owner who is spending most of the day within their site admin section. I can review your existing project and advise you what steps are required to get it back on track and working for you, rather than the other way around.</p>
-
-      <p>I make people more money. I don't care about writing code for the sake of it, all I care about is how much I can make you. I’ll analyze your business, find the areas that need to be improved and come up with a game plan to boost your business.</p>
+      <h2>Got an existing project that's drifted off course?</h2>
+      <p>I often have clients approach me needing help on an existing project that isn't going to plan. Whether it's a startup founder having trouble with their codebase as their team grows, or a business owner who's spending most of the day inside their own admin section — I can review your existing project and tell you what steps are required to get it back on track.</p>
+      <p>I make people more money. I don't care about writing code for the sake of it; I care about how much I can make you. I'll analyse your business, find the areas that need improvement, and come up with a game plan to boost it.</p>
 
       <h2>In this for the long haul</h2>
+      <p>One of the biggest issues people find when working with consultants is that they flake or quit to join another company full-time. Not with me.</p>
+      <p>I'm not running a side business until a full-time job comes my way. I want to build strong, long-term relationships with great people. You can rest easy knowing I'll always be around.</p>
+    </div>
+  </article>
 
-      <p>One of the biggest issues people find when working with consultants is that they can flake or they quit to join another company full-time. Not with me.</p>
-
-      <p>I’m not just running a side business until a full-time job comes my way. I want to build strong, long-term relationships with great people.  You can rest easy knowing I’ll always be around.</p>
-
-    </article>
-
-    <article class="promo">
-
-      
-
-      
-
+  <section class="bg-ink-900 text-white">
+    <div class="max-w-3xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-8 sm:gap-10">
+        <img src="/img/avatar.jpg" alt="Simon Reed" class="w-20 h-20 rounded-full ring-1 ring-white/20">
+        <div class="flex-1">
+          <h3 class="text-2xl font-bold tracking-tight">Want to work together?</h3>
+          <p class="mt-3 text-ink-300 leading-relaxed">I take on a small number of clients at a time. Tell me what you're working on and we'll figure out whether I'm a fit.</p>
+          <a href="/contact" class="inline-flex items-center gap-2 mt-6 px-5 py-3 rounded-lg bg-white text-ink-900 font-semibold hover:bg-accent-50 transition">
+            Get in touch
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
   </section>
 
-
-
-  
-
-    <footer>
-
-    <ul>
-      <li class="copyright">© Simon Reed Development Limited, registered in England and Wales (08307653).<br/>
-Registered address: Unit 11 Hove Business Centre, Fonthill Road, Hove, East Sussex, BN3 6HA</li>
-      <li><a href="http://github.com/simonreed" target="_blank"><i class="icon-github"></i></a></li>
-    </ul>
-
+  <footer class="border-t border-ink-200 bg-white">
+    <div class="max-w-5xl mx-auto px-6 lg:px-8 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 text-sm text-ink-400">
+      <p class="leading-relaxed max-w-xl">© Simon Reed Development Limited, registered in England and Wales (08307653).<br>Unit 11 Hove Business Centre, Fonthill Road, Hove, East Sussex, BN3 6HA</p>
+      <a href="http://github.com/simonreed" target="_blank" rel="noopener" class="text-ink-500 hover:text-accent-600 transition" aria-label="GitHub">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.24 3.35.95.1-.74.4-1.24.72-1.52-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.15 1.18a10.96 10.96 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.57.23 2.73.11 3.02.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56C20.22 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>
+      </a>
+    </div>
   </footer>
 
-
-  <script src="js/placeholders.min.js"></script> <!-- Must be at bottom -->
-
-    <script>
+  <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
     ga('create', 'UA-58806141-1', 'auto');
     ga('send', 'pageview');
-
   </script>
-
 </body>
 </html>

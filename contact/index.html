@@ -1,153 +1,119 @@
 <!DOCTYPE html>
-<!--[if IE 8 ]><html lang="en" class="no-js ie ie8"><![endif]-->
-<!--[if IE 9 ]><html lang="en" class="no-js ie ie9"><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js" ><!--<![endif]-->
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <title>Simon Reed - Freelance Ruby Developer</title>
-  <meta name="description" content="Simon Reed, Freelance Ruby developer. I'm an independent Ruby (on Rails) developer based just outside London, UK with 10 years commerical experience." />
+  <title>Contact — Simon Reed</title>
+  <meta name="description" content="Get in touch with Simon Reed for a confidential discussion about your Rails or React project." />
 
-  <link rel="stylesheet" href="/css/normalize.css">
-  <link rel="stylesheet" href="/css/icons.css">
-  <link rel="stylesheet" href="/css/app.css">
-  <link rel="stylesheet" href="/css/gist.css">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
 
-  <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,300italic,400italic,700italic|Source+Code+Pro:600|Damion' rel='stylesheet' type='text/css'>
-
-  <!-- Twitter -->
   <meta name="twitter:card" value="summary_large_image">
   <meta name="twitter:site" value="@simonreed">
-  <meta name="twitter:title" value="Ramp up your Ruby/Rails project.">
-  <meta name="twitter:description" value="Get a freelance senior Rails developer as and when you need it. Scale up your development like you do with your Heroku project.">
+  <meta name="twitter:title" value="Contact — Simon Reed">
+  <meta name="twitter:description" value="Get in touch with Simon Reed for a confidential discussion about your Rails or React project.">
   <meta name="twitter:image" value="http://simonreed.co/img/twitter_card.jpg">
 
-  <link rel="icon"
-      type="image/png"
-      href="/img/favicon.png">
-
-  <script src="js/html5shiv.js"></script>
-
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        fontFamily: {
+          sans: ['Inter','ui-sans-serif','system-ui','-apple-system','Segoe UI','Roboto','sans-serif'],
+          serif: ['"Source Serif 4"','"Source Serif Pro"','Georgia','Cambria','serif'],
+          mono: ['"JetBrains Mono"','ui-monospace','SFMono-Regular','Menlo','monospace'],
+        },
+        colors: {
+          ink: { 900:'#0b1220',800:'#111827',700:'#1f2937',500:'#4b5563',400:'#6b7280',300:'#9ca3af',200:'#e5e7eb',100:'#f3f4f6' },
+          accent: { 500:'#0d8a8a',600:'#0a6f6f',50:'#e6f5f5' }
+        }
+      }}
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/site.css">
 </head>
-<body>
+<body class="bg-white text-ink-800 antialiased">
 
-  <header>
-
-        <nav>
-
-      <ul id="nav">
-        <li class="">
-          <a href="/">Home</a>
-        </li>
-        <li class="">
-          <a href="/about">About</a>
-        </li>
-        <li class="">
-          <a href="/">What I do<i class="icon-down-open"></i></a>
-          <ul>
-            <li>
-              <a href="/scale-up">Add a senior developer to your team quickly</a>
-            </li>
-            <li>
-              <a href="/inherited">Inherited a Rails project?</a>
-            </li>
-          </ul>
-        </li>
-        <li class="active">
-          <a href="/contact">Contact</a>
-        </li>
-        <li class="page">
-          <a href="#top"><img src="/img/nav.png"></a>
-        </li>
+  <header class="border-b border-ink-200/70 bg-white/70 backdrop-blur sticky top-0 z-30">
+    <nav class="max-w-5xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="/" class="font-semibold tracking-tight text-ink-900 text-lg">Simon Reed</a>
+      <ul class="hidden md:flex items-center gap-7">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/about" class="nav-link">About</a></li>
+        <li><a href="/scale-up" class="nav-link">Scale up</a></li>
+        <li><a href="/inherited" class="nav-link">Inherited</a></li>
+        <li><a href="/contact" class="nav-link active">Contact</a></li>
       </ul>
-
-      <a href="#nav" class="nav"><img src="/img/nav.png"></a>
-
-      <span>
-        <a href="/"><span>Simon Reed</span></a>
-      </span>
-
+      <a href="/contact" class="md:hidden text-sm font-medium text-accent-600">Contact</a>
     </nav>
-
-
   </header>
 
-    <section class="title">
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-b from-accent-50/60 via-white to-white pointer-events-none"></div>
+    <div class="absolute -top-32 -right-24 w-[36rem] h-[36rem] bg-accent-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -top-20 -left-32 w-[28rem] h-[28rem] bg-emerald-200/30 rounded-full blur-3xl pointer-events-none"></div>
 
-    <article>
+    <div class="relative max-w-3xl mx-auto px-6 lg:px-8 pt-20 pb-16 lg:pt-28 lg:pb-24 text-center">
+      <span class="pill mx-auto">Let's talk</span>
+      <h1 class="font-sans font-extrabold tracking-tight text-ink-900 text-4xl sm:text-5xl lg:text-6xl leading-[1.05] mt-6">
+        Get in touch.
+      </h1>
+      <p class="mt-6 text-lg sm:text-xl text-ink-500 leading-relaxed max-w-xl mx-auto">
+        I help people make great web applications that earn my clients more money and run their businesses more efficiently. If you're starting a new project, or you have an existing project that isn't meeting its objectives, send me a line for a confidential discussion.
+      </p>
 
-      <h1>Get in Touch</h1>
+      <div class="mt-10 inline-flex items-center gap-3 rounded-2xl border border-ink-200 bg-white shadow-sm px-6 py-4">
+        <div class="w-10 h-10 rounded-lg bg-accent-50 text-accent-600 flex items-center justify-center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <a href="mailto:hello@simonreed.co" class="text-lg sm:text-xl font-semibold text-ink-900 hover:text-accent-600 transition">hello@simonreed.co</a>
+      </div>
 
-      <span class="image"><img src="/img/contact.png" width="300" height="300"></span>
-
-    </article>
-
+      <p class="mt-6 text-sm text-ink-400">I read and reply to every email personally.</p>
+    </div>
   </section>
 
-  <section class="post">
-
-    <article class="content">
-
-      <p>I help people make great web applications that make my clients more money and their businesses run more efficiently. If you're looking to start a new project or have an existing project that isn't meeting its objectives then contact me for a confidential discussion.</p>
-
-<!--       <form method="post" action=".">
-
-        <ul>
-          <li class="input">
-            <label>First Name</label>
-            <input type="text" required="required">
-          </li>
-          <li class="input">
-            <label>Email Address</label>
-            <input type="email" required="required">
-          </li>
-          <li class="input">
-            <label>Website URL</label>
-            <input type="text" required="required">
-          </li>
-          <li class="button">
-            <button>Reserve your Discussion</button>
-
-            <span>Hurry! Only 1 spot is available</span>
-          </li>
-        </ul>
-
-      </form> -->
-
-      <p>You can email me directly at <a href="mailto:hello@simonreed.co">hello@simonreed.co</a></p>
-
-    </article>
-
+  <section class="max-w-5xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
+    <div class="grid md:grid-cols-3 gap-6">
+      <a href="/about" class="rounded-2xl border border-ink-200 p-6 hover:border-accent-500/50 transition group block">
+        <div class="text-xs font-mono uppercase tracking-widest text-ink-400">About</div>
+        <h3 class="mt-2 text-lg font-semibold text-ink-900 group-hover:text-accent-600 transition">Who I am</h3>
+        <p class="mt-2 text-sm text-ink-500 leading-relaxed">Background, philosophy, and how I work with clients.</p>
+      </a>
+      <a href="/scale-up" class="rounded-2xl border border-ink-200 p-6 hover:border-accent-500/50 transition group block">
+        <div class="text-xs font-mono uppercase tracking-widest text-ink-400">Scale up</div>
+        <h3 class="mt-2 text-lg font-semibold text-ink-900 group-hover:text-accent-600 transition">Add a senior dev fast</h3>
+        <p class="mt-2 text-sm text-ink-500 leading-relaxed">Flexible capacity for teams that need to ship now.</p>
+      </a>
+      <a href="/inherited" class="rounded-2xl border border-ink-200 p-6 hover:border-accent-500/50 transition group block">
+        <div class="text-xs font-mono uppercase tracking-widest text-ink-400">Inherited</div>
+        <h3 class="mt-2 text-lg font-semibold text-ink-900 group-hover:text-accent-600 transition">Just inherited Rails?</h3>
+        <p class="mt-2 text-sm text-ink-500 leading-relaxed">For agencies that took on a Rails client without Rails staff.</p>
+      </a>
+    </div>
   </section>
 
-
-  
-
-    <footer>
-
-    <ul>
-      <li class="copyright">© Simon Reed Development Limited, registered in England and Wales (08307653).<br/>
-Registered address: Unit 11 Hove Business Centre, Fonthill Road, Hove, East Sussex, BN3 6HA</li>
-      <li><a href="http://github.com/simonreed" target="_blank"><i class="icon-github"></i></a></li>
-    </ul>
-
+  <footer class="border-t border-ink-200 bg-white">
+    <div class="max-w-5xl mx-auto px-6 lg:px-8 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 text-sm text-ink-400">
+      <p class="leading-relaxed max-w-xl">© Simon Reed Development Limited, registered in England and Wales (08307653).<br>Unit 11 Hove Business Centre, Fonthill Road, Hove, East Sussex, BN3 6HA</p>
+      <a href="http://github.com/simonreed" target="_blank" rel="noopener" class="text-ink-500 hover:text-accent-600 transition" aria-label="GitHub">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.24 3.35.95.1-.74.4-1.24.72-1.52-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.15 1.18a10.96 10.96 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.57.23 2.73.11 3.02.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56C20.22 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>
+      </a>
+    </div>
   </footer>
 
-
-  <script src="js/placeholders.min.js"></script> <!-- Must be at bottom -->
-
-    <script>
+  <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
     ga('create', 'UA-58806141-1', 'auto');
     ga('send', 'pageview');
-
   </script>
-
 </body>
 </html>
