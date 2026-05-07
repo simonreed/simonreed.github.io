@@ -5,8 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <title>Verifiable Cooperation — Simon Reed</title>
-  <meta name="description" content="Why the next era of software integration isn't about agents, aggregators, or APIs — it's about systems that can prove they agree." />
+  <title>Verifiable Cooperation · Simon Reed</title>
+  <meta name="description" content="Why the next era of software integration isn't about agents, aggregators, or APIs. It's about systems that can prove they agree." />
 
   <link rel="icon" type="image/png" href="/img/favicon.png">
 
@@ -14,7 +14,7 @@
   <meta name="twitter:card" value="summary_large_image">
   <meta name="twitter:site" value="@simonreed">
   <meta name="twitter:title" value="Verifiable Cooperation">
-  <meta name="twitter:description" value="Why the next era of software integration isn't about agents, aggregators, or APIs — it's about systems that can prove they agree.">
+  <meta name="twitter:description" value="Why the next era of software integration isn't about agents, aggregators, or APIs. It's about systems that can prove they agree.">
   <meta name="twitter:image" value="http://simonreed.co/img/twitter_card.jpg">
 
   <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
@@ -85,7 +85,7 @@
         Verifiable<br class="hidden sm:block"> Cooperation
       </h1>
       <p class="mt-7 text-xl sm:text-2xl text-ink-500 leading-snug font-serif italic max-w-2xl">
-        Why the next era of software integration isn't about agents, aggregators, or APIs — it's about systems that can prove they agree.
+        Why the next era of software integration isn't about agents, aggregators, or APIs. It's about systems that can prove they agree.
       </p>
       <div class="mt-10 flex items-center gap-3 text-sm text-ink-400">
         <img src="/img/avatar.jpg" alt="Simon Reed" class="w-9 h-9 rounded-full ring-1 ring-ink-200">
@@ -109,7 +109,7 @@
 
       <p>This worked, more or less, when integrations were rare and partners were few. It stopped working roughly the moment every business needed every system to talk to every other system, and it has been failing slowly and expensively ever since.</p>
 
-      <p>The integration aggregators — Zapier, Workato, Tray — are the symptom, not the solution. They exist because the underlying problem was too painful to leave alone, and the only available technology was to put a third party in the middle who would maintain the glue on everyone's behalf. They're a workaround that became infrastructure.</p>
+      <p>The integration aggregators (Zapier, Workato, Tray) are the symptom, not the solution. They exist because the underlying problem was too painful to leave alone, and the only available technology was to put a third party in the middle who would maintain the glue on everyone's behalf. They're a workaround that became infrastructure.</p>
 
       <p>Three things are now changing simultaneously, and together they end the era of glue and handshakes.</p>
 
@@ -119,9 +119,9 @@
 
       <p><strong>Protocols are becoming bi-directional.</strong> Most integrations today are fire-and-forget. System A sends an event to System B and hopes B handles it correctly. A has no way to verify B's state, no way to detect drift, no way to reconcile. The integration is a broadcast, not a conversation.</p>
 
-      <p>The bi-directional alternative has existed in narrow domains for years — Apple Wallet's web service protocol, payment 3DS callbacks, identity SCIM reconciliation, IoT device protocols. In each case, both sides maintain views of shared state and the protocol allows them to be cross-verified. Divergence is detectable. Integrity is a property of the system, not a hope.</p>
+      <p>The bi-directional alternative has existed in narrow domains for years: Apple Wallet's web service protocol, payment 3DS callbacks, identity SCIM reconciliation, IoT device protocols. In each case, both sides maintain views of shared state and the protocol allows them to be cross-verified. Divergence is detectable. Integrity is a property of the system, not a hope.</p>
 
-      <p>What's new is that this pattern is becoming a generic primitive rather than a per-domain implementation. Emerging standards — MCP today, likely others tomorrow — give any vendor the ability to expose bi-directional RPC over a common substrate. The protocol of the moment matters less than the direction: the asymmetric cost that previously pushed everyone toward webhooks is collapsing, and it isn't coming back.</p>
+      <p>What's new is that this pattern is becoming a generic primitive rather than a per-domain implementation. Emerging standards (MCP today, likely others tomorrow) give any vendor the ability to expose bi-directional RPC over a common substrate. The protocol of the moment matters less than the direction: the asymmetric cost that previously pushed everyone toward webhooks is collapsing, and it isn't coming back.</p>
 
       <p><strong>Agents are the natural consumers of this architecture.</strong> Humans resisted bi-directional protocols because they were harder to implement than receiving a webhook. Agents don't care; the cognitive cost of "implement four endpoints to a spec" is the same as "register a webhook." Agents are also natural at the other thing bi-directional architectures need: declaring scope. Human developers rarely write down precisely what their integration will and won't do. Agents do, as a matter of routine, because that's how agents communicate intent to the systems they operate against.</p>
 
@@ -131,7 +131,7 @@
 
       <p>Verifiable cooperation is the property that two software systems can prove to each other, continuously, that they agree on shared state and that each is operating within its declared envelope. It's stronger than integration (which is just connection). It's stronger than synchronisation (which is just data flow). It's a guarantee about <em>behaviour</em>, enforced by the protocol, observable by both sides.</p>
 
-      <p>The concrete shape this property takes in software is what I'll call a <strong>VPI — a Verifiable Partnership Interface</strong>. The acronym is deliberate: it sits next to <em>API</em> as a category, not a replacement. An API exposes capabilities. A VPI exposes capabilities <em>and</em> the proofs that govern their use:</p>
+      <p>The concrete shape this property takes in software is what I'll call a <strong>VPI, a Verifiable Partnership Interface</strong>. The acronym is deliberate: it sits next to <em>API</em> as a category, not a replacement. An API exposes capabilities. A VPI exposes capabilities <em>and</em> the proofs that govern their use:</p>
 
       <div class="callout-rule my-8 not-prose">
         <ul class="space-y-3 m-0 p-0 list-none">
@@ -150,17 +150,17 @@
         </ul>
       </div>
 
-      <p>VPI is the object you ship. Verifiable cooperation is the property it produces when two of them cooperate. Keeping them distinct matters — the property survives if the implementation substrate changes, but the implementation is what platforms actually build and customers actually adopt.</p>
+      <p>VPI is the object you ship. Verifiable cooperation is the property it produces when two of them cooperate. Keeping them distinct matters: the property survives if the implementation substrate changes, but the implementation is what platforms actually build and customers actually adopt.</p>
 
       <p>Several things follow once you have it.</p>
 
       <p><strong>The integration as an artefact disappears.</strong> There's no piece of glue to maintain. The agent assembles cooperation between systems on demand, governed by each system's exposed contract, reconciled continuously by the bi-directional protocol. What used to be a project becomes a runtime property.</p>
 
-      <p><strong>Trust shifts from identity to behaviour.</strong> The partner programme — vetting companies, reviewing security postures, issuing keys, hoping for the best — was always a substitute for being able to verify partner behaviour directly. When behaviour is verifiable, the apparatus becomes vestigial. Approval stops being "we vetted this company" and becomes "we can prove at any moment that this integration is operating within its declared envelope." Permission becomes capability.</p>
+      <p><strong>Trust shifts from identity to behaviour.</strong> The partner programme (vetting companies, reviewing security postures, issuing keys, hoping for the best) was always a substitute for being able to verify partner behaviour directly. When behaviour is verifiable, the apparatus becomes vestigial. Approval stops being "we vetted this company" and becomes "we can prove at any moment that this integration is operating within its declared envelope." Permission becomes capability.</p>
 
-      <p><strong>The aggregator becomes infrastructure, not a product.</strong> The thing Zapier sells — a long tail of integrations, maintained on your behalf — splits in two. The maintenance becomes unnecessary because agents handle it. The runtime substrate that handled auth, retries, observability, and trust becomes a commodity layer that anyone can run. The directory of pre-built integrations stops being a moat and the operational substrate that makes any integration cheap and trustworthy becomes the thing that matters.</p>
+      <p><strong>The aggregator becomes infrastructure, not a product.</strong> The thing Zapier sells, a long tail of integrations maintained on your behalf, splits in two. The maintenance becomes unnecessary because agents handle it. The runtime substrate that handled auth, retries, observability, and trust becomes a commodity layer that anyone can run. The directory of pre-built integrations stops being a moat and the operational substrate that makes any integration cheap and trustworthy becomes the thing that matters.</p>
 
-      <p><strong>Compliance and liability become provable.</strong> "Did the access control system correctly revoke this person's access at the moment their membership expired?" Today: hope, audit trails, finger-pointing if something goes wrong. Under verifiable cooperation: a continuous proof that the membership system's view of state and the access control system's view of state are aligned, with the discrepancy detectable in real time and the responsible party identifiable from the protocol itself. This is the property regulators, insurers, and enterprise buyers actually want — they just haven't had vocabulary for it.</p>
+      <p><strong>Compliance and liability become provable.</strong> "Did the access control system correctly revoke this person's access at the moment their membership expired?" Today: hope, audit trails, finger-pointing if something goes wrong. Under verifiable cooperation: a continuous proof that the membership system's view of state and the access control system's view of state are aligned, with the discrepancy detectable in real time and the responsible party identifiable from the protocol itself. This is the property regulators, insurers, and enterprise buyers actually want. They just haven't had vocabulary for it.</p>
 
       <p><strong>Partner ecosystems become permissionless.</strong> When approval can be automated against verifiable behaviour, the cost of admitting a partner drops to near zero. Platforms can host thousands of agent-mediated integrations rather than hundreds of human-mediated ones. The long tail becomes economically viable. The partner programme becomes a runtime, not an organisation.</p>
 
@@ -174,23 +174,23 @@
 
       <p><strong>The REST API has to be properly designed.</strong> Consistent resource modelling, correct status codes, idempotency on writes, ISO 8601 timestamps, prefixed identifiers, list envelopes with proper pagination, ETags, conditional requests. Without this floor, agents can't reason about your surface, SDKs become a tower of special cases, and bi-directional state verification is impossible because there's no consistent state to verify against.</p>
 
-      <p><strong>Authentication has to be <code>authorization_code</code> with PKCE creating authorised service users</strong>, not <code>client_credentials</code> issuing opaque service accounts with godlike privileges. The distinction looks like a technicality. It's the most consequential decision a platform makes. <code>authorization_code</code> creates real principals with consent, scopes, and granular revocation — the substrate capability-based security needs. <code>client_credentials</code> is an API key with extra steps, and a platform built on it cannot graduate to verifiable cooperation without re-architecture.</p>
+      <p><strong>Authentication has to be <code>authorization_code</code> with PKCE creating authorised service users</strong>, not <code>client_credentials</code> issuing opaque service accounts with godlike privileges. The distinction looks like a technicality. It's the most consequential decision a platform makes. <code>authorization_code</code> creates real principals with consent, scopes, and granular revocation: the substrate capability-based security needs. <code>client_credentials</code> is an API key with extra steps, and a platform built on it cannot graduate to verifiable cooperation without re-architecture.</p>
 
       <p><strong>The developer platform has to model third-party applications as first-class objects</strong>, with proper separation of vendor / customer / developer / end-user as distinct roles in the trust model. Without this, "partner ecosystem" is a manual ticket queue. With it, partner ecosystem is a primitive other things compose on top of.</p>
 
-      <p><strong>Backend SDKs have to be production-quality in multiple languages</strong>, with runnable sample projects that work in three minutes. The bi-directional RPC primitives have to be in the SDK, not a thing the developer assembles from raw protocol — encapsulated certificate handling, webhook verification, idempotency, retry. This is where the verifiable cooperation narrative becomes real, and it's where most platforms cheap out by shipping a half-finished TypeScript SDK and pointing Python and Go developers at the OpenAPI spec.</p>
+      <p><strong>Backend SDKs have to be production-quality in multiple languages</strong>, with runnable sample projects that work in three minutes. The bi-directional RPC primitives have to be in the SDK, not a thing the developer assembles from raw protocol: encapsulated certificate handling, webhook verification, idempotency, retry. This is where the verifiable cooperation narrative becomes real, and it's where most platforms cheap out by shipping a half-finished TypeScript SDK and pointing Python and Go developers at the OpenAPI spec.</p>
 
-      <p><strong>Frontend composable components have to exist for the user-facing flows.</strong> Drop-in UI that handles enrolment, consent, and configuration moments — styleable enough to fit the host application, inheriting the platform's security guarantees automatically. This matters <em>more</em> under agent-mediated integration, not less, because the agent regularly needs to hand the user back into a sanctioned UI for consent.</p>
+      <p><strong>Frontend composable components have to exist for the user-facing flows.</strong> Drop-in UI that handles enrolment, consent, and configuration moments, styleable enough to fit the host application, inheriting the platform's security guarantees automatically. This matters <em>more</em> under agent-mediated integration, not less, because the agent regularly needs to hand the user back into a sanctioned UI for consent.</p>
 
       <p><strong>OpenAPI specifications have to be the source of truth</strong>, not an afterthought generated from running code. The spec is the artefact from which SDKs are generated, agents introspect, sandboxes simulate, and contract tests run. A platform whose spec drifts from reality leaks inconsistency into every layer above it. Linting is how this stays honest at scale.</p>
 
       <p><strong>Sandboxes have to be real environments</strong>, not "test mode" toggles. Realistic data, time controls so renewal and expiry flows can be tested deterministically, inspectable webhook delivery, scriptable edge cases. Agents fail safely in sandboxes; the alternative is agents failing expensively in production.</p>
 
-      <p>Stack all of that — REST done right, OAuth with PKCE, developer platform with third-party apps, multi-language SDKs with samples, embeddable components, OpenAPI as source of truth, real sandboxes — and <em>then</em> agents as first-class citizens becomes a credible claim rather than a marketing slide. The SDK can expose bi-directional RPC because the foundation supports it. The agent can declare scope because OAuth understands scope as a concept. The platform can govern continuously because the developer platform models applications as first-class objects. The state can be verified because the API is consistent enough to verify against.</p>
+      <p>Stack all of that (REST done right, OAuth with PKCE, developer platform with third-party apps, multi-language SDKs with samples, embeddable components, OpenAPI as source of truth, real sandboxes) and <em>then</em> agents as first-class citizens becomes a credible claim rather than a marketing slide. The SDK can expose bi-directional RPC because the foundation supports it. The agent can declare scope because OAuth understands scope as a concept. The platform can govern continuously because the developer platform models applications as first-class objects. The state can be verified because the API is consistent enough to verify against.</p>
 
       <p>Every piece of the verifiable cooperation narrative <em>requires</em> the foundation underneath. It cannot be sprinted past, and it cannot be retrofitted in a quarter.</p>
 
-      <p>The list above is, in effect, the build manifest for a VPI. Each foundation maps to one of the three components: the API, OpenAPI, and SDKs are the <strong>Interface</strong>; OAuth with PKCE and the developer platform are the <strong>Partnership</strong> primitives; idempotency, sandboxes, and bi-directional state checking are what make the result <strong>Verifiable</strong>. A platform that has the manifest has a VPI. A platform that doesn't, doesn't — regardless of how many MCP servers or AI features it has bolted on top.</p>
+      <p>The list above is, in effect, the build manifest for a VPI. Each foundation maps to one of the three components: the API, OpenAPI, and SDKs are the <strong>Interface</strong>; OAuth with PKCE and the developer platform are the <strong>Partnership</strong> primitives; idempotency, sandboxes, and bi-directional state checking are what make the result <strong>Verifiable</strong>. A platform that has the manifest has a VPI. A platform that doesn't, doesn't, regardless of how many MCP servers or AI features it has bolted on top.</p>
 
       <h2>Why this is the commercial reality, not just a technical preference</h2>
 
@@ -216,9 +216,9 @@
         </div>
       </div>
 
-      <p>The thing platforms actually ship to produce that property is a <strong>VPI — a Verifiable Partnership Interface</strong>. It sits next to the API in the platform's surface area, not as a replacement but as the next layer of seriousness: capabilities plus the proofs that govern their use.</p>
+      <p>The thing platforms actually ship to produce that property is a <strong>VPI, a Verifiable Partnership Interface</strong>. It sits next to the API in the platform's surface area, not as a replacement but as the next layer of seriousness: capabilities plus the proofs that govern their use.</p>
 
-      <p>This isn't a feature anyone adds. It's the consequence of doing the foundations right. Platforms that have done the boring work — proper REST, proper OAuth, proper developer platform, proper SDKs, proper OpenAPI, proper sandboxes — already have most of a VPI whether they call it that or not. Platforms that haven't, don't, and can't ship one until they go back and do the work.</p>
+      <p>This isn't a feature anyone adds. It's the consequence of doing the foundations right. Platforms that have done the boring work (proper REST, proper OAuth, proper developer platform, proper SDKs, proper OpenAPI, proper sandboxes) already have most of a VPI whether they call it that or not. Platforms that haven't, don't, and can't ship one until they go back and do the work.</p>
 
       <p>The window in which this is a competitive insight rather than table stakes is probably eighteen to twenty-four months. After that, every serious platform's developer story will be shaped this way, and the language will be assumed rather than differentiating.</p>
 
@@ -228,11 +228,11 @@
 
       <h2>Audit your own VPI</h2>
 
-      <p>If you've read this far, the obvious next question is: <em>where does my platform actually stand?</em> Most readers will answer that intuitively ("we're pretty good, I think") and be wrong in both directions — overconfident on the foundations they've named, blind to the ones they've never thought about.</p>
+      <p>If you've read this far, the obvious next question is: <em>where does my platform actually stand?</em> Most readers will answer that intuitively ("we're pretty good, I think") and be wrong in both directions: overconfident on the foundations they've named, blind to the ones they've never thought about.</p>
 
       <p>The piece is about systems that can prove their state. So it would be slightly embarrassing not to apply the same standard here. The prompt below is designed to be pasted into <a href="https://www.anthropic.com/claude-code">Claude Code</a> at the root of your platform's repository. It will read your code, your specs, and your configs, and produce a VPI gap analysis you can take to your next architecture meeting.</p>
 
-      <p>It's not a substitute for an experienced reviewer — it can't tell you whether your business model justifies the investment — but it will surface the structural facts that the conversation should start from.</p>
+      <p>It's not a substitute for an experienced reviewer (it can't tell you whether your business model justifies the investment) but it will surface the structural facts that the conversation should start from.</p>
 
       <div class="not-prose my-10">
         <div class="flex items-center justify-between mb-3">
@@ -242,32 +242,32 @@
             <span class="copy-label">Copy</span>
           </button>
         </div>
-<pre class="codeblock"><code id="audit-prompt">You are auditing this codebase against a framework called VPI — Verifiable Partnership Interface — described in the blog post "Verifiable Cooperation."
+<pre class="codeblock"><code id="audit-prompt">You are auditing this codebase against a framework called VPI (Verifiable Partnership Interface) described in the blog post "Verifiable Cooperation."
 
 A VPI is the surface a platform exposes to allow other systems and agents to cooperate with it provably and at scale. It has three components:
 
-- **V — Verifiable.** Bi-directional state checking, idempotency on writes, real sandboxes with time controls and inspectable webhook delivery.
-- **P — Partnership.** OAuth 2.0 with PKCE using `authorization_code` (not `client_credentials`) to create authorised service users; first-class modelling of vendor / customer / developer / end-user as distinct principals; third-party applications as first-class objects with their own lifecycle.
-- **I — Interface.** A consistent REST API (correct status codes, idempotency keys, ISO 8601, prefixed identifiers, list envelopes with cursor pagination, ETags, conditional requests); OpenAPI specifications used as the source of truth for SDK generation; production-grade SDKs in multiple languages with runnable sample projects; embeddable frontend components for user-facing flows.
+- **V. Verifiable.** Bi-directional state checking, idempotency on writes, real sandboxes with time controls and inspectable webhook delivery.
+- **P. Partnership.** OAuth 2.0 with PKCE using `authorization_code` (not `client_credentials`) to create authorised service users; first-class modelling of vendor / customer / developer / end-user as distinct principals; third-party applications as first-class objects with their own lifecycle.
+- **I. Interface.** A consistent REST API (correct status codes, idempotency keys, ISO 8601, prefixed identifiers, list envelopes with cursor pagination, ETags, conditional requests); OpenAPI specifications used as the source of truth for SDK generation; production-grade SDKs in multiple languages with runnable sample projects; embeddable frontend components for user-facing flows.
 
 Your task is to produce an honest, evidence-based audit. Work in this order:
 
 1. **Discover the surface.** Find the API definition (OpenAPI spec, route handlers, controllers), the auth implementation (OAuth flows, token issuance, scope handling), the SDK directories if any, and any sandbox/test environment configuration. List the files you found for each so I can verify.
 
-2. **Score each VPI component.** For each of V, P, and I, give a rating of *Strong / Partial / Weak / Absent* with a one-paragraph justification grounded in specific files and code. Quote the evidence — don't summarise.
+2. **Score each VPI component.** For each of V, P, and I, give a rating of *Strong / Partial / Weak / Absent* with a one-paragraph justification grounded in specific files and code. Quote the evidence; don't summarise.
 
 3. **Identify the most consequential gap.** Across all three components, name the single foundation whose absence most constrains the platform's ability to support agent-mediated, scaled partnership. Explain why it's the binding constraint rather than just the most visible weakness.
 
-4. **Produce a remediation sequence.** List the work required to close the gaps in dependency order — what has to happen before what. Distinguish between work that is genuinely structural (months of effort, requires re-architecture) and work that is hygiene (weeks of effort, mostly mechanical). Be specific about which is which.
+4. **Produce a remediation sequence.** List the work required to close the gaps in dependency order: what has to happen before what. Distinguish between work that is genuinely structural (months of effort, requires re-architecture) and work that is hygiene (weeks of effort, mostly mechanical). Be specific about which is which.
 
-5. **Flag the things you cannot assess from code alone.** Some VPI properties — sandbox quality, SDK ergonomics in real use, partner platform usability — can only be evaluated by humans actually using them. List the questions a human reviewer would need to answer to complete the audit.
+5. **Flag the things you cannot assess from code alone.** Some VPI properties (sandbox quality, SDK ergonomics in real use, partner platform usability) can only be evaluated by humans actually using them. List the questions a human reviewer would need to answer to complete the audit.
 
 Be direct. If the platform is using `client_credentials` everywhere and calling it OAuth, say so. If the OpenAPI spec is generated post-hoc from running code rather than being the source of truth, say so. The point of this audit is to surface uncomfortable truths, not to validate existing decisions.</code></pre>
       </div>
 
-      <p>If the output of running this prompt is "you're already in good shape" — congratulations, you've quietly done the work, and the next eighteen months will probably be kind to you.</p>
+      <p>If the output of running this prompt is "you're already in good shape," congratulations: you've quietly done the work, and the next eighteen months will probably be kind to you.</p>
 
-      <p>If the output is a list of structural gaps that will take twelve months to close — that's the more useful result. It tells you what to start now, while the term <em>VPI</em> is still ahead of the language curve and the platforms taking it seriously can plant a flag others will eventually have to follow.</p>
+      <p>If the output is a list of structural gaps that will take twelve months to close, that's the more useful result. It tells you what to start now, while the term <em>VPI</em> is still ahead of the language curve and the platforms taking it seriously can plant a flag others will eventually have to follow.</p>
 
     </div>
   </article>
