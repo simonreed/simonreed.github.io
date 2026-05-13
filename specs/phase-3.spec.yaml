@@ -1,9 +1,10 @@
 slug: phase-3
 title: "Phase 3 — Provider Self-Service & Staff Workspace"
-version: "1.0"
-date: "13 April 2026"
+version: "1.1"
+date: "13 May 2026"
 client: "Liz Cale"
 status: awaiting-sign-off
+verification_round: 1
 
 summary: |
   Phase 3 turns the empty shells built in Phase 2 into the working day-to-day
@@ -96,7 +97,7 @@ assumptions:
     text: "When a staff member logs in they land on a dashboard showing all their proposals. The dashboard has quick stats at the top (draft count, sent count, viewed count), a status filter dropdown (All, Draft, Sent, Viewed, Archived), and a search box for client name or company."
 
   - id: A22
-    text: "Each row in the proposal list shows: client name, client company, how many buildings are attached, status, last updated date, and quick actions (open, edit, archive, duplicate)."
+    text: "Each row in the proposal list shows: client name, client company, how many searches are attached (with a building and space count underneath), status, last updated date, and quick actions (open, edit, archive, duplicate). A proposal aggregates one or more searches; the building and space totals are derived from those searches."
 
   - id: A23
     text: "Staff can create a new proposal with client details: client name, client company, client email, client phone, requirements (desk count range, budget range, preferred locations, target move-in date), and free-text notes. These match the structured fields signed off in Phase 2."
@@ -120,7 +121,7 @@ assumptions:
     text: "Staff only see their own proposals by default. Admins can see every staff member's proposals. There is no way for one staff member to see another staff member's proposals in Phase 3 — if that's needed later it will be added in a future phase."
 
   - id: A30
-    text: "The proposal detail page shows: client information, the list of buildings attached (with space counts), and action buttons for Edit, Preview, Generate PDF, Send to Client, Archive, and Duplicate. Actions that depend on Phase 4 or Phase 5 (Preview, Generate PDF, Send to Client) are visible but disabled in Phase 3 with a tooltip explaining which phase enables them."
+    text: "The proposal detail page shows: client information, requirements, and a Searches card listing each attached search (criteria summary, building count, space count, report status), and action buttons for Edit, Preview, Generate PDF, Send to Client, Archive, and Duplicate. Actions that depend on Phase 4 or Phase 5 (Preview, Generate PDF, Send to Client) are visible but disabled in Phase 3 with a tooltip explaining which phase enables them. Adding searches to a proposal lands in Phase 4."
 
   - id: A31
     text: "If the proposal has unpublished buildings on it, the detail page shows a warning banner — so staff don't send a client a link that leads to missing data."
@@ -343,35 +344,109 @@ not_in_scope:
 sign_off_criteria:
   # 3a — Provider building management
   - text: "Provider can browse their buildings and open one to see its detail page"
+    url: "https://app.adaptworkspace.com/provider/buildings"
+    note: "Sign in as a provider user. Confirm the list shows only your own buildings, with search + status filter. Click into any building to open the edit page."
+
   - text: "Provider can edit marketing description, amenities, photos, and floorplans — changes are saved and visible immediately"
+    url: "https://app.adaptworkspace.com/provider/buildings"
+    note: "Open a building. Edit the description, tick/untick amenities, drop in a photo or floorplan. Save and confirm the changes appear after the page reloads."
+
   - text: "Provider cannot edit name, address, location, or published status"
+    url: "https://app.adaptworkspace.com/provider/buildings"
+    note: "On the edit page, the Summary card (Name / Address / Status) renders as read-only with the helper text \"Contact ADAPT to change any of these.\" There is no input for these fields."
+
   - text: "Provider cannot create or delete buildings"
+    url: "https://app.adaptworkspace.com/provider/buildings"
+    note: "Confirm there is no \"New Building\" button on the buildings list and no Delete action on the edit page."
+
   - text: "File type and size limits on uploads are enforced with clear error messages"
+    url: "https://app.adaptworkspace.com/provider/buildings"
+    note: "Try uploading a file larger than 10MB or in an unsupported type (e.g. .docx). The upload should be rejected with a clear message."
+
   - text: "Cross-provider building access returns \"not found\""
+    note: "Try navigating to /provider/buildings/<a-building-belonging-to-another-provider>/edit by URL. You should get a 404 page. We can demonstrate this in the walkthrough."
 
   # 3b — Provider space & availability management
   - text: "Provider can create, edit, and delete spaces within one of their buildings"
+    url: "https://app.adaptworkspace.com/provider/spaces/new"
+    note: "Click New Space, pick a building, fill in the form, save. Open it again from the spaces list to edit or delete."
+
   - text: "Provider can update availability status and pricing"
+    url: "https://app.adaptworkspace.com/provider/spaces"
+    note: "From the spaces overview, open any space. Change availability_status / monthly_cost / annual_price. Save. No admin approval is required."
+
   - text: "Provider sees a cross-building availability overview with filters"
+    url: "https://app.adaptworkspace.com/provider/spaces"
+    note: "The Spaces page lists every space across every building you own. Filters appear once spaces exist (building, availability status, search box)."
+
   - text: "Provider can upload a CSV or Excel file in their own column layout, map it to ADAPT fields, preview changes, and confirm"
+    url: "https://app.adaptworkspace.com/provider/spaces/imports/new"
+    note: "Click Import Spaces. Upload a CSV with whatever columns you keep. The next screen shows a mapping with auto-suggestions; adjust if needed. Then a preview of create / update / skip / errors. Confirm to commit."
+
   - text: "The column mapping is remembered for the next import"
+    url: "https://app.adaptworkspace.com/provider/spaces/imports/new"
+    note: "After your first import, run a second import with the same column layout. The mapping screen pre-fills with what you used last time."
+
   - text: "Provider can download their current spaces as a spreadsheet"
+    url: "https://app.adaptworkspace.com/provider/spaces"
+    note: "Click Export. A CSV downloads using ADAPT column names so it round-trips back through the importer."
+
   - text: "Pricing and desk range validations reject invalid values"
+    url: "https://app.adaptworkspace.com/provider/spaces/new"
+    note: "Try saving a space with a negative monthly cost or a maximum desk count below the minimum. The form blocks the save with a clear message."
 
   # 3c — Provider contact management
   - text: "Provider can create, edit, and delete their own contacts"
+    url: "https://app.adaptworkspace.com/provider/contacts"
+    note: "Click Add Contact, fill the form, save. The contact appears in the list; click into it to edit or delete."
+
   - text: "Provider can flag a contact as a lead recipient"
+    url: "https://app.adaptworkspace.com/provider/contacts"
+    note: "On the contact form, tick \"Receives leads from ADAPT\". Save."
+
   - text: "Provider can assign a contact to specific buildings, or leave it unassigned"
+    url: "https://app.adaptworkspace.com/provider/contacts"
+    note: "On the contact form, the Building assignments checklist lists every building you own. Tick specific buildings to scope, or leave all unticked to receive leads for every building."
+
   - text: "A lead-recipient contact cannot be saved without an email address"
+    url: "https://app.adaptworkspace.com/provider/contacts"
+    note: "Tick \"Receives leads\" but leave Email blank, then try to save. The form blocks the save with a clear message."
+
   - text: "Cross-provider contact access returns \"not found\""
+    note: "Try navigating to /provider/contacts/<a-contact-belonging-to-another-provider>/edit by URL. You should get a 404 page. We can demonstrate this in the walkthrough."
 
   # 3d — Staff dashboard & proposal management
   - text: "Staff lands on the dashboard showing their proposals with quick stats and filters"
+    url: "https://app.adaptworkspace.com/staff/proposals"
+    note: "Sign in as staff (or admin to see everyone's). Stats grid shows Draft / Sent / Viewed counts. Filter dropdown (All active / Draft / Sent / Viewed / Archived) and a search input by client name or company."
+
   - text: "Staff can create a new proposal with client details and requirements"
+    url: "https://app.adaptworkspace.com/staff/proposals/new"
+    note: "Fill in client name, company, email, phone, plus the structured requirements (desk range, budget range, preferred locations, target move-in) and notes. Save."
+
   - text: "The duplicate-client warning appears when creating a proposal for a client company that already has an active proposal"
+    url: "https://app.adaptworkspace.com/staff/proposals/new"
+    note: "Create a first proposal for a company. Try to create a second proposal for the same company — the form re-renders with the banner \"Active proposal exists for [Company]. Continue anyway?\" Click Create again to confirm and proceed."
+
   - text: "Staff can edit client details on an existing non-archived proposal"
+    url: "https://app.adaptworkspace.com/staff/proposals"
+    note: "Open any non-archived proposal. Click Edit. Update fields, save. Archived proposals show no Edit button (read-only)."
+
   - text: "Staff can archive a proposal — it becomes read-only"
+    url: "https://app.adaptworkspace.com/staff/proposals"
+    note: "Open a proposal, click Archive, confirm the prompt. The Edit and Delete buttons disappear, the status pill flips to Archived, and an Unarchive button appears."
+
   - text: "Staff can duplicate a proposal — the copy is a fresh draft"
+    url: "https://app.adaptworkspace.com/staff/proposals"
+    note: "Open a proposal, click Duplicate. You're taken to a new proposal with the same client details and requirements but a fresh draft status and share token."
+
   - text: "Staff can delete a draft proposal but not a sent one"
+    url: "https://app.adaptworkspace.com/staff/proposals"
+    note: "Drafts show a red Delete button. Sent / Viewed / Archived proposals do not — the rule is enforced by the model."
+
   - text: "Staff only sees their own proposals; admin sees all"
+    url: "https://app.adaptworkspace.com/staff/proposals"
+    note: "Staff users only see their own proposals. Admins see every staff member's proposals (the row shows a staff-email column when viewed as admin)."
+
   - text: "The proposal detail page shows a warning when the proposal has any unpublished buildings attached"
+    note: "Phase 3 has no UI to attach searches/buildings to a proposal — that is Phase 4. We will demonstrate the warning banner in the walkthrough using a seeded proposal."
