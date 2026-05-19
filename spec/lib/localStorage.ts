@@ -75,6 +75,10 @@ export function initVerificationProgress(spec: Spec): VerificationProgress {
   for (const c of all) {
     if (simonCriteria.some(s => s.index === c.index)) {
       criteria[c.index] = { status: 'confirmed', comment: '' }
+    } else if (spec.carried_confirmed?.includes(c.index)) {
+      // Confirmed in a prior round per the spec — robust, does not depend
+      // on the verifier's browser localStorage.
+      criteria[c.index] = { status: 'confirmed', comment: '' }
     } else if (priorCriteria?.[c.index]?.status === 'confirmed') {
       criteria[c.index] = { status: 'confirmed', comment: priorCriteria[c.index].comment || '' }
     } else {

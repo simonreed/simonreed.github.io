@@ -43,6 +43,11 @@ export interface Spec {
   not_in_scope?: string[]
   sign_off_criteria?: (string | SignOffCriterion)[]
   verification_round?: number
+  // Criterion indices (0-based, by sign_off_criteria order) confirmed in a
+  // prior verification round. Seeded as 'confirmed' server-side so a re-test
+  // round only surfaces the still-open items, independent of the verifier's
+  // browser localStorage.
+  carried_confirmed?: number[]
 }
 
 export interface AssumptionResponse {

@@ -6,6 +6,11 @@ client: "Liz Cale"
 status: delivered
 verification_round: 2
 
+# Confirmed by Liz in Round 1 (14 May 2026), carried forward server-side so
+# Round 2 only surfaces the 6 items she flagged (sign_off_criteria indices
+# 7, 8, 9, 10, 15, 17 — her #8, 9, 10, 11, 16, 18 — left open for re-test).
+carried_confirmed: [0, 1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+
 summary: |
   Phase 3 turns the empty shells built in Phase 2 into the working day-to-day
   tools that providers and staff will actually use. It runs across four parallel
@@ -373,19 +378,19 @@ sign_off_criteria:
 
   - text: "Provider can update availability status and pricing"
     url: "https://app.adaptworkspace.com/provider/spaces"
-    note: "From the spaces overview, open any space. Change availability_status / monthly_cost / annual_price. Save. No admin approval is required."
+    note: "RE-TEST — Round 1 (Liz, 14 May): \"I changed a space name to the same as another space in the same building — we need to only allow unique space names. Everything else was fine.\" Fix applied: space names are now enforced unique within a building. Please re-test. (Original: from the spaces overview, open any space. Change availability_status / monthly_cost / annual_price. Save. No admin approval is required.)"
 
   - text: "Provider sees a cross-building availability overview with filters"
     url: "https://app.adaptworkspace.com/provider/spaces"
-    note: "The Spaces page lists every space across every building you own. Filters appear once spaces exist (building, availability status, search box)."
+    note: "RE-TEST — Round 1 (Liz, 14 May): \"Filtering on 'available' was fine, but filtering on 'coming soon' showed 'You have no spaces yet. Add your first space…' — that should say nothing matched the filters.\" Fix applied: the empty state now distinguishes no spaces vs. no filter matches. Please re-test. (Original: the Spaces page lists every space across every building you own. Filters appear once spaces exist — building, availability status, search box.)"
 
   - text: "Provider can upload a CSV or Excel file in their own column layout, map it to ADAPT fields, preview changes, and confirm"
     url: "https://app.adaptworkspace.com/provider/spaces/imports/new"
-    note: "Click Import Spaces. Upload a CSV with whatever columns you keep. The next screen shows a mapping with auto-suggestions; adjust if needed. Then a preview of create / update / skip / errors. Confirm to commit."
+    note: "RE-TEST — Round 1 (Liz, 14 May): \"Column matching is great. The issue was the provider naming their buildings differently to our system — and one that was identical gave a 422 'Unprocessable Entity' on upload.\" Status: under investigation (building-name matching + the 422). Please re-test and confirm current behaviour. (Original: click Import Spaces, upload a CSV with whatever columns you keep; the next screen shows a mapping with auto-suggestions; then a preview of create / update / skip / errors; confirm to commit.)"
 
   - text: "The column mapping is remembered for the next import"
     url: "https://app.adaptworkspace.com/provider/spaces/imports/new"
-    note: "After your first import, run a second import with the same column layout. The mapping screen pre-fills with what you used last time."
+    note: "RE-TEST — Round 1 (Liz, 14 May): \"As above — can test once the import issue (criterion 10) is sorted.\" Please re-test after re-checking criterion 10. (Original: after your first import, run a second import with the same column layout — the mapping screen pre-fills with what you used last time.)"
 
   - text: "Provider can download their current spaces as a spreadsheet"
     url: "https://app.adaptworkspace.com/provider/spaces"
@@ -406,14 +411,14 @@ sign_off_criteria:
 
   - text: "Provider can assign a contact to specific buildings, or leave it unassigned"
     url: "https://app.adaptworkspace.com/provider/contacts"
-    note: "On the contact form, the Building assignments checklist lists every building you own. Tick specific buildings to scope, or leave all unticked to receive leads for every building."
+    note: "RE-TEST — Round 1 (Liz, 14 May): \"Setting 'receives all buildings' showed correctly, but selecting only a few buildings showed those buildings against the contact while 'receives leads' stayed set to No.\" Fix applied: assigning a contact to specific buildings now auto-sets receives-leads. Please re-test. (Original: the Building assignments checklist lists every building you own — tick specific buildings to scope, or leave all unticked to receive leads for every building.)"
 
   - text: "A lead-recipient contact cannot be saved without an email address"
     url: "https://app.adaptworkspace.com/provider/contacts"
     note: "Tick \"Receives leads\" but leave Email blank, then try to save. The form blocks the save with a clear message."
 
   - text: "Cross-provider contact access returns \"not found\""
-    note: "Try navigating to /provider/contacts/<a-contact-belonging-to-another-provider>/edit by URL. You should get a 404 page. We can demonstrate this in the walkthrough."
+    note: "RE-TEST — Round 1 (Liz, 14 May): \"That works, but the error message is quite small and at the top-left — may need to make it more obvious / red background like the other errors.\" Status: styling change for the not-found message — please re-test and confirm whether the presentation is now acceptable. (Original: navigate to /provider/contacts/<a-contact-belonging-to-another-provider>/edit by URL — you should get a 404 page.)"
 
   # 3d — Staff dashboard & proposal management
   - text: "Staff lands on the dashboard showing their proposals with quick stats and filters"
