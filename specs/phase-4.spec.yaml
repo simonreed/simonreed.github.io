@@ -1,27 +1,44 @@
 slug: phase-4
 title: "Phase 4 — Building Selection & Availability"
-version: "1.1"
-date: "15 May 2026"
+version: "1.2"
+date: "1 June 2026"
 client: "Liz Cale"
-status: awaiting-sign-off
+# Lifecycle: 'delivered' drives the tool's VerificationClient — i.e. it asks Liz to
+# verify the BUILT implementation against the sign_off_criteria (test steps + URLs),
+# which is the delivery sign-off. (The tool has no 'in_development' status; while
+# building, the spec is simply kept local/unpushed. Valid: draft | awaiting-sign-off |
+# signed-off | delivered | verified.)
+status: delivered
+# Changelog:
+#   1.0 (2026-05-14) — signed off by Liz 2026-05-15 (A3 flagged; flow-1, flow-2 noted)
+#   1.1 (2026-05-15) — folded Liz's sign-off flags into the spec (A3 revised; A16 12-cap; A17 ad-hoc+DB coexist)
+#   1.2 (2026-06-01) — Reconciled against the Liz/Simon email thread (20-22 May 2026):
+#                      • Proposal renamed to Project (container); the *curated, sent artifact* is the Report.
+#                      • Curation (building selection, snapshots, ad-hoc spaces, reorder) re-attributed
+#                        from "project" to "report" in A7/A8/A10/A13/A14/A16 + matching criteria.
+#                      • A16 12-building cap corrected to PER REPORT (was wrongly "per project"; Liz 2026-05-22).
+#                      • Added A18 (project-first default + "Save to a project" fallback) and A19
+#                        (project holds client-level details only; brief/criteria live on each report).
+#                      • Q1-Q4 resolved at sign-off baked in; test URLs updated to /staff/projects.
+#                      Implementation complete and green — pending DELIVERY sign-off.
 
 summary: |
-  Phase 4 turns proposals from empty client-detail records into the consultant's
+  Phase 4 turns projects from empty client-detail records into the consultant's
   working surface for choosing buildings and curating spaces. It runs across two
   parallel workstreams.
 
-  Phase 3 established that a proposal aggregates one or more searches. Each
+  Phase 3 established that a project aggregates one or more searches. Each
   search captures a snapshot of the buildings that matched, and each building
   holds the spaces that were selected. Phase 4 makes that pipeline usable by
-  staff — they can run a search inside a proposal context, choose which
+  staff — they can run a search inside a project context, choose which
   buildings the client should see, and curate the spaces on each building. The
   curated set is what becomes the client report in Phase 5.
 
-  4a. Building selection (list + map) — from a proposal, staff can launch a
+  4a. Building selection (list + map) — from a project, staff can launch a
   search by location with filters for provider, amenity, and desk range. The
   results render in two synchronised views: a list of buildings with provider
   logos and key facts, and an interactive map with selectable pins. Selecting
-  a building attaches it to the proposal's search; deselecting removes it.
+  a building attaches it to the project's search; deselecting removes it.
   Staff can reorder the selected buildings to control the order they appear
   in the report.
 
@@ -38,7 +55,7 @@ summary: |
 assumptions:
   # 4a — Building selection
   - id: A1
-    text: "From the proposal detail page, staff can click \"Add a search\" to open the staff search builder scoped to that proposal. Any buildings or spaces they pick are linked to that proposal via the search."
+    text: "From the project detail page, staff can click \"Add a search\" to open the staff search builder scoped to that project. Any buildings or spaces they pick are linked to that project via the search."
 
   - id: A2
     text: "The staff search builder is a single screen with a location search at the top, a list view of matching buildings on the left, and a map view on the right. The two views are synchronised — selecting a building on the map highlights it in the list, and vice versa."
@@ -56,17 +73,17 @@ assumptions:
     text: "The map uses provider logos as the pin where a logo is available, with a fallback marker style. Clicking a pin opens a small popup with the building name, address, and a select/deselect button."
 
   - id: A7
-    text: "Staff can reorder the selected buildings within a proposal by drag-and-drop. The order stored is the order the buildings will appear in the client report. (See Q1 on default ordering.)"
+    text: "Staff can reorder the selected buildings by drag-and-drop. The order stored is the order the buildings will appear in the client report. (See Q1 on default ordering.)"
 
   - id: A8
-    text: "Staff can remove a selected building at any time. Removing a building also removes any space picks and ad-hoc spaces that were attached to it on this proposal — staff are warned before this happens."
+    text: "Staff can remove a selected building at any time. Removing a building also removes any space picks and ad-hoc spaces that were attached to it on this report — staff are warned before this happens."
 
   # 4b — Space curation
   - id: A9
     text: "When a building is selected, staff see all of that provider's currently published spaces in that building. Each space row shows: name, type, floor or placement, desk range, monthly cost, and availability status. Staff tick the spaces that should appear on the client report."
 
   - id: A10
-    text: "Selected database spaces are snapshotted onto the proposal at the moment of selection. If the provider later edits or removes the space, the proposal still shows the original details. Staff see a small flag on the proposal if the underlying space has changed since selection."
+    text: "Selected database spaces are snapshotted onto the report at the moment of selection. If the provider later edits or removes the space, the report still shows the original details. Staff see a small flag on the report if the underlying space has changed since selection."
 
   - id: A11
     text: "Staff can also add ad-hoc spaces that are not yet in the database — for availability the consultant has heard about directly from a provider but that hasn't been entered yet. An ad-hoc space captures: name, type, floor or placement, desk range, monthly cost, and availability status."
@@ -75,106 +92,90 @@ assumptions:
     text: "Ad-hoc spaces are clearly distinguished from database-linked spaces in the staff UI (a small \"Manual\" tag) so staff always know what they've added themselves vs what came from the provider's data."
 
   - id: A13
-    text: "Staff can edit any space attached to a proposal — both database-linked snapshots and ad-hoc entries. Editing a database-linked space does not affect the original; it only changes what the client sees on this proposal."
+    text: "Staff can edit any space attached to a report — both database-linked snapshots and ad-hoc entries. Editing a database-linked space does not affect the original; it only changes what the client sees on this report."
 
   - id: A14
-    text: "Staff can remove a space from a proposal at any time. For ad-hoc spaces this deletes the entry. For database-linked snapshots this just unselects them — the original space in the provider's data is untouched."
+    text: "Staff can remove a space from a report at any time. For ad-hoc spaces this deletes the entry. For database-linked snapshots this just unselects them — the original space in the provider's data is untouched."
 
   - id: A15
     text: "Pricing on ad-hoc spaces follows the same rules as Phase 3 provider pricing: cannot be negative, maximum desks (if set) must be at least the minimum, leaving pricing blank is allowed."
 
   - id: A16
-    text: "A proposal can hold a maximum of 12 buildings. When staff reach 12, a warning is shown and no further buildings can be added until one is removed. (Added at sign-off 2026-05-15 per Liz / Chris Mahon discussion on flow-1.)"
+    text: "A report can include a maximum of 12 buildings. When staff reach 12, a warning is shown and no further buildings can be added until one is removed. The cap is per report — a project can hold many reports. (Added at sign-off 2026-05-15 per Liz / Chris Mahon on flow-1; confirmed per-report by Liz 2026-05-22, deliberately limited to avoid overwhelming clients.)"
 
   - id: A17
     text: "Ad-hoc spaces and database-linked spaces are not mutually exclusive on a building. Staff can select database spaces AND add ad-hoc spaces on the same building — the report shows both. (Clarified at sign-off 2026-05-15 per Liz's note on flow-2.)"
 
-questions:
-  - id: Q1
-    text: "On selected buildings within a proposal (A7), how should they be ordered by default before staff manually reorders? Our recommendation is by distance from the search location (closest first). Alternatives: alphabetical by building name, or selection order."
-    type: choice
-    options:
-      - "By distance from search location, closest first (our recommendation)"
-      - "Alphabetical by building name"
-      - "In the order staff selected them"
+  # 4c — Project ↔ search entry (email-approved 2026-05-20/21, added in v1.2)
+  - id: A18
+    text: "The default entry is project-first: opening a project and starting a search from there ties the search (and its report) to that project and its client automatically — there is no separate \"pick a client\" step. As a fallback, staff exploring without a client can run a standalone search and later \"Save to a project\" — a picker to either create a new project (entering client details in the same step) or add to an existing one. (Resolves Liz's duplicate-admin concern 2026-05-20; Chris confirmed the assign-later path is built.)"
 
-  - id: Q2
-    text: "When a proposal has multiple searches (e.g. one for Soho and one for Aldgate), should the client report combine all selected buildings into one ordered list, or group them by search? Our recommendation is one combined list — clients see a single sequence of options regardless of how staff assembled them."
-    type: choice
-    options:
-      - "One combined list, staff-orderable across all searches (our recommendation)"
-      - "Group by search with a heading per search"
+  - id: A19
+    text: "A project holds only client-level details (name, company, contact). The brief/criteria that define what was searched for live on each search/report, not on the project — so the multiple reports under one project can legitimately differ from one another. (Resolves Liz's confusion about the old static \"requirements\" section, 2026-05-20/21.)"
 
-  - id: Q3
-    text: "When the underlying space data changes after staff has selected it (A10) — e.g. a provider raises the price — how should staff be notified? Our recommendation is a small flag on the staff proposal view (\"3 spaces have changed since you added them\") with a one-click \"refresh snapshots\" action. Liz can decide whether to refresh or keep the originals."
-    type: choice
-    options:
-      - "Flag + manual refresh (our recommendation)"
-      - "Auto-refresh: always show the latest provider data"
-      - "Never flag: snapshots are frozen forever once selected"
-
-  - id: Q4
-    text: "Ad-hoc spaces (A11) — should they appear in the client report mixed with database spaces, or in a separate \"Additional options\" section? Our recommendation is mixed — the client doesn't need to know which came from where, only what's available."
-    type: choice
-    options:
-      - "Mixed in with database spaces (our recommendation)"
-      - "Separate \"Additional options\" section"
+# Open questions Q1-Q4 were RESOLVED by Liz at the 2026-05-15 sign-off (recommendations
+# accepted) and are baked into the assumptions/build — removed here so the delivery
+# sign-off does not re-ask them:
+#   Q1 default building order  -> by distance from search location, closest first (built; see A7)
+#   Q2 multi-search report     -> one combined, staff-orderable list across searches (Phase 5 report build)
+#   Q3 changed-space data       -> flag + one-click manual refresh per space (built; see A10 / flow-6)
+#   Q4 ad-hoc placement         -> mixed in with database spaces (built; see A17 / flow-2)
 
 flows:
   - id: flow-1
-    title: "Staff adds buildings to a proposal via search"
+    title: "Staff adds buildings to a project via search"
     steps:
-      - "Staff opens an existing proposal"
+      - "Staff opens an existing project"
       - "Clicks \"Add a search\" on the Searches card"
-      - "Lands on the staff search builder, scoped to this proposal"
+      - "Lands on the staff search builder, scoped to this project"
       - "Enters a location (e.g. \"Soho\") and an optional radius"
       - "Adjusts filters: amenities, providers, desk range"
       - "Sees buildings update in both the list and the map in real time"
-      - "Clicks select on a building (in list or on map) — building is added to the proposal's search"
+      - "Clicks select on a building (in list or on map) — building is added to the project's search"
       - "Continues selecting until satisfied with the shortlist"
       - "On reaching 12 selected buildings, a warning shows and further selection is blocked until one is removed (A16)"
-      - "Returns to the proposal detail page — the selected buildings now appear under the search"
+      - "Returns to the project detail page — the selected buildings now appear under the search"
     errors:
       - "No buildings match the filters — the list shows an empty state with a suggestion to widen the search"
       - "Location not recognised — geocoder returns no result, the search defaults to the previous location with a warning"
       - "12-building limit reached — selecting a 13th is blocked with a clear message; staff must remove one first"
     sequence: |
       sequenceDiagram
-        Staff->>Proposal: Opens proposal detail
+        Staff->>Project: Opens project detail
         Staff->>SearchBuilder: Clicks "Add a search"
-        SearchBuilder-->>Staff: List + map view, scoped to proposal
+        SearchBuilder-->>Staff: List + map view, scoped to project
         Staff->>SearchBuilder: Enters location + filters
         SearchBuilder->>Database: Query published buildings within radius matching filters
         Database-->>SearchBuilder: Buildings + markers
         Staff->>SearchBuilder: Selects a building
         SearchBuilder->>Database: Create SearchResult linked to search (snapshots building_data)
         SearchBuilder-->>Staff: Building marked selected, count updates
-        Staff->>Proposal: Returns to proposal — sees attached buildings under the search
+        Staff->>Project: Returns to project — sees attached buildings under the search
 
   - id: flow-2
     title: "Staff curates spaces on a selected building"
     steps:
-      - "On the proposal detail page, staff clicks into one of the selected buildings"
+      - "On the project detail page, staff clicks into one of the selected buildings"
       - "Sees the list of all currently published spaces in that building (may be empty)"
       - "Ticks the spaces that should appear on the client report"
       - "Optionally also adds ad-hoc spaces on the same building — database picks and ad-hoc entries coexist (A17)"
-      - "Each tick snapshots the space onto the proposal — the original is unchanged"
-      - "Returns to the proposal — selected database spaces and ad-hoc spaces are both visible under the building"
+      - "Each tick snapshots the space onto the project — the original is unchanged"
+      - "Returns to the project — selected database spaces and ad-hoc spaces are both visible under the building"
     errors:
       - "Building has no published spaces — staff sees a message explaining this and the option to add an ad-hoc space; the building can still be included"
     sequence: |
       sequenceDiagram
-        Staff->>Proposal: Opens proposal, clicks into a building
-        Proposal->>Database: Load building's currently published spaces
+        Staff->>Project: Opens project, clicks into a building
+        Project->>Database: Load building's currently published spaces
         Database-->>Staff: Space list with tick boxes
-        Staff->>Proposal: Ticks specific spaces
-        Proposal->>Database: Add space to report (HABTM); snapshot captured
-        Proposal-->>Staff: Selected count updates
+        Staff->>Project: Ticks specific spaces
+        Project->>Database: Add space to report (HABTM); snapshot captured
+        Project-->>Staff: Selected count updates
 
   - id: flow-3
     title: "Staff adds an ad-hoc space"
     steps:
-      - "On a building's detail within a proposal, staff clicks \"Add ad-hoc space\""
+      - "On a building's detail within a project, staff clicks \"Add ad-hoc space\""
       - "Fills in a small form: name, type, floor or placement, desk range, monthly cost, availability status"
       - "Saves"
       - "Space appears in the building's selected list with a small \"Manual\" tag to distinguish it from database spaces"
@@ -184,136 +185,153 @@ flows:
       - "Required field missing — inline error"
     sequence: |
       sequenceDiagram
-        Staff->>Proposal: Clicks "Add ad-hoc space" on a building
-        Proposal-->>Staff: Ad-hoc space form
-        Staff->>Proposal: Fills form, saves
-        Proposal->>Database: Create Space with report_id (ad-hoc)
-        Proposal-->>Staff: Space added with "Manual" tag
+        Staff->>Project: Clicks "Add ad-hoc space" on a building
+        Project-->>Staff: Ad-hoc space form
+        Staff->>Project: Fills form, saves
+        Project->>Database: Create Space with report_id (ad-hoc)
+        Project-->>Staff: Space added with "Manual" tag
 
   - id: flow-4
-    title: "Staff reorders selected buildings within a proposal"
+    title: "Staff reorders selected buildings within a project"
     steps:
-      - "On the proposal detail page, staff sees the selected buildings list"
+      - "On the project detail page, staff sees the selected buildings list"
       - "Drags a building up or down to reorder"
       - "Order is saved automatically — no separate save button"
       - "The new order is the order the client will see in the report"
     sequence: |
       sequenceDiagram
-        Staff->>Proposal: Drags a building to a new position
-        Proposal->>Database: Update position on each affected SearchResult
+        Staff->>Project: Drags a building to a new position
+        Project->>Database: Update position on each affected SearchResult
         Database-->>Staff: New order persisted, no reload needed
 
   - id: flow-5
-    title: "Staff removes a building from a proposal"
+    title: "Staff removes a building from a project"
     steps:
-      - "On the proposal detail page, staff clicks remove on a selected building"
+      - "On the project detail page, staff clicks remove on a selected building"
       - "Confirmation prompt: \"Remove this building? Any space picks or ad-hoc entries on this building will also be removed.\""
       - "Staff confirms"
-      - "Building is unselected from the proposal's search; attached spaces and ad-hoc entries are removed"
+      - "Building is unselected from the project's search; attached spaces and ad-hoc entries are removed"
     sequence: |
       sequenceDiagram
-        Staff->>Proposal: Clicks remove on a building
-        Proposal-->>Staff: Confirmation prompt
-        Staff->>Proposal: Confirms
-        Proposal->>Database: Destroy SearchResult; remove report.spaces for that building; destroy ad-hoc Space records
-        Proposal-->>Staff: Building gone from list
+        Staff->>Project: Clicks remove on a building
+        Project-->>Staff: Confirmation prompt
+        Staff->>Project: Confirms
+        Project->>Database: Destroy SearchResult; remove report.spaces for that building; destroy ad-hoc Space records
+        Project-->>Staff: Building gone from list
 
   - id: flow-6
     title: "Staff sees a flag when underlying space data has changed"
     steps:
-      - "Staff opens a proposal where a previously selected space's underlying data has changed (e.g. provider raised the price)"
-      - "Sees a small flag on the proposal detail: \"3 spaces have changed since you added them\""
+      - "Staff opens a project where a previously selected space's underlying data has changed (e.g. provider raised the price)"
+      - "Sees a small flag on the project detail: \"3 spaces have changed since you added them\""
       - "Clicks the flag to see what changed (price, availability, name)"
       - "Chooses to either refresh the snapshot (pull the latest data) or keep the original snapshot"
     sequence: |
       sequenceDiagram
-        Staff->>Proposal: Opens proposal
-        Proposal->>Database: Compare snapshots vs current space data
-        Database-->>Proposal: Diff per space
-        Proposal-->>Staff: "3 spaces have changed" flag
-        Staff->>Proposal: Clicks flag, sees diff
-        Staff->>Proposal: Refreshes (or keeps) per space
-        Proposal->>Database: Update snapshot if refreshed
+        Staff->>Project: Opens project
+        Project->>Database: Compare snapshots vs current space data
+        Database-->>Project: Diff per space
+        Project-->>Staff: "3 spaces have changed" flag
+        Staff->>Project: Clicks flag, sees diff
+        Staff->>Project: Refreshes (or keeps) per space
+        Project->>Database: Update snapshot if refreshed
 
 not_in_scope:
   - "Generating or sending PDF reports to clients — Phase 5"
   - "Sending intro leads to provider contacts — Phase 5"
-  - "Viewing request forms on the public proposal page — Phase 5"
+  - "Viewing request forms on the client-facing report (share link) — Phase 5"
   - "Provider unsubscribe flow — Phase 5"
   - "Staff editing the underlying building data — staff are read-only on building information"
   - "Staff publishing or unpublishing buildings or spaces — admin-only"
-  - "Custom branding per client or per proposal — the report uses the existing ADAPT style"
+  - "Custom branding per client or per project — the report uses the existing ADAPT style"
   - "Saved searches that staff can rerun later — out of scope for Phase 4"
   - "Multi-select bulk actions on selected buildings (e.g. \"remove all from London\")"
-  - "Comparison view side-by-side between buildings on the proposal — out of scope"
+  - "Comparison view side-by-side between buildings on the project — out of scope"
 
 sign_off_criteria:
   # 4a — Building selection
-  - text: "From a proposal, staff can launch a search builder scoped to that proposal"
-    url: "https://app.adaptworkspace.com/staff/proposals"
-    note: "Open any proposal, click \"Add a search\". The search builder opens with the proposal context preserved."
+  - text: "From a project, staff can launch a search builder scoped to that project"
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "Open any project, click \"Add a search\". The search builder opens with the project context preserved."
 
   - text: "Staff search builder shows results in synchronised list and map views"
-    note: "On the search builder, confirm the list on the left and map on the right both update when filters change. Selecting a building in one updates the other."
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "Open a project → \"Add a search\" to reach the builder. Confirm the list on the left and map on the right both update when filters change. Selecting a building in one updates the other."
 
   - text: "Filters work for location/radius, provider, amenities, and desk range"
-    note: "Apply each filter in turn; confirm the building list and the map both update."
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "In the search builder (project → \"Add a search\"), apply each filter in turn; confirm the building list and the map both update."
 
   - text: "Search results include all published buildings; unpublished buildings are excluded; buildings with no available spaces are still shown"
-    note: "Confirm a published building with zero available spaces still appears (staff add ad-hoc spaces to it). Confirm an unpublished building never appears."
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "In the search builder, confirm a published building with zero available spaces still appears (staff add ad-hoc spaces to it). Confirm an unpublished building never appears."
 
-  - text: "A proposal is capped at 12 buildings; reaching the limit shows a warning and blocks further additions"
-    url: "https://app.adaptworkspace.com/staff/proposals"
-    note: "Add buildings until you hit 12. The 13th should be blocked with a clear message until you remove one."
+  - text: "A report is capped at 12 buildings; reaching the limit shows a warning and blocks further additions"
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "Add buildings until you hit 12. The 13th should be blocked with a clear message until you remove one. The cap is per report, not per project."
 
   - text: "Database spaces and ad-hoc spaces can coexist on the same building"
-    url: "https://app.adaptworkspace.com/staff/proposals"
-    note: "On a building with database spaces, tick some AND add an ad-hoc space. Both appear under the building on the proposal."
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "On a building with database spaces, tick some AND add an ad-hoc space. Both appear under the building on the project."
 
   - text: "Building cards show provider logo, name, address, distance, available-space count, and a select toggle"
-    note: "Visual confirmation on the search builder."
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "Visual confirmation in the search builder (project → \"Add a search\")."
 
   - text: "Map pins use provider logos where available, with a fallback marker; clicking a pin opens a popup with select/deselect"
-    note: "Visual confirmation on the search builder. Click a few pins to verify the popup behaviour."
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "In the search builder, click a few pins to verify the logo pins, fallback marker, and popup behaviour."
 
-  - text: "Staff can select and deselect buildings; the count updates and the proposal's search is updated immediately"
-    note: "Toggle a few buildings on/off; return to the proposal to confirm the selected list matches."
+  - text: "Staff can select and deselect buildings; the count updates and the project's search is updated immediately"
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "In the search builder, toggle a few buildings on/off; return to the project to confirm the selected list matches."
 
   - text: "Selected buildings can be reordered by drag-and-drop; the order is preserved"
-    url: "https://app.adaptworkspace.com/staff/proposals"
-    note: "On the proposal detail page, drag a building up or down. Refresh the page; the order should persist."
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "On the project detail page, drag a building up or down. Refresh the page; the order should persist."
 
   - text: "Removing a building prompts for confirmation and also removes any space picks or ad-hoc entries on that building"
-    url: "https://app.adaptworkspace.com/staff/proposals"
+    url: "https://app.adaptworkspace.com/staff/projects"
     note: "Add some space picks to a building, then remove the building. Confirm the spaces are also gone."
 
   # 4b — Space curation
   - text: "Staff can see all of a building's currently published spaces and tick which ones go on the report"
-    url: "https://app.adaptworkspace.com/staff/proposals"
-    note: "From the proposal, click into a selected building. Spaces appear with tick boxes. Ticks save immediately."
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "From the project, click into a selected building. Spaces appear with tick boxes. Ticks save immediately."
 
-  - text: "Selected database spaces are snapshotted — provider edits afterwards do not alter what's on the proposal"
-    note: "We will demonstrate this during the walkthrough — pick a space, edit it as a provider, return to the proposal and confirm the original snapshot is intact."
+  - text: "Selected database spaces are snapshotted — provider edits afterwards do not alter what's on the report"
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "We will demonstrate this during the walkthrough — pick a space, edit it as a provider, return to the report and confirm the original snapshot is intact."
 
   - text: "Staff can add ad-hoc spaces with a small form (name, type, desks, pricing, availability)"
-    url: "https://app.adaptworkspace.com/staff/proposals"
-    note: "On a building within a proposal, click \"Add ad-hoc space\". Fill in the form and save."
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "On a building within a project, click \"Add ad-hoc space\". Fill in the form and save."
 
   - text: "Ad-hoc spaces are visually distinguished from database-linked spaces (\"Manual\" tag)"
-    url: "https://app.adaptworkspace.com/staff/proposals"
-    note: "On the proposal detail page, ad-hoc spaces show a small \"Manual\" tag next to the name."
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "On the project detail page, ad-hoc spaces show a small \"Manual\" tag next to the name."
 
-  - text: "Staff can edit any space attached to a proposal; edits to database-linked snapshots do not affect the original"
-    url: "https://app.adaptworkspace.com/staff/proposals"
+  - text: "Staff can edit any space attached to a report; edits to database-linked snapshots do not affect the original"
+    url: "https://app.adaptworkspace.com/staff/projects"
     note: "Click into a snapshotted space, change the price, save. Open the original space in the admin or provider area; it should be unchanged."
 
-  - text: "Staff can remove a space from a proposal; ad-hoc spaces are deleted, snapshotted spaces are simply unselected"
-    url: "https://app.adaptworkspace.com/staff/proposals"
+  - text: "Staff can remove a space from a report; ad-hoc spaces are deleted, snapshotted spaces are simply unselected"
+    url: "https://app.adaptworkspace.com/staff/projects"
     note: "Remove an ad-hoc space and a snapshotted space. Confirm the ad-hoc one is gone, and the snapshotted one's original record is untouched."
 
   - text: "Ad-hoc space pricing follows the same rules as Phase 3 (no negatives, max desks ≥ min desks, blank pricing allowed)"
-    note: "Try entering a negative price or a max-below-min desk range; the form should reject with a clear error."
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "In the \"Add ad-hoc space\" form, try entering a negative price or a max-below-min desk range; the form should reject with a clear error."
 
   - text: "Staff are alerted when underlying space data has changed since selection, with a one-click refresh option per space"
-    url: "https://app.adaptworkspace.com/staff/proposals"
+    url: "https://app.adaptworkspace.com/staff/projects"
     note: "We will demonstrate the change-detection flag during the walkthrough — provider edits a space staff has selected, staff sees a flag, can choose to refresh or keep the snapshot."
+
+  # 4c — Project ↔ search entry
+  - text: "Starting a search from a project ties it to that project and client with no separate \"pick a client\" step (project-first default)"
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "Open a project, click \"Add a search\". Confirm the resulting search/report is already attached to that project — no client-selection step."
+
+  - text: "A standalone search can be saved to a project later — create a new project (with client details) or add to an existing one"
+    url: "https://app.adaptworkspace.com/staff/searches"
+    note: "From a standalone search, use \"Save to a project\". Confirm both options: create-new (entering client details inline) and add-to-existing."
