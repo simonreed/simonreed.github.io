@@ -1,7 +1,7 @@
 slug: phase-4
 title: "Phase 4 — Building Selection & Availability"
-version: "1.2"
-date: "1 June 2026"
+version: "1.3"
+date: "3 June 2026"
 client: "Liz Cale"
 # Lifecycle: 'delivered' drives the tool's VerificationClient — i.e. it asks Liz to
 # verify the BUILT implementation against the sign_off_criteria (test steps + URLs),
@@ -9,6 +9,15 @@ client: "Liz Cale"
 # building, the spec is simply kept local/unpushed. Valid: draft | awaiting-sign-off |
 # signed-off | delivered | verified.)
 status: delivered
+
+# Round 2 of delivery verification. In round 1 (2026-06-02) Liz confirmed 16 of
+# 21 criteria and flagged 5. The 16 are carried forward as already-confirmed
+# (seeded server-side, below) so this round only surfaces the 5 she needs to
+# re-test. Those 5 have a "Round 2 —" note describing what was fixed.
+verification_round: 2
+# 0-based indices into sign_off_criteria that Liz confirmed in round 1.
+carried_confirmed: [0, 1, 3, 4, 5, 7, 8, 11, 12, 13, 14, 15, 16, 18, 19, 20]
+
 # Changelog:
 #   1.0 (2026-05-14) — signed off by Liz 2026-05-15 (A3 flagged; flow-1, flow-2 noted)
 #   1.1 (2026-05-15) — folded Liz's sign-off flags into the spec (A3 revised; A16 12-cap; A17 ad-hoc+DB coexist)
@@ -21,6 +30,13 @@ status: delivered
 #                        (project holds client-level details only; brief/criteria live on each report).
 #                      • Q1-Q4 resolved at sign-off baked in; test URLs updated to /staff/projects.
 #                      Implementation complete and green — pending DELIVERY sign-off.
+#   1.3 (2026-06-03) — Round-2 verification. Round 1 (Liz, 2026-06-02): 16/21 confirmed,
+#                      5 flagged. Fixed and redeployed (prod): building-preview "content
+#                      missing" (#3), clear-filters + map load (#3), list/map 50/50 split
+#                      (#7), Remove confirmation + Read-more colour (#11), ad-hoc pricing
+#                      alert auto-dismiss (#18). Reorder deep-rows (#10) logged as a later
+#                      usability tweak — criterion itself unchanged. carried_confirmed seeds
+#                      the 16 already-confirmed so Liz only re-tests the 5.
 
 summary: |
   Phase 4 turns projects from empty client-detail records into the consultant's
@@ -260,7 +276,7 @@ sign_off_criteria:
 
   - text: "Filters work for location/radius, provider, amenities, and desk range"
     url: "https://app.adaptworkspace.com/staff/projects"
-    note: "In the search builder (project → \"Add a search\"), apply each filter in turn; confirm the building list and the map both update."
+    note: "Round 2 — three things you flagged here are fixed: (1) clicking a building now opens the right-hand preview panel instead of greying out with \"content missing\"; (2) \"Clear all filters\" now appears whenever a filter is set and fully resets the bar and results in one click; (3) the map now appears immediately rather than waiting on every logo. Please apply each filter in turn, open a building preview, and clear the filters."
 
   - text: "Search results include all published buildings; unpublished buildings are excluded; buildings with no available spaces are still shown"
     url: "https://app.adaptworkspace.com/staff/projects"
@@ -276,7 +292,7 @@ sign_off_criteria:
 
   - text: "Building cards show provider logo, name, address, distance, available-space count, and a select toggle"
     url: "https://app.adaptworkspace.com/staff/projects"
-    note: "Visual confirmation in the search builder (project → \"Add a search\")."
+    note: "Round 2 — the list and map now share the width 50/50 so the map is no longer squished by the cards (card content is unchanged). Please confirm the split looks right at your screen size."
 
   - text: "Map pins use provider logos where available, with a fallback marker; clicking a pin opens a popup with select/deselect"
     url: "https://app.adaptworkspace.com/staff/projects"
@@ -288,11 +304,11 @@ sign_off_criteria:
 
   - text: "Selected buildings can be reordered by drag-and-drop; the order is preserved"
     url: "https://app.adaptworkspace.com/staff/projects"
-    note: "On the project detail page, drag a building up or down. Refresh the page; the order should persist."
+    note: "Round 2 — the criterion (drag to reorder, order persists) was working and is unchanged. Your note that the rows are tall and hard to scan in one view is logged as a separate usability tweak for a later pass. Please confirm drag-and-drop still reorders and persists."
 
   - text: "Removing a building prompts for confirmation and also removes any space picks or ad-hoc entries on that building"
     url: "https://app.adaptworkspace.com/staff/projects"
-    note: "Add some space picks to a building, then remove the building. Confirm the spaces are also gone."
+    note: "Round 2 — removing a building now shows a confirmation prompt before it deletes (previously it removed with no prompt). The \"Read more\" link is also no longer red, so the red \"Remove\" stands out on its own. Please add some space picks to a building, click Remove, confirm the prompt appears, and that confirming also clears the space picks."
 
   # 4b — Space curation
   - text: "Staff can see all of a building's currently published spaces and tick which ones go on the report"
@@ -321,7 +337,7 @@ sign_off_criteria:
 
   - text: "Ad-hoc space pricing follows the same rules as Phase 3 (no negatives, max desks ≥ min desks, blank pricing allowed)"
     url: "https://app.adaptworkspace.com/staff/projects"
-    note: "In the \"Add ad-hoc space\" form, try entering a negative price or a max-below-min desk range; the form should reject with a clear error."
+    note: "Round 2 — validation is unchanged, but the error alert now closes on its own (and has a dismiss button) instead of staying on screen until you refresh. Please enter a negative price or a max-below-min desk range and confirm the alert appears and then clears without a refresh."
 
   - text: "Staff are alerted when underlying space data has changed since selection, with a one-click refresh option per space"
     url: "https://app.adaptworkspace.com/staff/projects"
