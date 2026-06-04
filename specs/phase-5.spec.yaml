@@ -1,0 +1,229 @@
+slug: phase-5
+title: "Phase 5 — Report Generation & Communications"
+version: "0.2"
+date: "2 June 2026"
+client: "Liz Cale"
+# DRAFT for Simon's review — NOT yet for Liz. Lifecycle (ADR 0002): keep local/
+# unpushed while drafting; when ready for the client SPEC sign-off round, bump to
+# version 1.0, set `status: awaiting-sign-off`, and push to github.io.
+#   Valid status: draft | awaiting-sign-off | signed-off | delivered | verified
+#
+# Scope is fixed-price and contractually defined in
+# docs/plans/v2/scope-addendum.txt (Phase 5, £3,600, weeks 11–14, workstreams
+# 5a–5e). This spec mirrors that scope. Most decisions are therefore already
+# agreed and are stated as assumptions, not open questions.
+#
+# Terminology (per Phase 4 Proposal→Project rename + reconciliation):
+#   • Project = the container holding client details and one or more Reports.
+#   • Report  = the client-facing unit (one curated search → one report). The
+#     share link, send, view tracking and viewing requests are PER REPORT.
+#   (The scope addendum predates the rename and says "proposal"; that maps to
+#    Report as the client-facing unit here.)
+#
+# Phase 6 is the contract's "Integration & QA" block (weeks 15–16): end-to-end
+# testing, integration testing, edge cases, polish and production deployment.
+# Phase 5 is therefore the FEATURE-COMPLETE phase — every client- and provider-
+# facing capability ships here.
+status: draft
+
+summary: |
+  Phase 5 is the delivery half of the consultant workflow and the last feature
+  phase of v2 (Phase 6 is integration, QA and production deployment). Phase 4
+  let staff curate a report inside a project — choosing buildings and the spaces
+  on each. Phase 5 turns that curated report into something the client receives
+  and acts on, and connects the resulting interest back to the providers. It
+  runs across five workstreams and builds on the Phase 2 foundations (branded
+  email + communication log in 2c; provider contacts in 2c/2d/3c).
+
+  5a. Report generation & PDF — staff preview a report as a branded client
+  document (cover page, a page per building with its spaces and amenities, and a
+  consultant contact page) and generate a PDF. A per-report shareable link lets
+  the client view it and download the PDF with no ADAPT account; views and
+  downloads are tracked. (Activates the Preview / Generate PDF actions reserved
+  since Phase 3.)
+
+  5b. Sending reports to clients — staff send the report in one action; the
+  client gets a branded email with the view link and an optional PDF attachment.
+  Replies go straight to the consultant who sent it. Delivery is tracked and
+  retried via the Phase 2c log. (Activates the Send to Client action.)
+
+  5c. Intro leads to providers — staff select buildings from a report and send
+  intro leads to the right provider contacts in one action, with the consultant
+  CC'd, client contact details withheld, a 24-hour duplicate guard, and a
+  per-report history of intros sent.
+
+  5d. Viewing requests — the client requests a viewing on any building straight
+  from the shared report (no login); the consultant is notified immediately,
+  with a fallback to an admin and then a default ADAPT address.
+
+  5e. Provider unsubscribe (PECR) — every intro lead carries a one-click
+  unsubscribe with a confirmation page; unsubscribing removes the contact from
+  future leads immediately and is logged.
+
+  Out of scope (per the addendum): client accounts/login, custom branding,
+  HubSpot sync for these new emails, and the client marketplace / direct
+  client–provider messaging (a post-v2 future phase the share-link + email
+  architecture is designed to support later).
+
+assumptions:
+  # 5a — Report generation & PDF
+  - id: A1
+    text: "From a project, staff can Preview a report (a curated search from Phase 4) as a branded client document inside ADAPT: a cover page, a page per building showing its curated spaces and amenities, and a consultant contact page. We recommend the consultant contact page shows the consultant's name, email, phone and photo. (Activates the Preview action reserved in Phase 3.)"
+  - id: A2
+    text: "Staff can Generate a PDF of the report. It is built from the Phase 4 snapshot data, so it reflects exactly what staff curated and is unaffected by later provider edits. Database-linked and ad-hoc spaces look the same to the client (the internal \"Manual\" tag is not shown)."
+  - id: A3
+    text: "A shareable link is generated per report. The client opens it without an ADAPT account, views the report online, and can download the PDF."
+  - id: A4
+    text: "View and download counts are tracked. The report's status moves to Viewed the first time the client opens the link (surfaced on the project, which shows Draft / Sent / Viewed as in Phase 3/4)."
+  - id: A5
+    text: "A project can hold several reports over time (brief revisions or separate briefs). When a newer report supersedes an older one, the older share link no longer shows the old report. We recommend it shows a short message — a new report has been generated, please contact your consultant — rather than auto-redirecting to the latest report, so the consultant stays in the loop."
+
+  # 5b — Sending reports to clients
+  - id: A6
+    text: "Staff send a report to the client in one action (Send to Client). The client receives a branded email (Phase 2c layout) with a link to view the report online and the option to attach the PDF."
+  - id: A7
+    text: "Client replies go directly to the consultant who sent the report (reply-to is that consultant), not a shared inbox."
+  - id: A8
+    text: "Every send is recorded in the Phase 2c communication log (recipient, time, status); failed sends retry automatically and the failure is visible in the log."
+  - id: A9
+    text: "Sending updates the report/project status to Sent; opening the link later moves it to Viewed (A4)."
+
+  # 5c — Intro leads to providers
+  - id: A10
+    text: "Staff can select one or more buildings on a report and send intro lead emails to the relevant provider contacts in a single action."
+  - id: A11
+    text: "Recipients are resolved automatically: a building's building-specific lead contacts first, falling back to the provider's global lead contacts if none are assigned to that building (contacts from Phase 2d/3c; only contacts flagged to receive leads)."
+  - id: A12
+    text: "The consultant who sent the lead is CC'd on every intro email."
+  - id: A13
+    text: "The intro email includes the client's name, company, and requirements, but never the client's email or phone number."
+  - id: A14
+    text: "A warning is shown before sending a repeat intro for the same client and building within 24 hours."
+  - id: A15
+    text: "A history of intros sent (building, recipients, time) is visible to staff on the report/project."
+
+  # 5d — Viewing requests
+  - id: A16
+    text: "From the shared report, the client can request a viewing on any building with no login. We recommend the request form captures the client's preferred date/time options and an optional note (rather than a bare \"I'm interested\"), so the consultant has enough to act on."
+  - id: A17
+    text: "A viewing request notifies the consultant who created the report immediately by email. If that consultant's account is inactive, notification falls back to an admin; if none is available, to a default ADAPT address."
+  - id: A18
+    text: "Viewing requests are linked to the report/project for tracking and are visible to staff."
+
+  # 5e — Provider unsubscribe (PECR)
+  - id: A19
+    text: "Every intro lead email includes an unsubscribe link."
+  - id: A20
+    text: "Clicking unsubscribe shows a confirmation page; confirming removes the contact from all future lead emails immediately, with no login. The change is reflected in the contact's lead flag (Phase 2d/3c) and the unsubscribe event is logged."
+
+# No open questions — the previously-open items (viewing-request fields, consultant
+# contact page content, superseded-report behaviour) are now stated as recommended
+# decisions in A16, A1 and A5. Liz can flag any assumption at sign-off if she disagrees.
+
+flows:
+  - id: flow-1
+    title: "Staff previews and generates a report"
+    steps:
+      - "Staff opens a project with a curated report (buildings + spaces from Phase 4)"
+      - "Clicks Preview — sees the branded report: cover, a page per building with spaces + amenities, consultant contact page"
+      - "Clicks Generate PDF — a PDF is produced from the Phase 4 snapshot"
+      - "Re-curating and regenerating produces a new report version; the latest is what the share link serves"
+    errors:
+      - "Report has no buildings — Preview / Generate PDF are unavailable with a prompt to add buildings first"
+
+  - id: flow-2
+    title: "Staff sends the report to the client"
+    steps:
+      - "On the project, staff clicks Send to Client and confirms/edits the covering message and whether to attach the PDF"
+      - "The client receives the branded email with the view link (reply-to = the sending consultant)"
+      - "Report/project status moves Draft → Sent; the send is recorded in the communication log"
+    errors:
+      - "No client email on the project — staff is prompted to add one (Phase 4 project details)"
+      - "Delivery fails — retried automatically per Phase 2c; failure shown in the communication log"
+
+  - id: flow-3
+    title: "Client views the report and downloads the PDF"
+    steps:
+      - "Client clicks the link and the report opens with no login"
+      - "Status moves Sent → Viewed on first open; view count increments"
+      - "Client browses the buildings and spaces chosen for them and downloads the PDF (download count increments)"
+
+  - id: flow-4
+    title: "Client requests a viewing"
+    steps:
+      - "From the shared report, client requests a viewing on a building (form per Q1)"
+      - "The sending consultant is notified immediately (fallback: admin, then default ADAPT address)"
+      - "The request is recorded against the report/project for staff to action"
+
+  - id: flow-5
+    title: "Staff sends intro leads to providers"
+    steps:
+      - "Staff selects one or more buildings on the report and chooses to send intro leads"
+      - "Recipients resolve to building-specific lead contacts, falling back to global provider lead contacts"
+      - "Intro emails go out with the consultant CC'd; client name/company/requirements included, client email/phone withheld"
+      - "Each intro is logged and added to the report's intro history"
+    errors:
+      - "Repeat intro for the same client + building within 24h — a warning is shown before sending"
+      - "Building has no lead-enabled contacts — staff is warned and can manage contacts (Phase 3c / admin)"
+
+  - id: flow-6
+    title: "Provider contact unsubscribes from leads"
+    steps:
+      - "Provider contact clicks unsubscribe in a lead email"
+      - "A confirmation page is shown; confirming unsubscribes them with no login"
+      - "Their lead flag is cleared, they receive no further leads, and the event is logged"
+
+  - id: flow-7
+    title: "Client opens a superseded report link"
+    steps:
+      - "Client opens an older report's share link after a newer report has been generated"
+      - "Instead of the old report, they see: a new report has been generated, please contact your consultant"
+
+not_in_scope:
+  - "Client accounts, login, or registration — clients access reports via the secure share link only"
+  - "Custom design or branding — the report uses the existing ADAPT style"
+  - "HubSpot sync for these new emails — report sends, intro leads and viewing requests are not synced to HubSpot; the existing search/lead sync is unchanged"
+  - "Client marketplace / direct anonymous client–provider messaging — a post-v2 future phase; the share-link + Phase 2c email architecture is designed to support it later"
+  - "Payment, deposits, invoicing, contracts, or confirming/scheduling the actual viewing appointment beyond capturing the request"
+  - "Changes to the existing consumer search flow or lead-capture forms"
+  - "Phase 6 work — end-to-end/integration testing, edge-case hardening, polish and production deployment (the contract's Integration & QA block)"
+
+sign_off_criteria:
+  # 5a
+  - text: "Staff can preview a report as a branded document (cover, per-building pages with spaces + amenities, consultant contact page)"
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "Open a project with a curated report → Preview."
+  - text: "Staff can generate a PDF built from the Phase 4 snapshot (not affected by later provider edits)"
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "Generate the PDF; confirm it matches the curated snapshot."
+  - text: "Each report has a share link the client opens with no account; views and downloads are tracked"
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "Open the link in a private window; confirm view/download counts update."
+  - text: "A superseded report's old link shows the \"new report generated, contact your consultant\" message"
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "Generate a newer report, then open the previous link."
+  # 5b
+  - text: "Staff can send a report to the client; the client gets a branded email with the link and optional PDF; replies go to the sending consultant"
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "Send to Client; check the email, reply-to, link, optional attachment, and log entry."
+  - text: "Report/project status moves Draft → Sent → Viewed"
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "Confirm status on send and on first client open."
+  # 5c
+  - text: "Staff can send intro leads for selected buildings; recipients resolve building-specific first then global fallback; consultant is CC'd"
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "Send leads; confirm recipients, CC, and that only lead-enabled contacts are emailed."
+  - text: "Intro emails include client name/company/requirements but never client email or phone"
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "Inspect a sent intro email."
+  - text: "A 24-hour duplicate-intro warning is shown; a per-report intro history is visible to staff"
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "Send a repeat intro for the same client+building; confirm the warning and the history."
+  # 5d
+  - text: "Clients can request a viewing from the shared report with no login; the consultant is notified (fallback admin → default address); the request is tracked"
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "Submit a viewing request from the share link; confirm notification + record on the project."
+  # 5e
+  - text: "Every intro lead has an unsubscribe link; confirming removes the contact from future leads with no login and is logged"
+    url: "https://app.adaptworkspace.com/staff/projects"
+    note: "Use the unsubscribe link; confirm the confirmation page, the cleared lead flag, and the log entry."
