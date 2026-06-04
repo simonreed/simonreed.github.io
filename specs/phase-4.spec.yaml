@@ -1,7 +1,7 @@
 slug: phase-4
 title: "Phase 4 — Building Selection & Availability"
-version: "1.3"
-date: "3 June 2026"
+version: "1.4"
+date: "4 June 2026"
 client: "Liz Cale"
 # Lifecycle: 'delivered' drives the tool's VerificationClient — i.e. it asks Liz to
 # verify the BUILT implementation against the sign_off_criteria (test steps + URLs),
@@ -10,13 +10,14 @@ client: "Liz Cale"
 # signed-off | delivered | verified.)
 status: delivered
 
-# Round 2 of delivery verification. In round 1 (2026-06-02) Liz confirmed 16 of
-# 21 criteria and flagged 5. The 16 are carried forward as already-confirmed
-# (seeded server-side, below) so this round only surfaces the 5 she needs to
-# re-test. Those 5 have a "Round 2 —" note describing what was fixed.
-verification_round: 2
-# 0-based indices into sign_off_criteria that Liz confirmed in round 1.
-carried_confirmed: [0, 1, 3, 4, 5, 7, 8, 11, 12, 13, 14, 15, 16, 18, 19, 20]
+# Round 3 of delivery verification. Round 2 (2026-06-04) confirmed 20 of 21; only
+# criterion #3 (idx 2) was still flagged — the building-availability preview popped
+# up but left a stuck grey overlay until refresh/click-away (worse from the map).
+# That is now fixed and redeployed to prod, so this round surfaces ONLY criterion #3
+# for re-test; the other 20 are carried forward as already-confirmed.
+verification_round: 3
+# 0-based indices into sign_off_criteria confirmed by round 2 (everything except #3/idx 2).
+carried_confirmed: [0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
 
 # Changelog:
 #   1.0 (2026-05-14) — signed off by Liz 2026-05-15 (A3 flagged; flow-1, flow-2 noted)
@@ -37,6 +38,14 @@ carried_confirmed: [0, 1, 3, 4, 5, 7, 8, 11, 12, 13, 14, 15, 16, 18, 19, 20]
 #                      alert auto-dismiss (#18). Reorder deep-rows (#10) logged as a later
 #                      usability tweak — criterion itself unchanged. carried_confirmed seeds
 #                      the 16 already-confirmed so Liz only re-tests the 5.
+#   1.4 (2026-06-04) — Round-3 verification. Round 2 (Liz, 2026-06-04): 20/21 confirmed;
+#                      only #3 still flagged — the availability preview left a stuck grey
+#                      overlay (worse from the map). Root cause: two nested slideout
+#                      controllers (app-layout + page) both handled the global open/close
+#                      events, desyncing their overlays. Fixed (only the owning controller
+#                      responds), system spec added, verified on prod (Heroku v262) via the
+#                      map open/close path. carried_confirmed seeds the 20 confirmed so Liz
+#                      only re-tests #3.
 
 summary: |
   Phase 4 turns projects from empty client-detail records into the consultant's
@@ -276,7 +285,7 @@ sign_off_criteria:
 
   - text: "Filters work for location/radius, provider, amenities, and desk range"
     url: "https://app.adaptworkspace.com/staff/projects"
-    note: "Round 2 — three things you flagged here are fixed: (1) clicking a building now opens the right-hand preview panel instead of greying out with \"content missing\"; (2) \"Clear all filters\" now appears whenever a filter is set and fully resets the bar and results in one click; (3) the map now appears immediately rather than waiting on every logo. Please apply each filter in turn, open a building preview, and clear the filters."
+    note: "Round 3 — the remaining issue is fixed: opening a building's preview no longer leaves a stuck grey overlay. The preview panel now opens and, when you close it (the X, the backdrop, or Esc), the grey screen clears straight away and the page stays usable — no refresh or click-away needed. This was the same whether you open from the list or the map. Please open a building's preview from BOTH the list and a map pin, close each, and confirm the screen is never left greyed/locked. (Filters, clear-filters and map loading you already confirmed last round.)"
 
   - text: "Search results include all published buildings; unpublished buildings are excluded; buildings with no available spaces are still shown"
     url: "https://app.adaptworkspace.com/staff/projects"
