@@ -119,6 +119,8 @@ assumptions:
 # No open questions — the previously-open items (viewing-request fields, consultant
 # contact page content, superseded-report behaviour) are now stated as recommended
 # decisions in A16, A1 and A5. Liz can flag any assumption at sign-off if she disagrees.
+# (Kept as an empty list: the spec tool reads `questions.length`/`.map`.)
+questions: []
 
 flows:
   - id: flow-1
