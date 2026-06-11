@@ -6,13 +6,14 @@ client: "Liz Cale"
 # Lifecycle (valid: draft | awaiting-sign-off | signed-off | delivered | verified):
 #   SPEC signed off by Liz on 2026-06-10 (record: specs/phase-5.signoff-record-
 #   2026-06-10.md) — i.e. agreement on WHAT to build, not delivery. Her flags are
-#   folded into this v1.0 and the build is now in progress, so status is `signed-off`
-#   (the tool shows the "in development" holding screen).
+#   folded into this v1.0 (5e descoped). The build is complete locally and this is
+#   set to `delivered` so the tool renders the VerificationClient (the delivery
+#   checklist with step-by-step test instructions + app URLs), mirroring Phase 4.
 #
-#   When the build is complete and deployed to prod, flip `status: delivered` to ask
-#   Liz to verify the BUILT implementation against the sign_off_criteria below (each
-#   carries step-by-step test instructions + an app URL) — that is the delivery
-#   sign-off round, mirroring how Phase 4 is run.
+#   ⚠ DO NOT push to github.io until Phase 5 is deployed to prod — the
+#   sign_off_criteria URLs point at app.adaptworkspace.com, which won't have Phase 5
+#   until the feature branch is merged to main and released. (Being built + verified
+#   locally first.)
 #
 # Changelog:
 #   0.2 (2026-06-02) — drafted; recommendations baked into assumptions (A1/A5/A16).
@@ -24,7 +25,7 @@ client: "Liz Cale"
 #                      • sign_off_criteria expanded into step-by-step delivery test
 #                        instructions with app URLs (Phase 4 format).
 #                      • flows given sequence diagrams (Phase 1/4 format).
-status: signed-off
+status: delivered
 
 # Scope is fixed-price and contractually defined in docs/plans/v2/scope-addendum.txt
 # (Phase 5, £3,600, weeks 11–14). Terminology (Phase 4 rename): Project = the
