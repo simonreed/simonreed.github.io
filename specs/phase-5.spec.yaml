@@ -1,11 +1,13 @@
 slug: phase-5
 title: "Phase 5 — Report Generation & Communications"
-version: "0.2"
-date: "2 June 2026"
+version: "1.0"
+date: "10 June 2026"
 client: "Liz Cale"
-# DRAFT for Simon's review — NOT yet for Liz. Lifecycle (ADR 0002): keep local/
-# unpushed while drafting; when ready for the client SPEC sign-off round, bump to
-# version 1.0, set `status: awaiting-sign-off`, and push to github.io.
+# DELIVERY SIGNED OFF by Liz Cale on 2026-06-10 (record:
+# specs/phase-5.signoff-record-2026-06-10.md). 11/11 checklist items ticked; all
+# assumptions confirmed EXCEPT A19/A20 (provider self-service unsubscribe), which
+# Liz flagged as NOT required — provider delisting is handled by disabling the
+# provider's account / unpublishing their buildings. status set to `verified`.
 #   Valid status: draft | awaiting-sign-off | signed-off | delivered | verified
 #
 # Scope is fixed-price and contractually defined in
@@ -24,7 +26,7 @@ client: "Liz Cale"
 # testing, integration testing, edge cases, polish and production deployment.
 # Phase 5 is therefore the FEATURE-COMPLETE phase — every client- and provider-
 # facing capability ships here.
-status: draft
+status: verified
 
 summary: |
   Phase 5 is the delivery half of the consultant workflow and the last feature
@@ -111,10 +113,14 @@ assumptions:
     text: "Viewing requests are linked to the report/project for tracking and are visible to staff."
 
   # 5e — Provider unsubscribe (PECR)
+  # FLAGGED by Liz at sign-off (2026-06-10): 5e is NOT required. Provider delisting
+  # is handled by disabling the provider's account / unpublishing their buildings,
+  # not a self-service unsubscribe. The capability was built and verified working,
+  # but is descoped from the agreed product going forward (see reconciliation).
   - id: A19
-    text: "Every intro lead email includes an unsubscribe link."
+    text: "Every intro lead email includes an unsubscribe link. [FLAGGED 2026-06-10 — not required; provider delisting handled by disabling the account / unpublishing buildings.]"
   - id: A20
-    text: "Clicking unsubscribe shows a confirmation page; confirming removes the contact from all future lead emails immediately, with no login. The change is reflected in the contact's lead flag (Phase 2d/3c) and the unsubscribe event is logged."
+    text: "Clicking unsubscribe shows a confirmation page; confirming removes the contact from all future lead emails immediately, with no login. The change is reflected in the contact's lead flag (Phase 2d/3c) and the unsubscribe event is logged. [FLAGGED 2026-06-10 — not required; see A19.]"
 
 # No open questions — the previously-open items (viewing-request fields, consultant
 # contact page content, superseded-report behaviour) are now stated as recommended
@@ -168,6 +174,7 @@ flows:
       - "Repeat intro for the same client + building within 24h — a warning is shown before sending"
       - "Building has no lead-enabled contacts — staff is warned and can manage contacts (Phase 3c / admin)"
 
+  # flow-6 noted "Not required" by Liz at sign-off (2026-06-10) — see A19/A20.
   - id: flow-6
     title: "Provider contact unsubscribes from leads"
     steps:
