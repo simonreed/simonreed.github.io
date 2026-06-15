@@ -6,14 +6,15 @@ client: "Liz Cale"
 # Lifecycle (valid: draft | awaiting-sign-off | signed-off | delivered | verified):
 #   SPEC signed off by Liz on 2026-06-10 (record: specs/phase-5.signoff-record-
 #   2026-06-10.md) — i.e. agreement on WHAT to build, not delivery. Her flags are
-#   folded into this v1.0 (5e descoped). The build is complete locally and this is
-#   set to `delivered` so the tool renders the VerificationClient (the delivery
-#   checklist with step-by-step test instructions + app URLs), mirroring Phase 4.
+#   folded into this v1.0 (5e descoped).
 #
-#   ⚠ DO NOT push to github.io until Phase 5 is deployed to prod — the
-#   sign_off_criteria URLs point at app.adaptworkspace.com, which won't have Phase 5
-#   until the feature branch is merged to main and released. (Being built + verified
-#   locally first.)
+#   Built, merged to main, and DEPLOYED TO PROD on 2026-06-15 (Heroku adapt-workspaces
+#   v263). Smoke-tested live on app.adaptworkspace.com: real report PDF generated +
+#   downloaded, real branded report email (with PDF + share link, reply-to consultant),
+#   real intro lead (consultant CC'd, client email/phone withheld, no unsubscribe),
+#   viewing request notifying the consultant, and Draft→Sent→Viewed tracking — all
+#   confirmed. status `delivered` so the tool renders the VerificationClient (delivery
+#   checklist with step-by-step test instructions + app URLs) for Liz, mirroring Phase 4.
 #
 # Changelog:
 #   0.2 (2026-06-02) — drafted; recommendations baked into assumptions (A1/A5/A16).
