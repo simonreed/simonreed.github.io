@@ -1,6 +1,6 @@
 slug: phase-5
 title: "Phase 5 — Report Generation & Communications"
-version: "1.0"
+version: "1.1"
 date: "10 June 2026"
 client: "Liz Cale"
 # Lifecycle (valid: draft | awaiting-sign-off | signed-off | delivered | verified):
@@ -26,6 +26,13 @@ client: "Liz Cale"
 #                      • sign_off_criteria expanded into step-by-step delivery test
 #                        instructions with app URLs (Phase 4 format).
 #                      • flows given sequence diagrams (Phase 1/4 format).
+#   1.1 (2026-06-26) — Note only; no signed criterion changed. The client's ONLINE
+#                      report (opened via the per-report share link) now renders the
+#                      DESIGNED interactive report — the card-grid view Liz designed —
+#                      instead of the print/PDF-style document. The Download PDF button
+#                      still serves that print/PDF version. A3/A6 say "view the report
+#                      online", which this satisfies (and improves). Applied to prod
+#                      on 2026-06-25 (Heroku adapt-workspaces v270).
 status: delivered
 
 # Scope is fixed-price and contractually defined in docs/plans/v2/scope-addendum.txt
@@ -79,7 +86,7 @@ assumptions:
   - id: A2
     text: "Staff can Generate a PDF of the report. It is built from the Phase 4 snapshot data, so it reflects exactly what staff curated and is unaffected by later provider edits. Database-linked and ad-hoc spaces look the same to the client (the internal \"Manual\" tag is not shown)."
   - id: A3
-    text: "A shareable link is generated per report. The client opens it without an ADAPT account, views the report online, and can download the PDF."
+    text: "A shareable link is generated per report. The client opens it without an ADAPT account, views the report online, and can download the PDF. (v1.1: the online view is the designed interactive report — the card-grid view — and the Download PDF button serves the print/PDF document.)"
   - id: A4
     text: "View and download counts are tracked. The report's status moves to Viewed the first time the client opens the link (surfaced on the project, which shows Draft / Sent / Viewed as in Phase 3/4)."
   - id: A5
@@ -235,7 +242,7 @@ sign_off_criteria:
 
   - text: "Each report has a share link the client opens with no account; views and downloads are tracked"
     url: "https://app.adaptworkspace.com/staff/projects"
-    note: "Copy the report's share link and open it in a private/incognito window (no login). The report should render in full, with a Download PDF button. Download the PDF. Back on the project, confirm the view count and download count have gone up."
+    note: "Copy the report's share link and open it in a private/incognito window (no login). The report renders in full as the designed interactive report (the card-grid view), with a Download PDF button at the top. Download the PDF (this is the print/PDF version of the report). Back on the project, confirm the view count and download count have gone up."
 
   - text: "A superseded report's old link shows the \"new report generated, contact your consultant\" message"
     url: "https://app.adaptworkspace.com/staff/projects"
