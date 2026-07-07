@@ -1,7 +1,7 @@
 slug: phase-5
 title: "Phase 5 — Report Generation & Communications"
-version: "1.1"
-date: "10 June 2026"
+version: "1.2"
+date: "7 July 2026"
 client: "Liz Cale"
 # Lifecycle (valid: draft | awaiting-sign-off | signed-off | delivered | verified):
 #   SPEC signed off by Liz on 2026-06-10 (record: specs/phase-5.signoff-record-
@@ -33,7 +33,28 @@ client: "Liz Cale"
 #                      still serves that print/PDF version. A3/A6 say "view the report
 #                      online", which this satisfies (and improves). Applied to prod
 #                      on 2026-06-25 (Heroku adapt-workspaces v270).
+#   1.2 (2026-07-07) — Round-2 verification. Round 1 (Liz, 2026-07-01) confirmed 4 of
+#                      10 (criteria 3, 6, 8, 9); the other 6 were flagged, fixed, and
+#                      redeployed (Heroku adapt-workspaces v273, 2026-07-02):
+#                      • Report actions (Preview, Generate PDF, Send to Client, intro
+#                        leads) moved OFF the project page onto the individual search —
+#                        agreed with Liz + Chris, since a project holds several searches
+#                        and the project only ever acted on the latest. (criteria 1,2,5,7)
+#                      • The client share link now opens with no login and viewing
+#                        requests work anonymously — /searches links route clients to the
+#                        public share surface. (criteria 3-note, 10)
+#                      • The staff Logs page no longer errors for staff. (criterion 5)
+#                      • Superseded (criterion 4): resolved as Option 1 (Liz + Chris,
+#                        2026-07-07) — reports stay live per-search, so separate searches
+#                        keep separate live links. No behaviour change; note reworded.
+#                      carried_confirmed carries the 4 already-passed criteria; Liz
+#                      re-tests only the 6 fixed ones.
 status: delivered
+verification_round: 2
+# Round 1 (Liz, 2026-07-01): 4/10 confirmed — criteria 3, 6, 8, 9 (indices 2, 5, 7, 8).
+# Those carry forward as confirmed so Liz only re-tests the 6 fixed items (indices
+# 0, 1, 3, 4, 6, 9), each carrying a "Round 2 —" note describing what changed.
+carried_confirmed: [2, 5, 7, 8]
 
 # Scope is fixed-price and contractually defined in docs/plans/v2/scope-addendum.txt
 # (Phase 5, £3,600, weeks 11–14). Terminology (Phase 4 rename): Project = the
@@ -234,11 +255,11 @@ sign_off_criteria:
   # 5a — Report generation & PDF
   - text: "Staff can preview a report as a branded document (cover, per-building pages with spaces + amenities, consultant contact page)"
     url: "https://app.adaptworkspace.com/staff/projects"
-    note: "Open a project that has a curated report (buildings picked in Phase 4) and click Preview. The report opens as a branded document: a cover with the client's shortlist and a location map, a page per building showing its curated spaces and amenities, and a final consultant contact page with your name and email (and your photo if you've uploaded one — otherwise your initials). Confirm the buildings and spaces match what you curated."
+    note: "Round 2 — report actions have moved off the project page onto the individual search (a project can hold more than one search, and each has its own report), so the greyed-out Preview button you saw on the project page has been removed. Open a project, open the search you curated, and click Preview / Open report. It opens as a branded document: a cover with the client's shortlist and a location map, a page per building showing its curated spaces and amenities, and a final consultant contact page with your name and email (and your photo if you've uploaded one, otherwise your initials). Confirm the buildings and spaces match what you curated."
 
   - text: "Staff can generate a PDF built from the Phase 4 snapshot (not affected by later provider edits)"
     url: "https://app.adaptworkspace.com/staff/projects"
-    note: "On the same project click Generate PDF. A PDF is produced from the Phase 4 snapshot — it should match exactly what you curated, even if a provider later edits a space. The internal \"Manual\" tag on ad-hoc spaces is not shown to the client; database and ad-hoc spaces look the same."
+    note: "Round 2 — Generate PDF has moved onto the search alongside Preview (the disabled button on the project page is gone). On the same search click Regenerate PDF and open the PDF. It is built from the Phase 4 snapshot, so it should match exactly what you curated even if a provider later edits a space. The internal \"Manual\" tag on ad-hoc spaces is not shown to the client; database and ad-hoc spaces look the same."
 
   - text: "Each report has a share link the client opens with no account; views and downloads are tracked"
     url: "https://app.adaptworkspace.com/staff/projects"
@@ -246,12 +267,12 @@ sign_off_criteria:
 
   - text: "A superseded report's old link shows the \"new report generated, contact your consultant\" message"
     url: "https://app.adaptworkspace.com/staff/projects"
-    note: "Regenerate the search so a newer report is created, then open the PREVIOUS report's share link in a private window. Instead of the old report you should see: \"A new report has been generated, please contact your consultant.\" (It does not silently redirect to the new one.)"
+    note: "Round 2 — as you and Chris agreed (Option 1), each report you send stays live on its own link. Sending a client a report from a different search does NOT switch off an earlier one — that is intended, so a client can hold more than one option, and it is why both of your links from round 1 still worked. The \"a new report has been generated, please contact your consultant\" message appears when the SAME search's report is replaced by a newer version, not when you create a separate search. Please confirm you are happy that two separate searches keep two separate live links."
 
   # 5b — Sending reports to clients
   - text: "Staff can send a report to the client; the client gets a branded email with the link and optional PDF; replies go to the sending consultant"
     url: "https://app.adaptworkspace.com/staff/projects"
-    note: "On a project with a curated report, click Send to Client. Edit the covering message, choose whether to attach the PDF, and send (use a test address as the client email). The client receives a branded email with a \"View your report\" link. Reply to it — the reply should come to you, the sending consultant. Check Logs shows the send (recipient, time, status)."
+    note: "Round 2 — Send to Client now lives only on the search, not the project (the duplicate button on the project page has been removed), so it always sends the specific report you are looking at. Open a search with a curated report, click Send to Client, edit the covering message, choose whether to attach the PDF, and send (use a test address as the client email). The client receives a branded email with a \"View your report\" link. Reply to it — the reply should come to you, the sending consultant. Logs (left nav) now opens for staff — it errored in round 1 — and shows the send (recipient, time, status)."
 
   - text: "Report/project status moves Draft → Sent → Viewed"
     url: "https://app.adaptworkspace.com/staff/projects"
@@ -260,7 +281,7 @@ sign_off_criteria:
   # 5c — Intro leads to providers
   - text: "Staff can send intro leads for selected buildings; recipients resolve building-specific first then global fallback; consultant is CC'd"
     url: "https://app.adaptworkspace.com/staff/projects"
-    note: "Open a report and click \"Send intro leads\". Tick one or more buildings and send. Each building's recipients resolve automatically — its building-specific lead contacts first, otherwise the provider's global lead contacts — and only contacts flagged to receive leads are emailed. You (the consultant) are CC'd on every intro. A building with no lead contacts shows a warning instead of a tickbox."
+    note: "Round 2 — intro leads are now sent from the search using \"Contact providers\" (the separate \"Send intro leads\" on the project has been removed, so there is one place, tied to the specific search and its buildings — this also fixes the round-1 mismatch where a newly added building showed on the search but not the project). Open a search, click Contact providers, tick one or more buildings and send. Each building's recipients resolve automatically — its building-specific lead contacts first, otherwise the provider's global lead contacts — and only contacts flagged to receive leads are emailed. You (the consultant) are CC'd on every intro. A building with no lead contacts shows a warning instead of a tickbox."
 
   - text: "Intro emails include client name/company/requirements but never client email or phone"
     url: "https://app.adaptworkspace.com/staff/projects"
@@ -273,4 +294,4 @@ sign_off_criteria:
   # 5d — Viewing requests
   - text: "Clients can request a viewing from the shared report with no login; the consultant is notified (fallback admin → default address); the request is tracked"
     url: "https://app.adaptworkspace.com/staff/projects"
-    note: "Open the client's share link in a private window (no login), scroll to \"Request a viewing\", pick a building, enter a name/email and a preferred date/time, and submit. You get an on-screen confirmation; you (the report's consultant) are emailed immediately. Back on the project, the request appears under \"Viewing requests\" with the client's details and preferred time."
+    note: "Round 2 — the shared report link now opens with no login (in round 1 it asked you to sign in, which blocked the client flow entirely). Open the client's share link in a private/incognito window, scroll to \"Request a viewing\", pick a building, enter a name/email and a preferred date/time, and submit. You get an on-screen confirmation; you (the report's consultant) are emailed immediately. Back on the project, the request appears under \"Viewing requests\" with the client's details and preferred time."
