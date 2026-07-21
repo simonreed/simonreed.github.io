@@ -1,7 +1,7 @@
 slug: phase-5
 title: "Phase 5 — Report Generation & Communications"
-version: "1.3"
-date: "16 July 2026"
+version: "1.4"
+date: "21 July 2026"
 client: "Liz Cale"
 # Lifecycle (valid: draft | awaiting-sign-off | signed-off | delivered | verified):
 #   SPEC signed off by Liz on 2026-06-10 (record: specs/phase-5.signoff-record-
@@ -67,12 +67,28 @@ client: "Liz Cale"
 #                      All three re-verified live on a real report (staging, real ad-hoc
 #                      data). carried_confirmed carries the 7 already-passed criteria; Liz
 #                      re-tests only the 3 fixed ones (indices 0, 4, 9).
+#   1.4 (2026-07-21) — Round-4 verification. Round 3 (Liz, 2026-07-20) confirmed 8 of
+#                      10 (criteria 2, 3, 4, 5, 6, 7, 8, 9); 2 flagged, now fixed and
+#                      deployed (Heroku adapt-workspaces v282):
+#                      • criterion 1 — a space with only a max desk count now shows its
+#                        desks online as well as on the PDF (was hidden online when no min
+#                        was entered); and when a consultant is allocated, the office pages
+#                        and report overview show the consultant card instead of the generic
+#                        "Need advice?" card.
+#                      • criterion 10 — requesting a viewing from an office page bounced the
+#                        client to a login screen (the office-page form posted to a
+#                        login-required endpoint); it now uses the no-login viewing form, so
+#                        the request is captured, appears on the project, and emails the
+#                        consultant. Verified live on a real report by submitting a viewing
+#                        from an office page (no login).
+#                      carried_confirmed carries the 8 already-passed criteria; Liz re-tests
+#                      only the 2 fixed ones (indices 0, 9).
 status: delivered
-verification_round: 3
-# Round 2 (Liz, 2026-07-13): 7/10 confirmed — criteria 2, 3, 4, 6, 7, 8, 9
-# (indices 1, 2, 3, 5, 6, 7, 8). Those carry forward as confirmed so Liz only re-tests
-# the 3 fixed items (indices 0, 4, 9), each carrying a "Round 3 —" note.
-carried_confirmed: [1, 2, 3, 5, 6, 7, 8]
+verification_round: 4
+# Round 3 (Liz, 2026-07-20): 8/10 confirmed — criteria 2, 3, 4, 5, 6, 7, 8, 9
+# (indices 1, 2, 3, 4, 5, 6, 7, 8). Those carry forward as confirmed so Liz only re-tests
+# the 2 fixed items (indices 0, 9), each carrying a "Round 4 —" note.
+carried_confirmed: [1, 2, 3, 4, 5, 6, 7, 8]
 
 # Scope is fixed-price and contractually defined in docs/plans/v2/scope-addendum.txt
 # (Phase 5, £3,600, weeks 11–14). Terminology (Phase 4 rename): Project = the
@@ -273,7 +289,7 @@ sign_off_criteria:
   # 5a — Report generation & PDF
   - text: "Staff can preview a report as a branded document (cover, per-building pages with spaces + amenities, consultant contact page)"
     url: "https://app.adaptworkspace.com/staff/projects"
-    note: "Round 3 — two things you flagged are fixed. (1) Opening a building from the online report no longer errors — that was a database bug that hit every building; every office now opens. (2) Manual/ad-hoc spaces render cleanly on the PDF: the office name/number you entered is shown, availability reflects the status you set (e.g. \"Available\") rather than \"Not specified\", and desk counts and layout are consistent between buildings (no stray \", floor\", no doubled \"Office\"). Please open the search, click Open report / Preview, click into a couple of buildings on the online report, then download the PDF and confirm 28 Bruton Street and 29 Farm Street read consistently."
+    note: "Round 4 — the two remaining bits are fixed. (1) A space where you only entered a maximum desk count now shows its desks online as well as on the PDF (e.g. 28 Bruton Street shows \"50 desks\"), so buildings read consistently. (2) When a consultant is allocated to the client, the office pages and the report overview now show your consultant card instead of the generic \"Need advice?\" card. Please open the report, click into 28 Bruton Street and 29 Farm Street and confirm they show all their info (including desks), and confirm you see your consultant details rather than the generic help card — on both the office pages and the main report page. Download the PDF and confirm it reads consistently too."
 
   - text: "Staff can generate a PDF built from the Phase 4 snapshot (not affected by later provider edits)"
     url: "https://app.adaptworkspace.com/staff/projects"
@@ -312,4 +328,4 @@ sign_off_criteria:
   # 5d — Viewing requests
   - text: "Clients can request a viewing from the shared report with no login; the consultant is notified (fallback admin → default address); the request is tracked"
     url: "https://app.adaptworkspace.com/staff/projects"
-    note: "Round 3 — requesting a viewing no longer errors. In round 2 it returned a server error (the same building-page bug as criterion 1); that's fixed. Open the client's share link in a private/incognito window, scroll to \"Request a viewing\", pick a building, enter a name/email and a preferred date/time, and submit. You get an on-screen confirmation, and you (the report's consultant) are emailed. Back on the project, the request appears under \"Viewing requests\" with the client's details and preferred time."
+    note: "Round 4 — requesting a viewing from an office page no longer sends you to a login screen (the office-page form was posting to a staff-only endpoint). Open the client's share link in a private/incognito window (no login), click into an office, use \"Request a viewing\" (name, email, preferred date/time) and submit — you get an on-screen confirmation, the request appears on the project under \"Viewing requests\", and you (the consultant) get an email alert. It also works from the \"Request a viewing\" form on the main report page."
