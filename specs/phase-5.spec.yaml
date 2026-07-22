@@ -97,7 +97,9 @@ client: "Liz Cale"
 #                        still works with no login, tracked, and emails the consultant.
 #                      All re-verified live on a real report (v285). carried_confirmed unchanged;
 #                      Liz re-tests only indices 0, 9.
-status: delivered
+#   1.5 SIGN-OFF (Liz Cale, 2026-07-22T09:23Z): Round 5 — 10 of 10 criteria confirmed, 0 needing
+#                      attention. Phase 5 delivery complete. status -> verified.
+status: verified
 verification_round: 5
 # Round 4 (Liz, 2026-07-22): 8/10 confirmed — criteria 2, 3, 4, 5, 6, 7, 8, 9
 # (indices 1, 2, 3, 4, 5, 6, 7, 8). Those carry forward as confirmed so Liz only re-tests
