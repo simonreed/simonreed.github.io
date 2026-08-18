@@ -1,0 +1,107 @@
+slug: v3-scope
+title: "ADAPT v3 — Midlands Membership · Scope Sign-off"
+version: "1.0"
+date: "18 August 2026"
+client: "Liz Cale"
+status: awaiting-sign-off
+
+summary: |
+  This page is for signing off the assumptions behind the v3 quote — nothing has
+  been built yet. It covers the Database Update Brief (Provider + Building
+  Profiles, 27 July) and the Midlands Membership explainer, ahead of a 9-week
+  build across five phases.
+
+  The build adds every field in the brief to the building profile — Product
+  category (moved from the company profile, since one provider can have
+  buildings in different categories), Commercial model and Fee (Membership at
+  £250 default or Commission percentage, with both values stored), Marketing
+  description and Location description, Fully occupied, Website URL slug,
+  Location tag, the Lead log, and the spec-table fields: Total Sq Ft, Total
+  Capacity, Price From, Last Verified and Space Types Available. Commission
+  Rate % comes off the provider record, replaced at building level.
+
+  Nothing goes live unchecked: as the brief puts it, "live" means a short delay
+  on publishing while an ADAPT admin checks and verifies everything. Verified
+  buildings are then served to the new website landing pages over a live feed,
+  covering the ~170 buildings across B, CV, DE, DY, LE, NG, ST, TF, WS and WV —
+  with the 50% pilot sign-up target in mind, and everything built to work in
+  Leeds or Bristol without a rewrite.
+
+  On the membership side: leads are sent to buildings manually by a staff
+  member during the pilot and logged with date, occupier brief reference and
+  status; members get a monthly report on enquiry activity; and billing runs
+  the £250 per building per month plus VAT with the £600 onboarding fee,
+  3-month then 12-month rolling terms, by card or Direct Debit, with founding
+  providers holding their rate. Feedback on viewings, deals and lost enquiries
+  is treated as a critical part of the pilot throughout.
+
+  Please confirm or flag each assumption below, and answer the four questions.
+  One pass here is all that is needed before work starts.
+
+assumptions:
+  - id: A1
+    text: "Website URL slug and Location tag are both marked TBC in the brief. Both are included and priced on the assumption the website will need them for building pages and grouping by area. If Chris's website brief confirms they are not required, Phase 1 reduces."
+
+  - id: A2
+    text: "Total Sq Ft (total lettable sq ft), Total Capacity (total desks) and Price From (minimum price per desk) are derived automatically from each building's space data, with an admin override where the derived figure is wrong or the building holds space not listed individually. They are not keyed and maintained by hand across 170 buildings."
+
+  - id: A3
+    text: "The brief lists six space types as examples (\"eg Co-Work, Day Passes, Part Time Offices, Flexible Offices, Managed Offices, Traditional leased\"). Space Types Available is priced as a fixed list of exactly those six. Adding types later is a configuration change, not a rebuild."
+
+  - id: A4
+    text: "Populating the ~170 Midlands buildings with the new data is an ADAPT operations task, not a development task, and is not included in the fixed price. (See Q1 for the optional bulk import tool.)"
+
+  - id: A5
+    text: "The brief's \"short delay on publishing as everything must be checked and verified by an ADAPT admin\" is implemented as an admin verification step — nothing publishes until an admin approves it — rather than a timed delay. Verifying a building also stamps its Last Verified date for the website spec table."
+
+  - id: A6
+    text: "The website consumes a read-only feed from ADAPT (the \"live feed of offices direct to our new website landing pages\" from the brief). If the website brief currently with Chris instead requires ADAPT to push data into WordPress, or to render pages itself, that is different work and not covered. The manual WordPress-template stop-gap remains available as the pre-agreed fallback."
+
+  - id: A7
+    text: "Card and Direct Debit payments both run through Stripe (which supports UK Direct Debit directly), rather than adding a second billing provider. Mandates and card details are held by Stripe, never by ADAPT."
+
+  - id: A8
+    text: "The brief says changes to Marketing description work \"the same as the other description which is reserved for client reports\". The platform currently holds one description per building, used in client reports. The quote assumes that existing field becomes the website Marketing description — one field serving both — with Location description added alongside it under the same request-to-change protection. (See Q2 if you want website copy and report copy kept separate.)"
+
+  - id: A9
+    text: "The explainer's promise to onboard a member within 48 hours (providing they have met all requirements) is an ADAPT operations commitment, not a platform feature — nothing in this scope automates or tracks it. (See Q3 for optional systems support.)"
+
+questions:
+  - id: Q1
+    text: "The ~170 buildings need their new fields populated before the website launches. How will that data get in?"
+    type: choice
+    options:
+      - "The ADAPT team will key it in through the admin screens"
+      - "Quote us separately for a bulk import tool"
+      - "Not sure yet — let's discuss at kickoff"
+
+  - id: Q2
+    text: "Should the website's Marketing description and the client-report description be the same piece of text, or two separate fields?"
+    type: choice
+    options:
+      - "Same text for both (as quoted)"
+      - "Two separate fields — website copy and report copy differ (quote the addition)"
+
+  - id: Q3
+    text: "For the 48-hour onboarding promise, do you want systems support (for example an onboarding checklist per new member), or is that handled by the team's own process?"
+    type: choice
+    options:
+      - "Team process is fine — no build needed (as quoted)"
+      - "Quote us for an onboarding checklist"
+
+  - id: Q4
+    text: "Who will be the named backup tester, and which 2–3 team members will test from Phase 1 onwards? (Names and emails.)"
+    type: text
+
+flows: []
+
+not_in_scope:
+  - "The Midlands website itself — landing pages, templates, design, hosting or SEO. This scope supplies the data feed only; the website brief is with Chris."
+  - "Populating building data for the ~170 pilot buildings (see A4 / Q1)."
+  - "The manual WordPress-template stop-gap — held as the pre-agreed fallback only."
+  - "Campaign build, media buying or advertising spend referenced in the membership offer."
+  - "Automated lead routing or matching — leads are selected and sent manually by a staff member throughout the pilot, as the brief specifies."
+  - "Accounting or bookkeeping integration."
+  - "Commission-model invoicing. Commission buildings are recorded per the brief's Commercial model field, but not invoiced by the platform."
+  - "Changes to the existing consumer search flow, client reports or lead capture, except where a new field must appear in them."
+  - "Configuring and launching further regions. Everything is built to work in Leeds or Bristol without a rewrite, but launching them is future work."
