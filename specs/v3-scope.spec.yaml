@@ -8,8 +8,7 @@ status: awaiting-sign-off
 summary: |
   This page is for signing off the assumptions behind the v3 quote — nothing has
   been built yet. It covers the Database Update Brief (Provider + Building
-  Profiles, 27 July) and the Midlands Membership explainer, ahead of a 9-week
-  build across five phases.
+  Profiles, 27 July) and the Midlands Membership explainer.
 
   The build adds every field in the brief to the building profile — Product
   category (moved from the company profile, since one provider can have
