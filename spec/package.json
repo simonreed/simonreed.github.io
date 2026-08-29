@@ -12,7 +12,7 @@
     "@types/js-yaml": "^4.0.9",
     "framer-motion": "^12.35.0",
     "js-yaml": "^4.1.1",
-    "mermaid": "^11.12.3",
+    "mermaid": "^11.15.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"
